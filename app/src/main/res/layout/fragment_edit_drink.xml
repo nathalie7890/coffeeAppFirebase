@@ -7,7 +7,7 @@
     android:background="@color/smoky"
     android:paddingHorizontal="50dp"
     android:paddingVertical="30dp"
-    tools:context=".ui.AddDrinkFragment">
+    tools:context=".ui.EditDrinkFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvImage"
@@ -127,11 +127,11 @@
     </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/chestnut"
-        android:text="Add"
+        android:text="Save"
         android:textAllCaps="false"
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"

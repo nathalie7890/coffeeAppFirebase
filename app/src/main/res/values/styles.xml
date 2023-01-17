@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Widget.App.RadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
-        <item name="buttonTint">@color/camel</item>
+        <item name="buttonTint">@color/almond</item>
+    </style>
+    <style name="CoffeeApp.AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/CoffeeApp.AlertDialog.Positive.Button
+        </item>
+        <item name="buttonBarNegativeButtonStyle">@style/CoffeeApp.AlertDialog.Negative.Button
+        </item>
+        <item name="shapeAppearanceOverlay">@style/CoffeeApp.AlertDialog.Rounded</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/CoffeeApp.AlertDialog.Body</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/CoffeeApp.AlertDialog.Body</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CoffeeApp.AlertDialog.Body" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/smoky</item>
+        <item name="android:textSize">20sp</item>
+        <item name="strokeWidth">5dp</item>
+        <item name="android:minHeight">100dp</item>
+        <item name="android:solidColor">@color/almond</item>
+        <item name="strokeColor">@color/chestnut</item>
+    </style>
+
+    <style name="CoffeeApp.AlertDialog.Rounded" parent="">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="CoffeeApp.AlertDialog.Positive.Button" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:backgroundTint">@color/chestnut</item>
+        <item name="android:textColor">@color/almond</item>
+        <item name="minHeight">500dp</item>
+        <item name="minWidth">50dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="CoffeeApp.AlertDialog.Negative.Button" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:backgroundTint">@color/almond</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="strokeColor">@color/chestnut</item>
+        <item name="android:textColor">@color/chestnut</item>
+        <item name="minHeight">500dp</item>
+        <item name="minWidth">50dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

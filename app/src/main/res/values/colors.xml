@@ -7,11 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="charcoal">#222325</color>
-    <color name="almond">#ebdbcc</color>
-    <color name="suede">#D6C8BD</color>
-    <color name="camel">#c49450</color>
-    <color name="sand">#d09d54</color>
+    <color name="almond">#efddc9</color>
+    <color name="chestnut">#905c44</color>
+    <color name="chocolate">#3d2c25</color>
+    <color name="smoky">#1f0900</color>
+    <color name="sand">#815041</color>
     <color name="grey">#B6B6B6</color>
     <color name="dark_grey">#505050</color>
     <color name="transparent">#00000000</color>

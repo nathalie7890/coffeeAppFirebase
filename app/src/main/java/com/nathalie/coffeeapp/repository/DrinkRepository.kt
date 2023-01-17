@@ -6,12 +6,21 @@ import com.nathalie.coffeeapp.data.Model.Drink
 class DrinkRepository(private val drinkDao: DrinkDao) {
 
     //fetch drinks
-    suspend fun getDrinks(str: String): List<Drink> {
+    suspend fun getDrinks(str: String, cat: String): List<Drink> {
+        if (cat == "") {
+            return drinkDao.getDrinks().filter {
+                Regex(
+                    str,
+                    RegexOption.IGNORE_CASE
+                ).containsMatchIn(it.title)
+            }.toList()
+        }
+
         return drinkDao.getDrinks().filter {
             Regex(
                 str,
                 RegexOption.IGNORE_CASE
-            ).containsMatchIn(it.title)
+            ).containsMatchIn(it.title) && it.category == cat
         }.toList()
     }
 

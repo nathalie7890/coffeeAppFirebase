@@ -10,6 +10,7 @@ data class Drink(
     val title: String,
     val subtitle: String,
     val details: String,
+    val ingredients: String,
     val category: String,
     val image: ByteArray? = null
 ) {

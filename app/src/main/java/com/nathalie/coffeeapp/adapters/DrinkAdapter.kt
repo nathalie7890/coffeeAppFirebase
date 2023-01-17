@@ -1,5 +1,6 @@
 package com.nathalie.coffeeapp.adapters
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +8,8 @@ import com.nathalie.coffeeapp.data.Model.Drink
 import com.nathalie.coffeeapp.databinding.ItemLayoutDrinkBinding
 
 class DrinkAdapter(
-    private var items: List<Drink>
+    private var items: List<Drink>,
+    val onClick: (item: Drink) -> Unit
 ) : RecyclerView.Adapter<DrinkAdapter.ItemDrinkHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemDrinkHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,7 +23,19 @@ class DrinkAdapter(
         holder.binding.run {
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
+
+            item.image?.let {bytes->
+                val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
+                ivDrinkImage.setImageBitmap(bitmap)
+            }
+
+            cvDrinkItem.setOnClickListener {
+                onClick(item)
+            }
+
+
         }
+
     }
 
     override fun getItemCount(): Int {

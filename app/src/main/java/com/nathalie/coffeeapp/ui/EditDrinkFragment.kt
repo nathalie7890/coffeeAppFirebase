@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,66 +14,88 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.Model.Drink
-import com.nathalie.coffeeapp.databinding.FragmentAddDrinkBinding
-import com.nathalie.coffeeapp.viewmodels.AddDrinkViewModel
+import com.nathalie.coffeeapp.databinding.FragmentEditDrinkBinding
+import com.nathalie.coffeeapp.viewmodels.EditDrinkViewModel
 
-class AddDrinkFragment : Fragment() {
-    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
-    private lateinit var binding: FragmentAddDrinkBinding
-    private var bytes: ByteArray? = null
-    private val viewModel: AddDrinkViewModel by viewModels {
-        AddDrinkViewModel.Provider((requireActivity().applicationContext as MyApplication).drinkRepo)
+class EditDrinkFragment : Fragment() {
+    private lateinit var binding: FragmentEditDrinkBinding
+    val viewModel: EditDrinkViewModel by viewModels {
+        EditDrinkViewModel.Provider((requireActivity().applicationContext as MyApplication).drinkRepo)
     }
-
+    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
+    private var imageBytes: ByteArray? = null
     private var category = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAddDrinkBinding.inflate(layoutInflater)
+        binding = FragmentEditDrinkBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navArgs: EditDrinkFragmentArgs by navArgs()
+
+        viewModel.getDrinkById(navArgs.id)
+        viewModel.drink.observe(viewLifecycleOwner) {
+            binding.run {
+                it.image?.let { bytes ->
+                    val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
+                    ivDrinkImage.setImageBitmap(bitmap)
+                }
+                etTitle.setText(it.title)
+                etSubtitle.setText(it.subtitle)
+                etDetails.setText(it.details)
+                etIngredients.setText(it.ingredients)
+                category = it.category
+                imageBytes = it.image
+
+                if (it.category == "Hot") btnHot.isChecked = true
+                else btnCold.isChecked = true
+            }
+        }
+
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
-                bytes = inputStream?.readBytes()
+                imageBytes = inputStream?.readBytes()
                 inputStream?.close()
 
-                val bitmap = bytes?.let { it1 -> BitmapFactory.decodeByteArray(bytes, 0, it1.size) }
+                val bitmap = imageBytes?.let { it1 -> BitmapFactory.decodeByteArray(imageBytes, 0, it1.size) }
                 binding.ivDrinkImage.setImageBitmap(bitmap)
             }
         }
 
-        //when ivDrinkImage is clicked, go to gallery
         binding.ivDrinkImage.setOnClickListener {
             filePickerLauncher.launch("image/*")
         }
 
-        //when one of the radio buttons in radio group of "Hot" & "Cold" is selected, save it's value to category
         binding.drinkRadioGroup.setOnCheckedChangeListener { _, id ->
             category = if (id == R.id.btnHot) "Hot"
             else "Cold"
         }
 
-        binding.btnAdd.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             val title = binding.etTitle.text.toString()
             val subtitle = binding.etSubtitle.text.toString()
             val details = binding.etDetails.text.toString()
             val ingredients = binding.etIngredients.text.toString()
 
-            viewModel.addDrink(Drink(null, title, subtitle, details, ingredients, category, bytes))
+            val drink =  Drink(navArgs.id, title, subtitle, details, ingredients, category, imageBytes)
+            viewModel.editDrink(navArgs.id,drink)
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)
-            setFragmentResult("from_add_drink", bundle)
+            setFragmentResult("from_edit_drink", bundle)
             NavHostFragment.findNavController(this).popBackStack()
         }
+
     }
 
     private fun ContentResolver.getFileName(fileUri: Uri): String {

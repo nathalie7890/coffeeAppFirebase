@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.nathalie.coffeeapp.data.Model.Drink
 
 
-@Database(entities = [Drink::class], version = 1)
+@Database(entities = [Drink::class], version = 2)
 abstract class DrinkDatabase : RoomDatabase() {
 
     abstract val drinkDao: DrinkDao

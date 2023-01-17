@@ -12,12 +12,12 @@ class DrinkViewModel(val repo: DrinkRepository) : ViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
 
     init {
-        getDrinks("")
+        getDrinks("", "")
     }
 
-    fun getDrinks(str: String) {
+    fun getDrinks(str: String, cat:String) {
         viewModelScope.launch {
-            val res = repo.getDrinks(str)
+            val res = repo.getDrinks(str, cat)
             drinks.value = res
         }
     }

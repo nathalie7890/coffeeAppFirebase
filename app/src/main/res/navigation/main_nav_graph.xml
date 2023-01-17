@@ -9,11 +9,37 @@
         android:id="@+id/mainFragment"
         android:name="com.nathalie.coffeeapp.ui.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_detail"
+            app:destination="@id/drinkDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addDrinkFragment2"
         android:name="com.nathalie.coffeeapp.ui.AddDrinkFragment"
         android:label="fragment_add_drink"
         tools:layout="@layout/fragment_add_drink" />
+    <fragment
+        android:id="@+id/drinkDetailFragment"
+        android:name="com.nathalie.coffeeapp.ui.DrinkDetailFragment"
+        android:label="fragment_drink_detail"
+        tools:layout="@layout/fragment_drink_detail">
+        <argument
+            android:name="id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_drink_detail_to_edit"
+            app:destination="@id/editDrinkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editDrinkFragment"
+        android:name="com.nathalie.coffeeapp.ui.EditDrinkFragment"
+        android:label="fragment_edit_drink"
+        tools:layout="@layout/fragment_edit_drink">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
+
 
 </navigation>

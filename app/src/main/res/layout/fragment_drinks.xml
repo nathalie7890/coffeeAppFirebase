@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/almond"
+    android:background="@color/smoky"
     android:paddingHorizontal="16dp"
     android:paddingVertical="16dp"
     tools:context=".ui.DrinksFragment">
@@ -13,15 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Coffee"
-            android:textColor="@color/charcoal"
-            android:textSize="25sp" />
-
         <include
             android:id="@+id/search"
             layout="@layout/item_layout_search" />
@@ -33,6 +24,7 @@
             app:justifyContent="space_between">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/sand"
@@ -43,22 +35,24 @@
                 app:layout_flexBasisPercent="32%" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/suede"
+                android:backgroundTint="@color/almond"
                 android:text="Hot"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/smoky"
                 app:cornerRadius="50dp"
                 app:layout_flexBasisPercent="32%" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/suede"
+                android:backgroundTint="@color/almond"
                 android:text="Cold "
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/smoky"
                 app:cornerRadius="50dp"
                 app:layout_flexBasisPercent="32%" />
         </com.google.android.flexbox.FlexboxLayout>

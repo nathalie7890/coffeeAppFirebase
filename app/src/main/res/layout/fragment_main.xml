@@ -24,9 +24,9 @@
             app:tabTextColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/sand"
-            app:tabSelectedTextColor="@color/sand"
-            android:background="@color/charcoal" />
+            app:tabIndicatorColor="@color/almond"
+            app:tabSelectedTextColor="@color/almond"
+            android:background="@color/smoky" />
 
     </LinearLayout>
 

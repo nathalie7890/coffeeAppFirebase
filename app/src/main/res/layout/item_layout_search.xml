@@ -10,20 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/search_bar"
+        android:orientation="horizontal"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="6dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="Search"
-            android:paddingHorizontal="8dp"
-            android:background="@drawable/search_input"
-            android:textColor="@color/charcoal"
-            android:textColorHint="@color/dark_grey" />
+        android:paddingVertical="6dp">
 
         <ImageButton
             android:id="@+id/btnSearch"
@@ -31,6 +20,19 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/transparent"
             android:src="@drawable/ic_search" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/search_input"
+            android:hint="Search"
+            android:inputType="text"
+            android:textColor="@color/almond"
+            android:textColorHint="@color/almond" />
+
+
     </LinearLayout>
 
 
