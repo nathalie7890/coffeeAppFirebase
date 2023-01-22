@@ -1,23 +1,24 @@
-package com.nathalie.coffeeapp.viewmodels
+package com.nathalie.coffeeapp.viewmodels.drink
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.nathalie.coffeeapp.data.Model.Drink
+import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.repository.DrinkRepository
 import kotlinx.coroutines.launch
 
-class DrinkViewModel(val repo: DrinkRepository) : ViewModel() {
+class DrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
 
     init {
-        getDrinks("", "")
+        getDrinks("", 0)
     }
 
-    fun getDrinks(str: String, cat:String) {
+    fun getDrinks(str: String, cat:Int) {
         viewModelScope.launch {
-            val res = repo.getDrinks(str, cat)
+            var res = repo.getDrinks(str, cat)
+            res = res.reversed()
             drinks.value = res
         }
     }

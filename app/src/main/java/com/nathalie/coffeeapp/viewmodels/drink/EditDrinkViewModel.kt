@@ -1,10 +1,10 @@
-package com.nathalie.coffeeapp.viewmodels
+package com.nathalie.coffeeapp.viewmodels.drink
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.nathalie.coffeeapp.data.Model.Drink
+import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.repository.DrinkRepository
 import kotlinx.coroutines.launch
 

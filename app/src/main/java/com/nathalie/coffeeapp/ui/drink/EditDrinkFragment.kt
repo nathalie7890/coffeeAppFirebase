@@ -1,4 +1,4 @@
-package com.nathalie.coffeeapp.ui
+package com.nathalie.coffeeapp.ui.drink
 
 import android.content.ContentResolver
 import android.graphics.BitmapFactory
@@ -17,9 +17,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
-import com.nathalie.coffeeapp.data.Model.Drink
+import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.databinding.FragmentEditDrinkBinding
-import com.nathalie.coffeeapp.viewmodels.EditDrinkViewModel
+import com.nathalie.coffeeapp.viewmodels.drink.EditDrinkViewModel
 
 class EditDrinkFragment : Fragment() {
     private lateinit var binding: FragmentEditDrinkBinding
@@ -28,7 +28,7 @@ class EditDrinkFragment : Fragment() {
     }
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var imageBytes: ByteArray? = null
-    private var category = ""
+    private var category = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +57,8 @@ class EditDrinkFragment : Fragment() {
                 category = it.category
                 imageBytes = it.image
 
-                if (it.category == "Hot") btnHot.isChecked = true
-                else btnCold.isChecked = true
+                if (it.category == 1) btnClassic.isChecked = true
+                else btnNonClassic.isChecked = true
             }
         }
 
@@ -78,8 +78,8 @@ class EditDrinkFragment : Fragment() {
         }
 
         binding.drinkRadioGroup.setOnCheckedChangeListener { _, id ->
-            category = if (id == R.id.btnHot) "Hot"
-            else "Cold"
+            category = if (id == R.id.btnHot) 1
+            else 2
         }
 
         binding.btnSave.setOnClickListener {

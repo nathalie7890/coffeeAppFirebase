@@ -4,7 +4,7 @@ import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nathalie.coffeeapp.data.Model.Drink
+import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.databinding.ItemLayoutDrinkBinding
 
 class DrinkAdapter(

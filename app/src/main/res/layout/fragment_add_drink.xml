@@ -7,7 +7,7 @@
     android:background="@color/smoky"
     android:paddingHorizontal="50dp"
     android:paddingVertical="30dp"
-    tools:context=".ui.AddDrinkFragment">
+    tools:context=".ui.drink.AddDrinkFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvImage"
@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/ivDrinkImage"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:clickable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/upload_image" />
@@ -103,25 +103,25 @@
         app:layout_constraintTop_toBottomOf="@+id/etIngredients">
 
         <RadioButton
-            android:id="@+id/btnHot"
+            android:id="@+id/btnClassic"
             style="@style/Widget.App.RadioButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Hot"
+            android:text="Classic"
             android:textColor="@color/grey"
             android:textSize="20sp" />
 
         <!--            style="@style/Widget.App.RadioButton"-->
         <RadioButton
-            android:id="@+id/btnCold"
+            android:id="@+id/btnNonClassic"
             style="@style/Widget.App.RadioButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Cold"
+            android:text="Non Classic"
             android:textColor="@color/grey"
             android:textSize="20sp" />
     </RadioGroup>

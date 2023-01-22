@@ -3,26 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.nathalie.coffeeapp.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_main"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.nathalie.coffeeapp.ui.MainFragment"
-        android:label="fragment_main"
+        android:label="Home"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_main_to_detail"
             app:destination="@id/drinkDetailFragment" />
+        <action
+            android:id="@+id/action_main_to_add_drink"
+            app:destination="@id/addDrinkFragment2" />
+        <action
+            android:id="@+id/action_main_to_add_bean"
+            app:destination="@id/addBeanFragment" />
+        <action
+            android:id="@+id/action_main_to_detail_bean"
+            app:destination="@id/beanDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDrinkFragment2"
-        android:name="com.nathalie.coffeeapp.ui.AddDrinkFragment"
-        android:label="fragment_add_drink"
+        android:name="com.nathalie.coffeeapp.ui.drink.AddDrinkFragment"
+        android:label="Add Drink"
         tools:layout="@layout/fragment_add_drink" />
     <fragment
         android:id="@+id/drinkDetailFragment"
-        android:name="com.nathalie.coffeeapp.ui.DrinkDetailFragment"
-        android:label="fragment_drink_detail"
+        android:name="com.nathalie.coffeeapp.ui.drink.DrinkDetailFragment"
+        android:label="Drink Description"
         tools:layout="@layout/fragment_drink_detail">
         <argument
             android:name="id"
@@ -33,9 +52,35 @@
     </fragment>
     <fragment
         android:id="@+id/editDrinkFragment"
-        android:name="com.nathalie.coffeeapp.ui.EditDrinkFragment"
-        android:label="fragment_edit_drink"
+        android:name="com.nathalie.coffeeapp.ui.drink.EditDrinkFragment"
+        android:label="Edit Drink"
         tools:layout="@layout/fragment_edit_drink">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBeanFragment"
+        android:name="com.nathalie.coffeeapp.ui.bean.AddBeanFragment"
+        android:label="fragment_add_bean"
+        tools:layout="@layout/fragment_add_bean" />
+    <fragment
+        android:id="@+id/beanDetailFragment"
+        android:name="com.nathalie.coffeeapp.ui.bean.BeanDetailFragment"
+        android:label="fragment_bean_detail"
+        tools:layout="@layout/fragment_bean_detail">
+        <argument
+            android:name="id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_bean_detail_to_edit_bean"
+            app:destination="@id/editBeanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBeanFragment"
+        android:name="com.nathalie.coffeeapp.ui.bean.EditBeanFragment"
+        android:label="fragment_edit_bean"
+        tools:layout="@layout/fragment_edit_bean">
         <argument
             android:name="id"
             app:argType="long" />

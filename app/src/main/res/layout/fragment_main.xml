@@ -21,11 +21,11 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tlCoffee"
-            app:tabTextColor="@color/white"
+            app:tabTextColor="@color/almond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/almond"
-            app:tabSelectedTextColor="@color/almond"
+            app:tabIndicatorColor="@color/chestnut"
+            app:tabSelectedTextColor="@color/chestnut"
             android:background="@color/smoky" />
 
     </LinearLayout>

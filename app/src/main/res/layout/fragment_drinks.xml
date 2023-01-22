@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/smoky"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="16dp"
-    tools:context=".ui.DrinksFragment">
+    android:paddingBottom="8dp"
+    tools:context=".ui.drink.DrinksFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <include
             android:id="@+id/search"
             layout="@layout/item_layout_search" />
@@ -27,19 +28,22 @@
                 android:id="@+id/btnAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/sand"
+                android:backgroundTint="@color/chestnut"
                 android:text="All"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/almond"
                 app:cornerRadius="50dp"
+                app:elevation="16dp"
                 app:layout_flexBasisPercent="32%" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnHot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/almond"
-                android:text="Hot"
+                android:backgroundTint="@color/beige"
+                android:text="Classic"
+                android:lines="1"
+                android:ellipsize="end"
                 android:textAllCaps="false"
                 android:textColor="@color/smoky"
                 app:cornerRadius="50dp"
@@ -49,21 +53,43 @@
                 android:id="@+id/btnCold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/almond"
-                android:text="Cold "
+                android:backgroundTint="@color/beige"
+                android:text="Non Classic"
                 android:textAllCaps="false"
+                android:lines="1"
+                android:ellipsize="end"
                 android:textColor="@color/smoky"
                 app:cornerRadius="50dp"
                 app:layout_flexBasisPercent="32%" />
         </com.google.android.flexbox.FlexboxLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDrinks"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="8dp"
-            android:paddingBottom="120dp" />
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDrinks"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                android:paddingBottom="120dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:cornerRadius="50dp"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:backgroundTint="@color/chestnut"
+                android:text="Add Drink" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

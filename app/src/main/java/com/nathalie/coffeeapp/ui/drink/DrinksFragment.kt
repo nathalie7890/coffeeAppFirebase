@@ -1,4 +1,4 @@
-package com.nathalie.coffeeapp.ui
+package com.nathalie.coffeeapp.ui.drink
 
 import android.os.Bundle
 import android.view.KeyEvent
@@ -9,14 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.nathalie.coffeeapp.MyApplication
-import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.adapters.DrinkAdapter
-import com.nathalie.coffeeapp.data.Model.Drink
 import com.nathalie.coffeeapp.databinding.FragmentDrinksBinding
-import com.nathalie.coffeeapp.viewmodels.DrinkViewModel
+import com.nathalie.coffeeapp.ui.MainFragmentDirections
+import com.nathalie.coffeeapp.utils.Utils
+import com.nathalie.coffeeapp.viewmodels.drink.DrinkViewModel
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 
 class DrinksFragment : Fragment() {
@@ -44,39 +42,47 @@ class DrinksFragment : Fragment() {
         }
 
         parentViewModel.refreshDrinks.observe(viewLifecycleOwner) {
-            refresh("", "")
+            refresh("", 0)
         }
 
         binding.run {
             search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     val search = search.etSearch.text.toString()
-                   refresh(search, "")
+                    refresh(search, 0)
                     return@OnKeyListener true
                 }
                 false
             }
 
+            btnAdd.setOnClickListener {
+                val action = MainFragmentDirections.actionMainToAddDrink()
+                NavHostFragment.findNavController(requireParentFragment()).navigate(action)
+            }
+
             btnAll.setOnClickListener {
-                refresh("", "")
+                refresh("", 0)
+                Utils.updateColors(requireContext(), btnAll, btnHot, btnCold)
             }
             btnHot.setOnClickListener {
-                refresh("", "Hot")
+                refresh("", 1)
+                Utils.updateColors(requireContext(), btnHot, btnAll, btnCold)
             }
             btnCold.setOnClickListener {
-                refresh("", "Cold")
+                refresh("", 2)
+                Utils.updateColors(requireContext(), btnCold, btnAll, btnHot)
             }
         }
     }
 
     //fetch words
-    fun refresh(str: String, cat: String) {
+    fun refresh(str: String, cat: Int) {
         viewModel.getDrinks(str, cat)
     }
 
     //adapter for words
     fun setupAdapter() {
-        val layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        val layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = DrinkAdapter(emptyList()) {
             val action = MainFragmentDirections.actionMainToDetail(it.id!!)
             NavHostFragment.findNavController(this).navigate(action)

@@ -1,14 +1,14 @@
 package com.nathalie.coffeeapp.repository
 
-import com.nathalie.coffeeapp.data.DrinkDao
-import com.nathalie.coffeeapp.data.Model.Drink
+import com.nathalie.coffeeapp.data.CoffeeDao
+import com.nathalie.coffeeapp.data.model.Drink
 
-class DrinkRepository(private val drinkDao: DrinkDao) {
+class DrinkRepository(private val coffeeDao: CoffeeDao) {
 
     //fetch drinks
-    suspend fun getDrinks(str: String, cat: String): List<Drink> {
-        if (cat == "") {
-            return drinkDao.getDrinks().filter {
+    suspend fun getDrinks(str: String, cat: Int): List<Drink> {
+        if (cat == 0) {
+            return coffeeDao.getDrinks().filter {
                 Regex(
                     str,
                     RegexOption.IGNORE_CASE
@@ -16,7 +16,7 @@ class DrinkRepository(private val drinkDao: DrinkDao) {
             }.toList()
         }
 
-        return drinkDao.getDrinks().filter {
+        return coffeeDao.getDrinks().filter {
             Regex(
                 str,
                 RegexOption.IGNORE_CASE
@@ -26,27 +26,27 @@ class DrinkRepository(private val drinkDao: DrinkDao) {
 
     //add drink
     suspend fun addDrink(drink: Drink) {
-        drinkDao.insert(drink)
+        coffeeDao.insert(drink)
     }
 
     //find drink that match the given id
     suspend fun getDrinkById(id: Long): Drink? {
-        return drinkDao.getDrinkById(id)
+        return coffeeDao.getDrinkById(id)
     }
 
 
     //find drink by id and update it
     suspend fun updateDrink(id: Long, drink: Drink) {
-        drinkDao.insert(drink.copy(id = id))
+        coffeeDao.insert(drink.copy(id = id))
     }
 
     //delete drink by id
     suspend fun deleteDrink(id: Long) {
-        drinkDao.delete(id)
+        coffeeDao.delete(id)
     }
 
     //find drink by title
     suspend fun getDrinkByTitle(title: String): List<Drink> {
-        return drinkDao.getDrinkByTitle(title)
+        return coffeeDao.getDrinkByTitle(title)
     }
 }

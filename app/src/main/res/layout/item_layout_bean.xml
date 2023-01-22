@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/beanDetail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center"
+    android:gravity="bottom"
+    android:layout_marginHorizontal="16dp"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Body:"
+                android:textColor="@color/almond"
+                android:textSize="15sp" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sliderBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:stepSize="1"
+                android:value="2"
+                android:valueFrom="0"
+                android:valueTo="3"
+                app:thumbColor="@color/chestnut"
+                app:tickColor="@color/white"
+                app:tickVisible="true"
+                app:trackColor="@color/chestnut" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Aroma:"
+                android:textColor="@color/almond"
+                android:textSize="15sp" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sliderAroma"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:stepSize="1"
+                android:value="2"
+                android:valueFrom="0"
+                android:valueTo="5"
+                app:thumbColor="@color/chestnut"
+                app:tickColor="@color/white"
+                app:tickVisible="true"
+                app:trackColor="@color/chestnut" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Caffeine"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/almond"
+                android:textSize="16sp" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sliderCaffeine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:stepSize="1"
+                android:value="4"
+                android:valueFrom="0"
+                android:valueTo="5"
+                app:thumbColor="@color/chestnut"
+                app:tickColor="@color/white"
+                app:tickVisible="true"
+                app:trackColor="@color/chestnut" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/chocolate"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivBeanImage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/coffee_bean" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:paddingHorizontal="16dp"
+                android:text="Title"
+                android:textColor="@color/almond"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp"
+                android:text="Subtitle"
+                android:textColor="@color/grey"
+                android:textSize="13dp" />
+            <TextView
+                android:id="@+id/tvTaste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="Taste"
+                android:textColor="@color/almond"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

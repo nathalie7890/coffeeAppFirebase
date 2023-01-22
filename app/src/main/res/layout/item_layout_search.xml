@@ -3,24 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingVertical="16dp"
-    android:weightSum="1">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/search_bar"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="6dp">
-
-        <ImageButton
-            android:id="@+id/btnSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/transparent"
-            android:src="@drawable/ic_search" />
-
+    android:paddingVertical="16dp">
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
@@ -28,12 +11,10 @@
             android:layout_weight="1"
             android:background="@drawable/search_input"
             android:hint="Search"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="16dp"
+            android:drawableLeft="@drawable/ic_search"
             android:inputType="text"
-            android:textColor="@color/almond"
-            android:textColorHint="@color/almond" />
-
-
-    </LinearLayout>
-
-
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey" />
 </LinearLayout>

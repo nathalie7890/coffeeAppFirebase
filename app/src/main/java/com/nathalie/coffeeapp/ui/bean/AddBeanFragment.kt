@@ -1,11 +1,10 @@
-package com.nathalie.coffeeapp.ui
+package com.nathalie.coffeeapp.ui.bean
 
 import android.content.ContentResolver
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,25 +15,23 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.nathalie.coffeeapp.MyApplication
-import com.nathalie.coffeeapp.R
-import com.nathalie.coffeeapp.data.Model.Drink
-import com.nathalie.coffeeapp.databinding.FragmentAddDrinkBinding
-import com.nathalie.coffeeapp.viewmodels.AddDrinkViewModel
+import com.nathalie.coffeeapp.data.model.Bean
+import com.nathalie.coffeeapp.databinding.FragmentAddBeanBinding
+import com.nathalie.coffeeapp.viewmodels.bean.AddBeanViewModel
 
-class AddDrinkFragment : Fragment() {
+class AddBeanFragment : Fragment() {
+    private lateinit var binding: FragmentAddBeanBinding
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
-    private lateinit var binding: FragmentAddDrinkBinding
     private var bytes: ByteArray? = null
-    private val viewModel: AddDrinkViewModel by viewModels {
-        AddDrinkViewModel.Provider((requireActivity().applicationContext as MyApplication).drinkRepo)
+    private val viewModel: AddBeanViewModel by viewModels {
+        AddBeanViewModel.Provider((requireActivity().applicationContext as MyApplication).beanRepo)
     }
 
-    private var category = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAddDrinkBinding.inflate(layoutInflater)
+        binding = FragmentAddBeanBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -48,31 +45,28 @@ class AddDrinkFragment : Fragment() {
                 inputStream?.close()
 
                 val bitmap = bytes?.let { it1 -> BitmapFactory.decodeByteArray(bytes, 0, it1.size) }
-                binding.ivDrinkImage.setImageBitmap(bitmap)
+                binding.ivBeanImage.setImageBitmap(bitmap)
             }
         }
 
-        //when ivDrinkImage is clicked, go to gallery
-        binding.ivDrinkImage.setOnClickListener {
+        binding.ivBeanImage.setOnClickListener {
             filePickerLauncher.launch("image/*")
-        }
-
-        //when one of the radio buttons in radio group of "Hot" & "Cold" is selected, save it's value to category
-        binding.drinkRadioGroup.setOnCheckedChangeListener { _, id ->
-            category = if (id == R.id.btnHot) "Hot"
-            else "Cold"
         }
 
         binding.btnAdd.setOnClickListener {
             val title = binding.etTitle.text.toString()
             val subtitle = binding.etSubtitle.text.toString()
+            val taste = binding.etTaste.text.toString()
             val details = binding.etDetails.text.toString()
-            val ingredients = binding.etIngredients.text.toString()
+            val body = binding.sliderBody.value.toInt()
+            val aroma = binding.sliderAroma.value.toInt()
+            val caffeine = binding.sliderCaffeine.value.toInt()
 
-            viewModel.addDrink(Drink(null, title, subtitle, details, ingredients, category, bytes))
+            val bean = Bean(null, title, subtitle, taste, details, body, aroma, caffeine, bytes)
+            viewModel.addBean(bean)
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)
-            setFragmentResult("from_add_drink", bundle)
+            setFragmentResult("from_add_bean", bundle)
             NavHostFragment.findNavController(this).popBackStack()
         }
     }

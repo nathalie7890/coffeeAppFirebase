@@ -42,7 +42,7 @@
             android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:text="Subtitle"
-            android:textColor="@color/grey"
+            android:textColor="@color/beige"
             android:textSize="13sp" />
     </LinearLayout>
 
