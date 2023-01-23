@@ -11,9 +11,8 @@
             android:layout_weight="1"
             android:background="@drawable/search_input"
             android:hint="Search"
-            android:paddingVertical="16dp"
+            android:paddingVertical="10dp"
             android:paddingHorizontal="16dp"
-            android:drawableLeft="@drawable/ic_search"
             android:inputType="text"
             android:textColor="@color/grey"
             android:textColorHint="@color/grey" />

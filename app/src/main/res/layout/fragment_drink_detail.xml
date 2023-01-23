@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="1">
 
                     <TextView
                         android:id="@+id/tvTitle"
@@ -50,22 +50,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="1"
-                        android:text="Title"
+                        android:text="Name"
                         android:textColor="@color/chestnut"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvCategory"
-                        android:layout_width="match_parent"
+                    <ImageButton
+                        android:id="@+id/btnFav"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_weight="1"
-                        android:fontFamily="serif"
-                        android:gravity="end"
-                        android:text="Title"
-                        android:textColor="@color/beige"
-                        android:textSize="20sp" />
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        android:backgroundTint="@color/smoky"
+                        android:src="@drawable/ic_favorite_border"/>
                 </LinearLayout>
 
                 <TextView
@@ -73,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="Subtitle"
+                    android:text="Description"
                     android:textColor="@color/grey"
                     android:textSize="17sp" />
 
@@ -100,7 +97,7 @@
                             android:id="@+id/tvIngredients"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Ingredients"
+                            android:text="Ingredients/More"
                             android:textColor="@color/chestnut"
                             android:textSize="17sp" />
                     </LinearLayout>
@@ -109,6 +106,7 @@
 
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                 app:justifyContent="space_between">
 
@@ -116,40 +114,26 @@
                     android:id="@+id/btnEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/transparent"
+                    android:backgroundTint="@color/beige"
                     android:text="Edit"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/chocolate"
                     app:cornerRadius="20dp"
                     android:minHeight="30dp"
                     app:layout_minHeight="50dp"
-                    app:layout_flexBasisPercent="49%"
-                    app:strokeColor="@color/chestnut"
-                    app:strokeWidth="2dp" />
+                    app:layout_flexBasisPercent="49%" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/transparent"
+                    android:backgroundTint="@color/chestnut"
                     android:text="Delete"
                     android:textColor="@color/grey"
                     app:cornerRadius="20dp"
                     app:layout_minHeight="50dp"
-                    app:layout_flexBasisPercent="49%"
-                    app:strokeColor="@color/chestnut"
-                    app:strokeWidth="2dp" />
+                    app:layout_flexBasisPercent="49%" />
 
             </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/chestnut"
-                android:gravity="center"
-                android:text="Add To Favorite"
-                android:visibility="gone"
-                app:cornerRadius="20dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

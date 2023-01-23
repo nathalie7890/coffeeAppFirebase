@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.repository.DrinkRepository
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 class DrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
-
+    val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
     init {
         getDrinks("", 0)
     }
@@ -20,6 +22,14 @@ class DrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
             var res = repo.getDrinks(str, cat)
             res = res.reversed()
             drinks.value = res
+        }
+    }
+
+    fun onRefresh() {
+        viewModelScope.launch {
+            delay(1000)
+            getDrinks("", 0)
+            swipeRefreshLayoutFinished.emit(Unit)
         }
     }
 

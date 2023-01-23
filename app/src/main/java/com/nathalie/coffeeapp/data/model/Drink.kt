@@ -12,7 +12,8 @@ data class Drink(
     val details: String,
     val ingredients: String,
     val category: Int,
-    val image: ByteArray? = null
+    val image: ByteArray? = null,
+    var favorite: Boolean? = false,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

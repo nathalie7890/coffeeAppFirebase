@@ -23,16 +23,33 @@
             android:scaleType="centerCrop"
             android:src="@drawable/mocha" />
 
-        <TextView
-            android:id="@+id/tvTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="5dp"
-            android:text="Title"
-            android:textColor="@color/almond"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="Title"
+                android:textColor="@color/almond"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivFav"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="top"
+                android:src="@drawable/ic_favorite"
+                android:visibility="invisible" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/tvSubtitle"

@@ -2,6 +2,7 @@ package com.nathalie.coffeeapp.ui.drink
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,7 @@ class DrinkDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navArgs: DrinkDetailFragmentArgs by navArgs()
+
         viewModel.getDrinkById(navArgs.id)
         viewModel.drink.observe(viewLifecycleOwner) {
             binding.run {
@@ -50,8 +52,36 @@ class DrinkDetailFragment : Fragment() {
                 tvSubtitle.text = it.subtitle
                 tvDetails.text = it.details
                 tvIngredients.text = it.ingredients
+
+                if (it.favorite == true) btnFav.setImageResource(R.drawable.ic_favorite)
+                else btnFav.setImageResource(R.drawable.ic_favorite_border)
+
+                //when favorite btn is clicked, toggle the hasFav value of drink and show a snackbar
+                btnFav.setOnClickListener { view ->
+                    var favMsg = ""
+                    favMsg = if (it.favorite == false) {
+                        viewModel.favDrink(navArgs.id, true)
+                        btnFav.setImageResource(R.drawable.ic_favorite)
+                        parentViewModel.shouldRefreshDrinks(true)
+                        "Added to favorite!"
+                    } else {
+                        viewModel.favDrink(navArgs.id, false)
+                        btnFav.setImageResource(R.drawable.ic_favorite_border)
+                        parentViewModel.shouldRefreshDrinks(true)
+                        "Removed from favorite!"
+                    }
+//                    parentViewModel.shouldRefreshDrinks(true)
+
+                    Snackbar.make(requireView(), favMsg, Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(resources.getColor(R.color.almond))
+                        .setActionTextColor(resources.getColor(R.color.chestnut))
+                        .setTextColor(resources.getColor(R.color.smoky))
+                        .setAnchorView(binding.btnEdit)
+                        .show()
+                }
             }
         }
+
 
         binding.btnEdit.setOnClickListener {
             val action = DrinkDetailFragmentDirections.actionDrinkDetailToEdit(navArgs.id)

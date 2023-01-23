@@ -7,7 +7,7 @@ import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.data.model.Roast
 
 
-@Database(entities = [Drink::class, Bean::class, Roast::class], version = 7)
+@Database(entities = [Drink::class, Bean::class, Roast::class], version = 8)
 abstract class CoffeeDatabase : RoomDatabase() {
 
     abstract val coffeeDao: CoffeeDao

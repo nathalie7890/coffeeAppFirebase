@@ -50,6 +50,7 @@ class EditBeanFragment : Fragment() {
                 }
                 etTitle.setText(it.title)
                 etSubtitle.setText(it.subtitle)
+                etTaste.setText(it.taste)
                 etDetails.setText(it.details)
                 imageBytes = it.image
             }

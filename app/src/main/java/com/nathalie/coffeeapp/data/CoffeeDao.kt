@@ -19,6 +19,9 @@ interface CoffeeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(drink: Drink)
 
+    @Query("UPDATE drink SET favorite = :status WHERE id=:id")
+    suspend fun favDrink(id: Long, status: Boolean)
+
     @Query("DELETE FROM drink WHERE id = :id")
     suspend fun delete(id: Long)
 

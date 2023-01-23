@@ -40,6 +40,10 @@ class DrinkRepository(private val coffeeDao: CoffeeDao) {
         coffeeDao.insert(drink.copy(id = id))
     }
 
+    suspend fun favDrink(id:Long, status:Boolean) {
+        coffeeDao.favDrink(id, status)
+    }
+
     //delete drink by id
     suspend fun deleteDrink(id: Long) {
         coffeeDao.delete(id)

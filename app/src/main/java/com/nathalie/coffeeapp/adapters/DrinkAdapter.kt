@@ -3,6 +3,7 @@ package com.nathalie.coffeeapp.adapters
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.databinding.ItemLayoutDrinkBinding
@@ -24,16 +25,15 @@ class DrinkAdapter(
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
 
-            item.image?.let {bytes->
+            item.image?.let { bytes ->
                 val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
                 ivDrinkImage.setImageBitmap(bitmap)
             }
 
+            ivFav.isVisible = item.favorite == true
             cvDrinkItem.setOnClickListener {
                 onClick(item)
             }
-
-
         }
 
     }

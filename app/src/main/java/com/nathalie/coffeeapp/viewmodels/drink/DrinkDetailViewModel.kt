@@ -28,6 +28,12 @@ class DrinkDetailViewModel(private val repo: DrinkRepository) : ViewModel() {
         }
     }
 
+    fun favDrink(id: Long, status: Boolean){
+        viewModelScope.launch {
+            repo.favDrink(id, status)
+        }
+    }
+
     class Provider(val repo: DrinkRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return DrinkDetailViewModel(repo) as T
