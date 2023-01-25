@@ -1,10 +1,7 @@
-package com.nathalie.coffeeapp.ui.bean
+package com.nathalie.coffeeapp.ui.roast
 
-import android.content.ContentResolver
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,48 +13,47 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.nathalie.coffeeapp.MyApplication
-import com.nathalie.coffeeapp.data.model.Bean
-import com.nathalie.coffeeapp.databinding.FragmentEditBeanBinding
+import com.nathalie.coffeeapp.R
+import com.nathalie.coffeeapp.data.model.Roast
+import com.nathalie.coffeeapp.databinding.FragmentEditRoastBinding
 import com.nathalie.coffeeapp.viewmodels.bean.EditBeanViewModel
+import com.nathalie.coffeeapp.viewmodels.roast.EditRoastViewModel
 
-class EditBeanFragment : Fragment() {
-    private lateinit var binding: FragmentEditBeanBinding
-    val viewModel: EditBeanViewModel by viewModels {
-        EditBeanViewModel.Provider((requireActivity().applicationContext as MyApplication).beanRepo)
-    }
+class EditRoastFragment : Fragment() {
+    private lateinit var binding: FragmentEditRoastBinding
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var imageBytes: ByteArray? = null
+    val viewModel: EditRoastViewModel by viewModels {
+        EditRoastViewModel.Provider((requireActivity().applicationContext as MyApplication).roastRepo)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEditBeanBinding.inflate(layoutInflater)
+        binding = FragmentEditRoastBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navArgs: EditBeanFragmentArgs by navArgs()
+        val navArgs: EditRoastFragmentArgs by navArgs()
 
-        viewModel.getBeanById(navArgs.id)
-        viewModel.bean.observe(viewLifecycleOwner) {
+        viewModel.getRoastById(navArgs.id)
+        viewModel.roast.observe(viewLifecycleOwner) {
             binding.run {
                 it.image?.let { bytes ->
                     val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
-                    ivBeanImage.setImageBitmap(bitmap)
+                    ivRoastImage.setImageBitmap(bitmap)
                 }
                 etTitle.setText(it.title)
-                etSubtitle.setText(it.subtitle)
-                etTaste.setText(it.taste)
                 etDetails.setText(it.details)
-                imageBytes = it.image
             }
         }
 
         //when an image file is selected, convert it to byteArray and store it in variable imageBytes
-        //decode imageBytes to bitmap and display the image on ivBeanImage
+        //decode imageBytes to bitmap and display the image on ivRoastImage
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
@@ -71,43 +67,26 @@ class EditBeanFragment : Fragment() {
                         it1.size
                     )
                 }
-                binding.ivBeanImage.setImageBitmap(bitmap)
+                binding.ivRoastImage.setImageBitmap(bitmap)
             }
         }
-
         binding.run {
             //when the this image image is clicked, opens gallery
-            ivBeanImage.setOnClickListener {
+            ivRoastImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
 
-            //when save btn is clicked, update bean and go back to the previous fragment
+            //when save btn is clicked, update roast and go back to previous fragment
             btnSave.setOnClickListener {
-                val title = binding.etTitle.text.toString()
-                val subtitle = binding.etSubtitle.text.toString()
-                val taste = binding.etTaste.text.toString()
-                val details = binding.etDetails.text.toString()
-                val body = binding.sliderBody.value.toInt()
-                val aroma = binding.sliderAroma.value.toInt()
-                val caffeine = binding.sliderCaffeine.value.toInt()
+                val title = etTitle.text.toString()
+                val details = etDetails.text.toString()
 
-                val bean =
-                    Bean(
-                        navArgs.id,
-                        title,
-                        subtitle,
-                        taste,
-                        details,
-                        body,
-                        aroma,
-                        caffeine,
-                        imageBytes
-                    )
-                viewModel.editBean(navArgs.id, bean)
+                val roast = Roast(navArgs.id, title, details, imageBytes)
+                viewModel.editRoast(navArgs.id, roast)
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
-                setFragmentResult("from_edit_bean", bundle)
-                NavHostFragment.findNavController(this@EditBeanFragment).popBackStack()
+                setFragmentResult("from_edit_roast", bundle)
+                NavHostFragment.findNavController(this@EditRoastFragment).popBackStack()
             }
         }
     }

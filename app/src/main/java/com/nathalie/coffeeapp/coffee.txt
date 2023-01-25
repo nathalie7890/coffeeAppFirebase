@@ -8,10 +8,9 @@ insert into drink values
 Although simple in appearance, it can be difficult to master.",
 "1/2 cup of ground coffee(French or other dark roast,
 1/2 cup of cold water
-Lemon twist(optional)
-",
+Lemon twist(optional)",
 1,
-null),
+null, 0),
 
 (11, "Cappuccino",
 "Classic Italian coffee drink",
@@ -22,7 +21,7 @@ null),
  2 oz. of foamed milk
  sprinkling of chocolate powder (optional)",
 1,
-null),
+null, 0),
 
 (12, "Americano",
 "Hot water and espresso",
@@ -34,7 +33,7 @@ The water dilutes the espresso while still maintaining a high level of caffeine.
 1/2 cup ice and cold water
 Use hot water and omit ice for hot Americano",
 1,
-null),
+null, 0),
 
 (13, "Cortado",
 "Equal amount of espresso and milk",
@@ -44,7 +43,7 @@ the cortado is perfect for those who want to enjoy a shot of coffee but can’t 
 1 oz. of warm milk
 1 cm of foam",
 1,
-null),
+null, 0),
 
 (14, "Cold Brew",
 "Steeped in cold water for 12 hours",
@@ -52,7 +51,7 @@ null),
 "1 cup whole coffee beans,
 4 cups water",
 1,
-null),
+null, 0),
 
 (15, "Cafe Latte",
 "Dark roast coffee and steamed milk",
@@ -61,7 +60,7 @@ null),
  8-10 oz. of steamed milk +
  1 cm of foam",
 1,
-null),
+null, 0),
 
 (16, "Affogato",
 "More of a dessert than coffee",
@@ -69,22 +68,52 @@ null),
 "2 scoops vanilla ice cream, (or vanilla gelato),
 2 oz espresso, (2 shots), or strong brewed coffee",
 1,
-null),
+null, 0),
 
 (17, "Macchiato",
 "Espresso with a splash of milk",
-"The word "macchiato" means spotted, so a macchiato espresso is an espresso with a splash of milk. Most coffee shops will top off this type of coffee drink with some foamed milk instead of just steamed milk for what's known as a traditional macchiato.",
+"The word macchiato means spotted, so a macchiato espresso is an espresso with a splash of milk. Most coffee shops will top off this type of coffee drink with some foamed milk instead of just steamed milk for what's known as a traditional macchiato.",
 "2 espresso shots (2 ounces),
 2 ounces (1/4 cup) whole milk foam",
 1,
-null),
+null, 0),
 
+(18, "Pumpkin Spice Latte",
+"Seasonal treat",
+"The Pumpkin Spice Latte is a coffee drink made with a mix of traditional autumn spice flavors (cinnamon, nutmeg, and clove), steamed milk, espresso, and often sugar, topped with whipped cream and pumpkin pie spice.",
+"2 tsp pumpkin purée,
+pinch of ground cinnamon, plus extra to serve (or use pumpkin spice),
+pinch of ground ginger,
+pinch of ground nutmeg,
+30ml espresso or strong coffee,
+250ml milk (any will work)",
+2, null, 0),
+
+(19, "Dalgona Coffee",
+"Whipped coffee on top of milk",
+"Dalgona coffee is a whipped, frothy iced coffee drink made with instant coffee, sugar, water, and milk. Also known as whipped coffee, frothy coffee, or fluffy coffee. ",
+"1 Tbsp instant coffee,
+1 Tbsp sugar,
+1 Tbsp hot water,
+3/4 cup to 1 cup milk (your choice), chilled or heated",
+2, null, 0),
+
+(20, "Coffee Jelly",
+"Cubes of coffee jelly served with cream or milk",
+"Coffee jelly is a popular Japanese dessert that originated in the 60s. Although, the recipe itself actually originated in Boston, America long before it started to spread throughout Japan.",
+"2 cups water (500ml),
+1 tbsp high quality instant coffee granules,
+2 tsp Japanese agar* (8g),
+3 tsp sugar (15g),
+1/2 cup coconut evaporated milk (125g),
+3 tbsp coconut condensed milk (45g)",
+2, null, 0),
 
 ----------------------------------------------------------------------------------------------------
 INSERT INTO BEAN
 ----------------------------------------------------------------------------------------------------
 
-insert into bean valueseditbean
+insert into bean values
 (10, "Arabica", "Oval-shaped, flat, dark and greasy",
 "Delicate, smooth, fruity and sweet, slightly acidic",
 "To enjoy the delicate flavor, buy the whole roasted beans and grind them yourself", 1, 4 ,2, null),
@@ -101,3 +130,14 @@ insert into bean valueseditbean
 "Sweet, fruity, tart quality but is strong and dark.",
 "Brew on its own to savor its earthy and aromatic flavor. Ideal for making espresso", 3, 4 ,2, null)
 
+----------------------------------------------------------------------------------------------------
+INSERT INTO ROAST
+----------------------------------------------------------------------------------------------------
+insert into roast values
+(1, "Light Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+
+(2, "Medium Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+
+(3, "Medium to Dark Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+
+(4, "Dark Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),

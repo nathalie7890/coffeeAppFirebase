@@ -2,11 +2,21 @@ package com.nathalie.coffeeapp.repository
 
 import com.nathalie.coffeeapp.data.CoffeeDao
 import com.nathalie.coffeeapp.data.model.Drink
+import kotlinx.coroutines.flow.Flow
 
 class DrinkRepository(private val coffeeDao: CoffeeDao) {
 
     //fetch drinks
-    suspend fun getDrinks(str: String, cat: Int): List<Drink> {
+    suspend fun getDrinks(str: String, cat: Int, fav: Boolean): List<Drink> {
+        if (fav) {
+            return coffeeDao.getDrinks().filter {
+                Regex(
+                    str,
+                    RegexOption.IGNORE_CASE
+                ).containsMatchIn(it.title) && it.favorite == true
+            }.toList()
+        }
+
         if (cat == 0) {
             return coffeeDao.getDrinks().filter {
                 Regex(
@@ -30,7 +40,7 @@ class DrinkRepository(private val coffeeDao: CoffeeDao) {
     }
 
     //find drink that match the given id
-    suspend fun getDrinkById(id: Long): Drink? {
+    fun getDrinkById(id: Long): Flow<Drink?> {
         return coffeeDao.getDrinkById(id)
     }
 
@@ -40,7 +50,7 @@ class DrinkRepository(private val coffeeDao: CoffeeDao) {
         coffeeDao.insert(drink.copy(id = id))
     }
 
-    suspend fun favDrink(id:Long, status:Boolean) {
+    suspend fun favDrink(id: Long, status: Boolean) {
         coffeeDao.favDrink(id, status)
     }
 

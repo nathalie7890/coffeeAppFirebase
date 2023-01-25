@@ -20,6 +20,8 @@ class MyApplication : Application() {
             CoffeeDatabase.DATABASE_NAME
         )
             .fallbackToDestructiveMigration()
+            .addMigrations(
+            )
             .build()
 
         drinkRepo = DrinkRepository(coffeeDatabase.coffeeDao)

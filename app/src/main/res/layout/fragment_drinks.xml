@@ -18,10 +18,11 @@
             android:id="@+id/searchContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <include
                 android:id="@+id/search"
-                android:visibility="visible"
-                layout="@layout/item_layout_search" />
+                layout="@layout/item_layout_search"
+                android:visibility="visible" />
         </LinearLayout>
 
 
@@ -29,8 +30,8 @@
             android:id="@+id/btn_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:flexWrap="wrap"
             android:layout_marginBottom="8dp"
+            app:flexWrap="wrap"
             app:justifyContent="space_between">
 
             <com.google.android.material.button.MaterialButton
@@ -46,27 +47,27 @@
                 app:layout_flexBasisPercent="32%" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnHot"
+                android:id="@+id/btnClassic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/beige"
-                android:text="Classic"
-                android:lines="1"
                 android:ellipsize="end"
+                android:lines="1"
+                android:text="Classic"
                 android:textAllCaps="false"
                 android:textColor="@color/smoky"
                 app:cornerRadius="50dp"
                 app:layout_flexBasisPercent="32%" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCold"
+                android:id="@+id/btnAwesome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/beige"
-                android:text="Non Classic"
-                android:textAllCaps="false"
-                android:lines="1"
                 android:ellipsize="end"
+                android:lines="1"
+                android:text="Awesome"
+                android:textAllCaps="false"
                 android:textColor="@color/smoky"
                 app:cornerRadius="50dp"
                 app:layout_flexBasisPercent="32%" />
@@ -76,6 +77,7 @@
             android:id="@+id/srlRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -90,42 +92,42 @@
                     android:clipToPadding="false"
                     android:paddingTop="8dp"
                     android:paddingBottom="120dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="end"
-                    android:weightSum="2"
                     android:layout_marginVertical="8dp"
-                    >
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnFav"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        app:cornerRadius="50dp"
-                        android:layout_weight="1"
-                        android:textAllCaps="false"
                         android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
                         android:backgroundTint="@color/beige"
+                        android:text="Favorites"
+                        android:textAllCaps="false"
                         android:textColor="@color/chocolate"
-                        android:text="Favorites" />
+                        app:cornerRadius="50dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAdd"
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        app:cornerRadius="50dp"
-                        android:textAllCaps="false"
+                        android:layout_weight="1"
                         android:backgroundTint="@color/chestnut"
-                        android:text="Add Drink" />
+                        android:text="Add Drink"
+                        android:textAllCaps="false"
+                        app:cornerRadius="50dp" />
                 </LinearLayout>
 
             </LinearLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 
     </LinearLayout>

@@ -3,10 +3,13 @@ package com.nathalie.coffeeapp.ui.drink
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -42,7 +45,9 @@ class DrinkDetailFragment : Fragment() {
         val navArgs: DrinkDetailFragmentArgs by navArgs()
 
         viewModel.getDrinkById(navArgs.id)
+
         viewModel.drink.observe(viewLifecycleOwner) {
+            Log.d("debug", it.toString())
             binding.run {
                 it.image?.let { bytes ->
                     val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
@@ -55,33 +60,33 @@ class DrinkDetailFragment : Fragment() {
 
                 if (it.favorite == true) btnFav.setImageResource(R.drawable.ic_favorite)
                 else btnFav.setImageResource(R.drawable.ic_favorite_border)
-
-                //when favorite btn is clicked, toggle the hasFav value of drink and show a snackbar
-                btnFav.setOnClickListener { view ->
-                    var favMsg = ""
-                    favMsg = if (it.favorite == false) {
-                        viewModel.favDrink(navArgs.id, true)
-                        btnFav.setImageResource(R.drawable.ic_favorite)
-                        parentViewModel.shouldRefreshDrinks(true)
-                        "Added to favorite!"
-                    } else {
-                        viewModel.favDrink(navArgs.id, false)
-                        btnFav.setImageResource(R.drawable.ic_favorite_border)
-                        parentViewModel.shouldRefreshDrinks(true)
-                        "Removed from favorite!"
-                    }
-//                    parentViewModel.shouldRefreshDrinks(true)
-
-                    Snackbar.make(requireView(), favMsg, Snackbar.LENGTH_SHORT)
-                        .setBackgroundTint(resources.getColor(R.color.almond))
-                        .setActionTextColor(resources.getColor(R.color.chestnut))
-                        .setTextColor(resources.getColor(R.color.smoky))
-                        .setAnchorView(binding.btnEdit)
-                        .show()
-                }
             }
         }
 
+        binding.btnFav.setOnClickListener { view ->
+            Log.d("debug", viewModel.isFav().toString())
+            var favMsg = ""
+
+            if (viewModel.isFav()) {
+                viewModel.favDrink(navArgs.id, false)
+                favMsg = "Removed from favorite!"
+            } else {
+                viewModel.favDrink(navArgs.id, true)
+                favMsg = "Added to favorite!"
+            }
+
+            val snackbar = Snackbar.make(requireView(), favMsg, Snackbar.LENGTH_SHORT)
+            val view2 = snackbar.view
+            val params = view2.layoutParams as FrameLayout.LayoutParams
+            params.gravity = Gravity.TOP
+            view2.layoutParams = params
+            snackbar
+                .setBackgroundTint(resources.getColor(R.color.almond))
+                .setActionTextColor(resources.getColor(R.color.chestnut))
+                .setTextColor(resources.getColor(R.color.smoky))
+                .setAnchorView(binding.btnEdit)
+                .show()
+        }
 
         binding.btnEdit.setOnClickListener {
             val action = DrinkDetailFragmentDirections.actionDrinkDetailToEdit(navArgs.id)
@@ -110,6 +115,10 @@ class DrinkDetailFragment : Fragment() {
             val refresh = result.getBoolean("refresh")
             parentViewModel.shouldRefreshDrinks(refresh)
             snackbar = Snackbar.make(requireView(), "Drink updated!", Snackbar.LENGTH_LONG)
+            val view2 = snackbar!!.view
+            val params = view2.layoutParams as FrameLayout.LayoutParams
+            params.gravity = Gravity.TOP
+            view2.layoutParams = params
             snackbar!!
                 .setAction("Back To Drinks") {
                     NavHostFragment.findNavController(this).popBackStack()

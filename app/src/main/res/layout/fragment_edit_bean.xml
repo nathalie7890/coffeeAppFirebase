@@ -55,6 +55,7 @@
         android:background="@drawable/add_drink_bean_input"
         android:hint="Subtitle"
         android:padding="10dp"
+        android:lines="1"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +69,7 @@
         android:background="@drawable/add_drink_bean_input"
         android:hint="Taste"
         android:padding="10dp"
+        android:lines="1"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +84,7 @@
         android:background="@drawable/add_drink_bean_input"
         android:gravity="start"
         android:hint="Details"
-        android:lines="4"
+        android:lines="3"
         android:padding="10dp"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey"
@@ -91,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etTaste" />
 
     <LinearLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

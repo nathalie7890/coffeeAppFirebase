@@ -1,4 +1,4 @@
-package com.nathalie.coffeeapp.viewmodels
+package com.nathalie.coffeeapp.viewmodels.roast
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

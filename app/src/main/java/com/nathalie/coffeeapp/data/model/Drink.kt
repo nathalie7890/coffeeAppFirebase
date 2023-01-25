@@ -1,5 +1,6 @@
 package com.nathalie.coffeeapp.data.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -38,5 +39,11 @@ data class Drink(
         result = 31 * result + details.hashCode()
         result = 31 * result + (image?.contentHashCode() ?: 0)
         return result
+    }
+
+    override fun toString(): String {
+        return """
+            $id, $title, $favorite
+        """.trimIndent()
     }
 }

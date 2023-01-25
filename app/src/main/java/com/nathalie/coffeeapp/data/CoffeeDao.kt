@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.nathalie.coffeeapp.data.model.Bean
 import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.data.model.Roast
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CoffeeDao {
@@ -14,7 +15,7 @@ interface CoffeeDao {
     suspend fun getDrinks(): List<Drink>
 
     @Query("SELECT * FROM drink where id= :id")
-    suspend fun getDrinkById(id: Long): Drink?
+    fun getDrinkById(id: Long): Flow<Drink?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(drink: Drink)

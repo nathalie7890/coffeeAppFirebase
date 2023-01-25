@@ -9,6 +9,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.adapters.ViewPagerAdapter
 import com.nathalie.coffeeapp.databinding.FragmentMainBinding
 import com.nathalie.coffeeapp.ui.bean.BeansFragment
@@ -70,11 +71,29 @@ class MainFragment : Fragment() {
             viewModel.shouldRefreshBeans(refresh)
         }
 
+        setFragmentResultListener("from_add_roast") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            viewModel.shouldRefreshRoast(refresh)
+        }
+
+        setFragmentResultListener("from_edit_roast") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            viewModel.shouldRefreshRoast(refresh)
+        }
         TabLayoutMediator(binding.tlCoffee, binding.vpCoffee) { tab, pos ->
-            tab.text = when (pos) {
-                0 -> "Drinks"
-                1 -> "Beans"
-                else -> "Roast"
+            when (pos) {
+                0 -> {
+                    tab.text = "Drinks"
+                    tab.setIcon(R.drawable.ic_drink)
+                }
+                1 -> {
+                    tab.text = "Beans"
+                    tab.setIcon(R.drawable.ic_bean)
+                }
+                else -> {
+                    tab.text = "Roast"
+                    tab.setIcon(R.drawable.ic_roast)
+                }
             }
         }.attach()
     }

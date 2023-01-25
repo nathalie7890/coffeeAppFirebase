@@ -121,7 +121,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Non Classic"
+            android:text="Awesome"
             android:textColor="@color/grey"
             android:textSize="20sp" />
     </RadioGroup>

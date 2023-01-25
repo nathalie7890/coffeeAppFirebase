@@ -14,8 +14,7 @@ class DrinkDetailViewModel(private val repo: DrinkRepository) : ViewModel() {
     //find drink that matches the id
     fun getDrinkById(id: Long) {
         viewModelScope.launch {
-            val res = repo.getDrinkById(id)
-            res?.let {
+            repo.getDrinkById(id).collect() {
                 drink.value = it
             }
         }
@@ -28,10 +27,14 @@ class DrinkDetailViewModel(private val repo: DrinkRepository) : ViewModel() {
         }
     }
 
-    fun favDrink(id: Long, status: Boolean){
+    fun favDrink(id: Long, status: Boolean) {
         viewModelScope.launch {
             repo.favDrink(id, status)
         }
+    }
+
+    fun isFav(): Boolean {
+        return drink.value?.favorite == true
     }
 
     class Provider(val repo: DrinkRepository) : ViewModelProvider.Factory {

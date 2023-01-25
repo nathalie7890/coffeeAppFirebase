@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.nathalie.coffeeapp.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_main"
             app:destination="@id/mainFragment" />
@@ -32,6 +32,12 @@
         <action
             android:id="@+id/action_main_to_detail_bean"
             app:destination="@id/beanDetailFragment" />
+        <action
+            android:id="@+id/action_main_to_add_roast"
+            app:destination="@id/addRoastFragment" />
+        <action
+            android:id="@+id/action_main_to_edit_roast"
+            app:destination="@id/editRoastFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDrinkFragment2"
@@ -81,6 +87,20 @@
         android:name="com.nathalie.coffeeapp.ui.bean.EditBeanFragment"
         android:label="fragment_edit_bean"
         tools:layout="@layout/fragment_edit_bean">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRoastFragment"
+        android:name="com.nathalie.coffeeapp.ui.roast.AddRoastFragment"
+        android:label="fragment_add_roast"
+        tools:layout="@layout/fragment_add_roast" />
+    <fragment
+        android:id="@+id/editRoastFragment"
+        android:name="com.nathalie.coffeeapp.ui.roast.EditRoastFragment"
+        android:label="fragment_edit_roast"
+        tools:layout="@layout/fragment_edit_roast">
         <argument
             android:name="id"
             app:argType="long" />

@@ -39,12 +39,14 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddBean"
+            android:id="@+id/btnAddRoast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:textAllCaps="false"
+            android:fontFamily="@font/varela_round"
             android:backgroundTint="@color/chestnut"
-            android:text="Add Type"
+            android:text="Add Roast Level"
             app:cornerRadius="50dp" />
 
     </LinearLayout>

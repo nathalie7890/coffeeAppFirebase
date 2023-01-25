@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.nathalie.coffeeapp.MyApplication
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.adapters.DrinkAdapter
 import com.nathalie.coffeeapp.databinding.FragmentDrinksBinding
 import com.nathalie.coffeeapp.ui.MainFragmentDirections
@@ -21,7 +24,6 @@ import com.nathalie.coffeeapp.utils.Utils
 import com.nathalie.coffeeapp.utils.Utils.hideKeyboard
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import com.nathalie.coffeeapp.viewmodels.drink.DrinkViewModel
-
 
 
 class DrinksFragment : Fragment() {
@@ -49,20 +51,9 @@ class DrinksFragment : Fragment() {
         }
 
         parentViewModel.refreshDrinks.observe(viewLifecycleOwner) {
-            refresh("", 0)
+            refresh("", 0, false)
         }
 
-//        binding.rvDrinks.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                if (dy > 0) {
-//                    binding.searchContainer.isVisible = false
-//                    binding.btnFilter.isVisible = false
-//                } else if (dy < 0) {
-//                    binding.btnFilter.isVisible = true
-//                    binding.searchContainer.isVisible = true
-//                }
-//            }
-//        })
 
         binding.srlRefresh.setOnRefreshListener {
             viewModel.onRefresh()
@@ -78,7 +69,7 @@ class DrinksFragment : Fragment() {
             search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     val search = search.etSearch.text.toString()
-                    refresh(search, 0)
+                    refresh(search, 0, false)
                     hideKeyboard()
                     return@OnKeyListener true
                 }
@@ -91,23 +82,28 @@ class DrinksFragment : Fragment() {
             }
 
             btnAll.setOnClickListener {
-                refresh("", 0)
-                Utils.updateColors(requireContext(), btnAll, btnHot, btnCold)
+                refresh("", 0, false)
+                Utils.updateColors(requireContext(), btnAll, btnClassic, btnAwesome, btnFav)
             }
-            btnHot.setOnClickListener {
-                refresh("", 1)
-                Utils.updateColors(requireContext(), btnHot, btnAll, btnCold)
+            btnClassic.setOnClickListener {
+                refresh("", 1, false)
+                Utils.updateColors(requireContext(), btnClassic, btnAll, btnAwesome, btnFav)
             }
-            btnCold.setOnClickListener {
-                refresh("", 2)
-                Utils.updateColors(requireContext(), btnCold, btnAll, btnHot)
+            btnAwesome.setOnClickListener {
+                refresh("", 2, false)
+                Utils.updateColors(requireContext(), btnAwesome, btnAll, btnClassic, btnFav)
+            }
+
+            btnFav.setOnClickListener {
+                refresh("", 0, true)
+                Utils.updateColors(requireContext(), btnFav,btnAll, btnClassic, btnAwesome)
             }
         }
     }
 
     //fetch words
-    fun refresh(str: String, cat: Int) {
-        viewModel.getDrinks(str, cat)
+    fun refresh(str: String, cat: Int, fav: Boolean) {
+        viewModel.getDrinks(str, cat, fav)
     }
 
 
@@ -133,5 +129,10 @@ class DrinksFragment : Fragment() {
 
             return drinksFragmentInstance!!
         }
+    }
+
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }

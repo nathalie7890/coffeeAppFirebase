@@ -29,6 +29,7 @@ class EditDrinkFragment : Fragment() {
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var imageBytes: ByteArray? = null
     private var category = 0
+    private var isFav = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +57,7 @@ class EditDrinkFragment : Fragment() {
                 etIngredients.setText(it.ingredients)
                 category = it.category
                 imageBytes = it.image
+                isFav = it.favorite!!
 
                 if (it.category == 1) btnClassic.isChecked = true
                 else btnNonClassic.isChecked = true
@@ -78,7 +80,7 @@ class EditDrinkFragment : Fragment() {
         }
 
         binding.drinkRadioGroup.setOnCheckedChangeListener { _, id ->
-            category = if (id == R.id.btnHot) 1
+            category = if (id == R.id.btnClassic) 1
             else 2
         }
 
@@ -88,7 +90,7 @@ class EditDrinkFragment : Fragment() {
             val details = binding.etDetails.text.toString()
             val ingredients = binding.etIngredients.text.toString()
 
-            val drink =  Drink(navArgs.id, title, subtitle, details, ingredients, category, imageBytes)
+            val drink =  Drink(navArgs.id, title, subtitle, details, ingredients, category, imageBytes, isFav)
             viewModel.editDrink(navArgs.id,drink)
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)

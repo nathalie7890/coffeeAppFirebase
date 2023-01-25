@@ -22,116 +22,118 @@
         android:layout_height="0dp"
         android:layout_marginTop="-30dp"
         android:layout_weight="1"
+        android:paddingBottom="8dp"
         app:cardBackgroundColor="@color/smoky"
         app:cardCornerRadius="30dp"
-        android:paddingBottom="8dp"
         app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:paddingHorizontal="35dp"
             android:paddingTop="20dp"
-            android:orientation="vertical"
-            app:alignItems="center"
             android:weightSum="1"
+            app:alignItems="center"
             app:flexDirection="column"
             app:justifyContent="space_between">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_weight="1"
-                        android:text="Name"
-                        android:textColor="@color/chestnut"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-                    <ImageButton
-                        android:id="@+id/btnFav"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        android:backgroundTint="@color/smoky"
-                        android:src="@drawable/ic_favorite_border"/>
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/tvSubtitle"
+                    android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="Description"
-                    android:textColor="@color/grey"
-                    android:textSize="17sp" />
-
-                <androidx.core.widget.NestedScrollView
-                    android:layout_width="match_parent"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    android:layout_height="0dp">
+                    android:text="Name"
+                    android:textColor="@color/chestnut"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
-                    <LinearLayout
+                <ImageButton
+                    android:id="@+id/btnFav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/smoky"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_favorite_border" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Description"
+                android:textColor="@color/grey"
+                android:textSize="17sp" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDetails"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:text="Details"
+                        android:textColor="@color/almond"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/tvDetails"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
-                            android:text="Details"
-                            android:textColor="@color/almond"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tvIngredients"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ingredients/More"
-                            android:textColor="@color/chestnut"
-                            android:textSize="17sp" />
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
+                    <TextView
+                        android:id="@+id/tvIngredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ingredients/More"
+                        android:textColor="@color/chestnut"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
 
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:justifyContent="space_between">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/beige"
-                    android:text="Edit"
-                    android:textColor="@color/chocolate"
-                    app:cornerRadius="20dp"
                     android:minHeight="30dp"
+                    android:text="Edit"
+                    android:textColor="@color/almond"
+                    app:cornerRadius="20dp"
+                    app:layout_flexBasisPercent="49%"
                     app:layout_minHeight="50dp"
-                    app:layout_flexBasisPercent="49%" />
+                    app:strokeColor="@color/almond"
+                    app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/chestnut"
                     android:text="Delete"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/almond"
                     app:cornerRadius="20dp"
+                    app:layout_flexBasisPercent="49%"
                     app:layout_minHeight="50dp"
-                    app:layout_flexBasisPercent="49%" />
+                    app:strokeColor="@color/almond"
+                    app:strokeWidth="1dp" />
 
             </com.google.android.flexbox.FlexboxLayout>
 

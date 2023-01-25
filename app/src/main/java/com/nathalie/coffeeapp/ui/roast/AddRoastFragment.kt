@@ -1,10 +1,7 @@
-package com.nathalie.coffeeapp.ui.bean
+package com.nathalie.coffeeapp.ui.roast
 
-import android.content.ContentResolver
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,23 +12,23 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.nathalie.coffeeapp.MyApplication
-import com.nathalie.coffeeapp.data.model.Bean
-import com.nathalie.coffeeapp.databinding.FragmentAddBeanBinding
-import com.nathalie.coffeeapp.viewmodels.bean.AddBeanViewModel
+import com.nathalie.coffeeapp.data.model.Roast
+import com.nathalie.coffeeapp.databinding.FragmentAddRoastBinding
+import com.nathalie.coffeeapp.viewmodels.roast.AddRoastViewModel
 
-class AddBeanFragment : Fragment() {
-    private lateinit var binding: FragmentAddBeanBinding
+class AddRoastFragment : Fragment() {
+    private lateinit var binding: FragmentAddRoastBinding
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var bytes: ByteArray? = null
-    private val viewModel: AddBeanViewModel by viewModels {
-        AddBeanViewModel.Provider((requireActivity().applicationContext as MyApplication).beanRepo)
+    private val viewModel: AddRoastViewModel by viewModels {
+        AddRoastViewModel.Provider((requireActivity().applicationContext as MyApplication).roastRepo)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAddBeanBinding.inflate(layoutInflater)
+        binding = FragmentAddRoastBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -39,7 +36,7 @@ class AddBeanFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //when an image file is selected, convert it to byteArray and store it in variable bytes
-        //decode the bytes to bitmap and display the image on ivBeanImage
+        //decode the bytes to bitmap and display the image on ivRoastImage
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
@@ -47,32 +44,28 @@ class AddBeanFragment : Fragment() {
                 inputStream?.close()
 
                 val bitmap = bytes?.let { it1 -> BitmapFactory.decodeByteArray(bytes, 0, it1.size) }
-                binding.ivBeanImage.setImageBitmap(bitmap)
+                binding.ivRoastImage.setImageBitmap(bitmap)
             }
         }
 
         binding.run {
+
             //when the this image image is clicked, opens gallery
-            ivBeanImage.setOnClickListener {
+            ivRoastImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
 
-            //when add btn is clicked, add bean to room db and go back to the previous fragment
+            //when add btn is clicked, add roast to room db and go back to the previous fragment
             btnAdd.setOnClickListener {
-                val title = binding.etTitle.text.toString()
-                val subtitle = binding.etSubtitle.text.toString()
-                val taste = binding.etTaste.text.toString()
-                val details = binding.etDetails.text.toString()
-                val body = binding.sliderBody.value.toInt()
-                val aroma = binding.sliderAroma.value.toInt()
-                val caffeine = binding.sliderCaffeine.value.toInt()
+                val title = etTitle.text.toString()
+                val details = etDetails.text.toString()
 
-                val bean = Bean(null, title, subtitle, taste, details, body, aroma, caffeine, bytes)
-                viewModel.addBean(bean)
+                val roast = Roast(null, title, details, bytes)
+                viewModel.addRoast(roast)
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
-                setFragmentResult("from_add_bean", bundle)
-                NavHostFragment.findNavController(this@AddBeanFragment).popBackStack()
+                setFragmentResult("from_add_roast", bundle)
+                NavHostFragment.findNavController(this@AddRoastFragment).popBackStack()
             }
         }
     }

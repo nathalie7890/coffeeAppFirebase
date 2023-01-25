@@ -8,14 +8,13 @@ import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.repository.DrinkRepository
 import kotlinx.coroutines.launch
 
-class EditDrinkViewModel(private val repo: DrinkRepository): ViewModel() {
+class EditDrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
     val drink: MutableLiveData<Drink> = MutableLiveData()
 
     //find Drink that matches the id
     fun getDrinkById(id: Long) {
         viewModelScope.launch {
-            val res = repo.getDrinkById(id)
-            res?.let {
+            repo.getDrinkById(id).collect() {
                 drink.value = it
             }
         }
@@ -27,6 +26,7 @@ class EditDrinkViewModel(private val repo: DrinkRepository): ViewModel() {
             repo.updateDrink(id, drink)
         }
     }
+
     class Provider(val repo: DrinkRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return EditDrinkViewModel(repo) as T
