@@ -8,7 +8,7 @@ import com.nathalie.coffeeapp.data.model.Roast
 import com.nathalie.coffeeapp.repository.RoastRepository
 import kotlinx.coroutines.launch
 
-class EditRoastViewModel(private val repo:RoastRepository):ViewModel() {
+class EditRoastViewModel(private val repo: RoastRepository) : ViewModel() {
     val roast: MutableLiveData<Roast> = MutableLiveData()
 
     //find roast that matches the id
@@ -25,6 +25,12 @@ class EditRoastViewModel(private val repo:RoastRepository):ViewModel() {
     fun editRoast(id: Long, roast: Roast) {
         viewModelScope.launch {
             repo.updateRoast(id, roast)
+        }
+    }
+
+    fun deleteRoast(id: Long) {
+        viewModelScope.launch {
+            repo.deleteRoast(id)
         }
     }
 

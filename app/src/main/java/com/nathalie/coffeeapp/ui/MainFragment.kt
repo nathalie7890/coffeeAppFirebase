@@ -1,13 +1,16 @@
 package com.nathalie.coffeeapp.ui
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.adapters.ViewPagerAdapter
@@ -80,6 +83,13 @@ class MainFragment : Fragment() {
             val refresh = result.getBoolean("refresh")
             viewModel.shouldRefreshRoast(refresh)
         }
+        setFragmentResultListener("from_delete_roast") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            viewModel.shouldRefreshRoast(refresh)
+        }
+
+
+
         TabLayoutMediator(binding.tlCoffee, binding.vpCoffee) { tab, pos ->
             when (pos) {
                 0 -> {

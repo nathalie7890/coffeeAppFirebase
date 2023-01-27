@@ -54,18 +54,17 @@ class DrinksFragment : Fragment() {
             refresh("", 0, false)
         }
 
-
-        binding.srlRefresh.setOnRefreshListener {
-            viewModel.onRefresh()
-            binding.search.etSearch.setText("")
-        }
-
         viewModel.swipeRefreshLayoutFinished.asLiveData()
             .observe(viewLifecycleOwner) {
                 binding.srlRefresh.isRefreshing = false
             }
 
         binding.run {
+            srlRefresh.setOnRefreshListener {
+                viewModel.onRefresh()
+                binding.search.etSearch.setText("")
+            }
+
             search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     val search = search.etSearch.text.toString()
@@ -96,7 +95,7 @@ class DrinksFragment : Fragment() {
 
             btnFav.setOnClickListener {
                 refresh("", 0, true)
-                Utils.updateColors(requireContext(), btnFav,btnAll, btnClassic, btnAwesome)
+                Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnAwesome)
             }
         }
     }

@@ -70,34 +70,50 @@ class EditDrinkFragment : Fragment() {
                 imageBytes = inputStream?.readBytes()
                 inputStream?.close()
 
-                val bitmap = imageBytes?.let { it1 -> BitmapFactory.decodeByteArray(imageBytes, 0, it1.size) }
+                val bitmap = imageBytes?.let { it1 ->
+                    BitmapFactory.decodeByteArray(
+                        imageBytes,
+                        0,
+                        it1.size
+                    )
+                }
                 binding.ivDrinkImage.setImageBitmap(bitmap)
             }
         }
 
-        binding.ivDrinkImage.setOnClickListener {
-            filePickerLauncher.launch("image/*")
+        binding.run {
+            ivDrinkImage.setOnClickListener {
+                filePickerLauncher.launch("image/*")
+            }
+
+            drinkRadioGroup.setOnCheckedChangeListener { _, id ->
+                category = if (id == R.id.btnClassic) 1
+                else 2
+            }
+
+            btnSave.setOnClickListener {
+                val title = binding.etTitle.text.toString()
+                val subtitle = binding.etSubtitle.text.toString()
+                val details = binding.etDetails.text.toString()
+                val ingredients = binding.etIngredients.text.toString()
+
+                val drink = Drink(
+                    navArgs.id,
+                    title,
+                    subtitle,
+                    details,
+                    ingredients,
+                    category,
+                    imageBytes,
+                    isFav
+                )
+                viewModel.editDrink(navArgs.id, drink)
+                val bundle = Bundle()
+                bundle.putBoolean("refresh", true)
+                setFragmentResult("from_edit_drink", bundle)
+                NavHostFragment.findNavController(this@EditDrinkFragment).popBackStack()
+            }
         }
-
-        binding.drinkRadioGroup.setOnCheckedChangeListener { _, id ->
-            category = if (id == R.id.btnClassic) 1
-            else 2
-        }
-
-        binding.btnSave.setOnClickListener {
-            val title = binding.etTitle.text.toString()
-            val subtitle = binding.etSubtitle.text.toString()
-            val details = binding.etDetails.text.toString()
-            val ingredients = binding.etIngredients.text.toString()
-
-            val drink =  Drink(navArgs.id, title, subtitle, details, ingredients, category, imageBytes, isFav)
-            viewModel.editDrink(navArgs.id,drink)
-            val bundle = Bundle()
-            bundle.putBoolean("refresh", true)
-            setFragmentResult("from_edit_drink", bundle)
-            NavHostFragment.findNavController(this).popBackStack()
-        }
-
     }
 
     private fun ContentResolver.getFileName(fileUri: Uri): String {

@@ -116,24 +116,22 @@
                     android:layout_height="wrap_content"
                     android:minHeight="30dp"
                     android:text="Edit"
-                    android:textColor="@color/almond"
+                    android:textColor="@color/smoky"
+                    app:backgroundTint="@color/beige"
                     app:cornerRadius="20dp"
                     app:layout_flexBasisPercent="49%"
-                    app:layout_minHeight="50dp"
-                    app:strokeColor="@color/almond"
-                    app:strokeWidth="1dp" />
+                    app:layout_minHeight="50dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Delete"
-                    android:textColor="@color/almond"
+                    android:textColor="@color/beige"
+                    app:backgroundTint="@color/chestnut"
                     app:cornerRadius="20dp"
                     app:layout_flexBasisPercent="49%"
-                    app:layout_minHeight="50dp"
-                    app:strokeColor="@color/almond"
-                    app:strokeWidth="1dp" />
+                    app:layout_minHeight="50dp" />
 
             </com.google.android.flexbox.FlexboxLayout>
 

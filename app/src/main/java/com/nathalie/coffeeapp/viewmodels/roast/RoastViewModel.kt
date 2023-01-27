@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.Roast
 import com.nathalie.coffeeapp.repository.RoastRepository
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class RoastViewModel(private val repo: RoastRepository): ViewModel() {
-    val roasts : MutableLiveData<List<Roast>> = MutableLiveData()
+class RoastViewModel(private val repo: RoastRepository) : ViewModel() {
+    val roasts: MutableLiveData<List<Roast>> = MutableLiveData()
+    val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
 
     init {
         getRoasts()
@@ -19,6 +22,14 @@ class RoastViewModel(private val repo: RoastRepository): ViewModel() {
         viewModelScope.launch {
             var res = repo.getRoasts()
             roasts.value = res
+        }
+    }
+
+    fun onRefresh() {
+        viewModelScope.launch {
+            delay(1000)
+            getRoasts()
+            swipeRefreshLayoutFinished.emit(Unit)
         }
     }
 

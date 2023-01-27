@@ -84,7 +84,6 @@ class DrinkDetailFragment : Fragment() {
                 .setBackgroundTint(resources.getColor(R.color.almond))
                 .setActionTextColor(resources.getColor(R.color.chestnut))
                 .setTextColor(resources.getColor(R.color.smoky))
-                .setAnchorView(binding.btnEdit)
                 .show()
         }
 

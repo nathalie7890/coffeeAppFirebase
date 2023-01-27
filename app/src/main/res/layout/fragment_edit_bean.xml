@@ -54,13 +54,14 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/add_drink_bean_input"
         android:hint="Subtitle"
-        android:padding="10dp"
         android:lines="1"
+        android:padding="10dp"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+
     <EditText
         android:id="@+id/etTaste"
         android:layout_width="match_parent"
@@ -68,8 +69,8 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/add_drink_bean_input"
         android:hint="Taste"
-        android:padding="10dp"
         android:lines="1"
+        android:padding="10dp"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,13 +94,14 @@
         app:layout_constraintTop_toBottomOf="@+id/etTaste" />
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etDetails">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -125,7 +127,7 @@
                 android:valueFrom="0"
                 android:valueTo="3"
                 app:thumbColor="@color/chestnut"
-                app:tickColor="@color/white"
+                app:tickColor="@color/smoky"
                 app:tickVisible="true"
                 app:trackColor="@color/chestnut" />
         </LinearLayout>
@@ -155,7 +157,7 @@
                 android:valueFrom="0"
                 android:valueTo="5"
                 app:thumbColor="@color/chestnut"
-                app:tickColor="@color/white"
+                app:tickColor="@color/smoky"
                 app:tickVisible="true"
                 app:trackColor="@color/chestnut" />
         </LinearLayout>
@@ -171,9 +173,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Caffeine"
                 android:ellipsize="end"
                 android:lines="1"
+                android:text="Caffeine"
                 android:textColor="@color/almond"
                 android:textSize="16sp" />
 
@@ -187,7 +189,7 @@
                 android:valueFrom="0"
                 android:valueTo="5"
                 app:thumbColor="@color/chestnut"
-                app:tickColor="@color/white"
+                app:tickColor="@color/smoky"
                 app:tickVisible="true"
                 app:trackColor="@color/chestnut" />
         </LinearLayout>
