@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class EditDrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
     val drink: MutableLiveData<Drink> = MutableLiveData()
 
-    //find Drink that matches the id
+    // find Drink that matches the id
     fun getDrinkById(id: Long) {
         viewModelScope.launch {
             repo.getDrinkById(id).collect() {
@@ -20,7 +20,7 @@ class EditDrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
         }
     }
 
-    //edit Drink that matches the id
+    // edit Drink that matches the id
     fun editDrink(id: Long, drink: Drink) {
         viewModelScope.launch {
             repo.updateDrink(id, drink)

@@ -3,8 +3,11 @@ package com.nathalie.coffeeapp.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// -> Entity data class for use by the BeanRepository and CoffeeDatabase (Bean is an entity and in RoomDatabase will appear as a Table with columns and rows)
 @Entity
 data class Bean(
+
+    // -> PrimaryKey is a unique ID used in RoomDatabase to differentiate all the Beans(assigned to the ID)
     @PrimaryKey
     val id: Long? = null,
     val title: String,

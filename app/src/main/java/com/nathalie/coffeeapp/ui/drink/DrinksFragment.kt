@@ -1,6 +1,5 @@
 package com.nathalie.coffeeapp.ui.drink
 
-
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
@@ -24,7 +23,6 @@ import com.nathalie.coffeeapp.utils.Utils
 import com.nathalie.coffeeapp.utils.Utils.hideKeyboard
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import com.nathalie.coffeeapp.viewmodels.drink.DrinkViewModel
-
 
 class DrinksFragment : Fragment() {
     private lateinit var adapter: DrinkAdapter
@@ -100,24 +98,21 @@ class DrinksFragment : Fragment() {
         }
     }
 
-    //fetch words
+    // fetch words
     fun refresh(str: String, cat: Int, fav: Boolean) {
         viewModel.getDrinks(str, cat, fav)
     }
 
-
-    //adapter for words
+    // adapter for words
     fun setupAdapter() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = DrinkAdapter(emptyList()) {
             val action = MainFragmentDirections.actionMainToDetail(it.id!!)
             NavHostFragment.findNavController(this).navigate(action)
         }
-
         binding.rvDrinks.adapter = adapter
         binding.rvDrinks.layoutManager = layoutManager
     }
-
 
     companion object {
         private var drinksFragmentInstance: DrinksFragment? = null

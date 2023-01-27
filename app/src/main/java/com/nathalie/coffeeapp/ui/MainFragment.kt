@@ -88,8 +88,6 @@ class MainFragment : Fragment() {
             viewModel.shouldRefreshRoast(refresh)
         }
 
-
-
         TabLayoutMediator(binding.tlCoffee, binding.vpCoffee) { tab, pos ->
             when (pos) {
                 0 -> {

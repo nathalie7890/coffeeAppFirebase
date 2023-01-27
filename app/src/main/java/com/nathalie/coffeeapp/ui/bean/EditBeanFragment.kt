@@ -56,8 +56,8 @@ class EditBeanFragment : Fragment() {
             }
         }
 
-        //when an image file is selected, convert it to byteArray and store it in variable imageBytes
-        //decode imageBytes to bitmap and display the image on ivBeanImage
+        // when an image file is selected, convert it to byteArray and store it in variable imageBytes
+        // decode imageBytes to bitmap and display the image on ivBeanImage
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
@@ -76,12 +76,12 @@ class EditBeanFragment : Fragment() {
         }
 
         binding.run {
-            //when the this image image is clicked, opens gallery
+            // when the this image image is clicked, opens gallery
             ivBeanImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
 
-            //when save btn is clicked, update bean and go back to the previous fragment
+            // when save btn is clicked, update bean and go back to the previous fragment
             btnSave.setOnClickListener {
                 val title = binding.etTitle.text.toString()
                 val subtitle = binding.etSubtitle.text.toString()

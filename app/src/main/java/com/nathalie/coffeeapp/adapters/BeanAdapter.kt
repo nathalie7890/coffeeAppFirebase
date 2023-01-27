@@ -8,17 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nathalie.coffeeapp.data.model.Bean
 import com.nathalie.coffeeapp.databinding.ItemLayoutBeanBinding
 
+// Contains functions and information for the RecyclerView(list that holds all the Beans)
+// items(list of Beans), onClick(function to get details of a specific Bean to navigate to that Bean's details)
 class BeanAdapter(
     private var items: List<Bean>,
     val onClick: (item: Bean) -> Unit
 ) : RecyclerView.Adapter<BeanAdapter.ItemBeanHolder>() {
 
+    // create UI that will hold and display the data
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemBeanHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemLayoutBeanBinding.inflate(layoutInflater, parent, false)
         return ItemBeanHolder(binding)
     }
 
+    // bind Beans data that will be displayed by the above created UI
     override fun onBindViewHolder(holder: ItemBeanHolder, position: Int) {
         val item = items[position]
 
@@ -48,15 +52,16 @@ class BeanAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    // returns the number of Beans data in the list
+    override fun getItemCount() = items.size
 
+    // fetches list of Beans and "refreshes" the cache if there are any changes to the list
     fun setBeans(items: List<Bean>) {
         this.items = items
         notifyDataSetChanged()
     }
 
+    // child class that is binding to the UI, used by the above class
     class ItemBeanHolder(val binding: ItemLayoutBeanBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

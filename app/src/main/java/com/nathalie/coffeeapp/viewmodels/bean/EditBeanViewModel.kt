@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class EditBeanViewModel(private val repo: BeanRepository):ViewModel() {
     val bean: MutableLiveData<Bean> = MutableLiveData()
 
-    //find bean that matches the id
+    // find bean that matches the id
     fun getBeanById(id: Long) {
         viewModelScope.launch {
             val res = repo.getBeanById(id)
@@ -21,7 +21,7 @@ class EditBeanViewModel(private val repo: BeanRepository):ViewModel() {
         }
     }
 
-    //edit bean that matches the id
+    // edit bean that matches the id
     fun editBean(id: Long, bean: Bean) {
         viewModelScope.launch {
             repo.updateBean(id, bean)

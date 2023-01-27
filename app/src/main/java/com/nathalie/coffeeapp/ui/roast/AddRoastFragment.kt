@@ -35,8 +35,8 @@ class AddRoastFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //when an image file is selected, convert it to byteArray and store it in variable bytes
-        //decode the bytes to bitmap and display the image on ivRoastImage
+        // when an image file is selected, convert it to byteArray and store it in variable bytes
+        // decode the bytes to bitmap and display the image on ivRoastImage
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
@@ -50,12 +50,12 @@ class AddRoastFragment : Fragment() {
 
         binding.run {
 
-            //when the this image image is clicked, opens gallery
+            // when the this image image is clicked, opens gallery
             ivRoastImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
 
-            //when add btn is clicked, add roast to room db and go back to the previous fragment
+            // when add btn is clicked, add roast to room db and go back to the previous fragment
             btnAdd.setOnClickListener {
                 val title = etTitle.text.toString()
                 val details = etDetails.text.toString()

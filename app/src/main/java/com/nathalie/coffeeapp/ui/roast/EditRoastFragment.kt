@@ -55,8 +55,8 @@ class EditRoastFragment : Fragment() {
             }
         }
 
-        //when an image file is selected, convert it to byteArray and store it in variable imageBytes
-        //decode imageBytes to bitmap and display the image on ivRoastImage
+        // when an image file is selected, convert it to byteArray and store it in variable imageBytes
+        // decode imageBytes to bitmap and display the image on ivRoastImage
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
@@ -74,13 +74,13 @@ class EditRoastFragment : Fragment() {
             }
         }
         binding.run {
-            //when the this image image is clicked, opens gallery
+            // when the this image image is clicked, opens gallery
             ivRoastImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
 
-            //when save btn is clicked, update roast and go back to previous fragment
-            //a snackbar will pop up
+            // when save btn is clicked, update roast and go back to previous fragment
+            // a snackbar will pop up
             btnSave.setOnClickListener {
                 val title = etTitle.text.toString()
                 val details = etDetails.text.toString()

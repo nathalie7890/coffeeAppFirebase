@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.nathalie.coffeeapp.R
 
+// Object that contains various utility functions(used in DrinksFragment)
 object Utils {
+    // Changes the button text and background colours
     fun updateColors(context: Context, view: MaterialButton, vararg views: MaterialButton) {
         view.run {
             setBackgroundColor(ContextCompat.getColor(context, R.color.chestnut))
@@ -24,8 +26,6 @@ object Utils {
             it.setTextColor(ContextCompat.getColor(context, R.color.chocolate))
         }
     }
-
-
 
     fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }

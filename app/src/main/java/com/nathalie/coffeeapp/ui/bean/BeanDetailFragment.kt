@@ -46,39 +46,39 @@ class BeanDetailFragment : Fragment() {
 
         viewModel.bean.observe(viewLifecycleOwner) {
             binding.run {
-                //decode ByteArray from it.image to Bitmap and then display the image at ivBeanImage
+                // decode ByteArray from it.image to Bitmap and then display the image at ivBeanImage
                 it.image?.let { bytes ->
                     val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
                     ivBeanImage.setImageBitmap(bitmap)
                 }
 
-                //setting text values of title, subtitle, taste and details
+                // setting text values of title, subtitle, taste and details
                 tvTitle.text = it.title
                 tvSubtitle.text = it.subtitle
                 tvTaste.text = it.taste
                 tvDetails.text = it.details
 
-                //setting 3 sliders value according to the value of it.body, it.aroma and it.caffeine
+                // setting 3 sliders value according to the value of it.body, it.aroma and it.caffeine
                 sliderBody.value = it.body.toFloat()
                 sliderAroma.value = it.aroma.toFloat()
                 sliderCaffeine.value = it.caffeine.toFloat()
 
-                //disable sliding of all 3 sliders
+                // disable sliding of all 3 sliders
                 sliderBody.isEnabled = false
                 sliderAroma.isEnabled = false
                 sliderCaffeine.isEnabled = false
             }
         }
 
-        //when edit button is clicked, user will be taken to edit bean fragment along with its id passed through navArgs
+        // when edit button is clicked, user will be taken to edit bean fragment along with its id passed through navArgs
         binding.btnEdit.setOnClickListener {
             val action = BeanDetailFragmentDirections.actionBeanDetailToEditBean(navArgs.id)
             NavHostFragment.findNavController(this).navigate(action)
         }
 
 
-        //when delete btn is clicked, a dialog that requests confirmation will pop up
-        //once confirmed, this coffee bean will be deleted
+        // when delete btn is clicked, a dialog that requests confirmation will pop up
+        // once confirmed, this coffee bean will be deleted
         binding.btnDelete.setOnClickListener {
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)
@@ -94,12 +94,12 @@ class BeanDetailFragment : Fragment() {
                 .show()
         }
 
-        //this is coming from edit bean fragment, it will refresh the current fragment
+        // this is coming from edit bean fragment, it will refresh the current fragment
         setFragmentResultListener("from_edit_bean") { _, result ->
             val refresh = result.getBoolean("refresh")
             parentViewModel.shouldRefreshDrinks(refresh)
 
-            //Snackbar that tells user the coffee bean is updated, with an action button that once clicked, will take user back to BeanFragment.kt
+            // Snackbar that tells user the coffee bean is updated, with an action button that once clicked, will take user back to BeanFragment.kt
             snackbar = Snackbar.make(requireView(), "Coffee bean updated!", Snackbar.LENGTH_LONG)
             val view2 = snackbar!!.view
             val params = view2.layoutParams as FrameLayout.LayoutParams

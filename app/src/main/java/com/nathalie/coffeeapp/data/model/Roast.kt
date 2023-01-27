@@ -1,11 +1,13 @@
 package com.nathalie.coffeeapp.data.model
 
-import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// -> Entity data class for use by the RoastRepository and CoffeeDatabase(Roast is an entity and in RoomDatabase will appear as a Table with columns and rows)
 @Entity
 data class Roast(
+
+    // -> PrimaryKey is a unique ID used in RoomDatabase to differentiate all the Roasts(assigned to the ID)
     @PrimaryKey
     val id: Long? = null,
     val title: String,

@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class BeanDetailViewModel(private val repo: BeanRepository): ViewModel() {
     val bean: MutableLiveData<Bean> = MutableLiveData()
 
-    //find bean that matches the id
+    // find bean that matches the id
     fun getBeanById(id: Long) {
         viewModelScope.launch {
             val res = repo.getBeanById(id)
@@ -21,7 +21,7 @@ class BeanDetailViewModel(private val repo: BeanRepository): ViewModel() {
         }
     }
 
-    //delete bean that matches the id
+    // delete bean that matches the id
     fun deleteBean(id: Long) {
         viewModelScope.launch {
             repo.deleteBean(id)

@@ -19,10 +19,13 @@ import com.nathalie.coffeeapp.data.model.Bean
 import com.nathalie.coffeeapp.databinding.FragmentAddBeanBinding
 import com.nathalie.coffeeapp.viewmodels.bean.AddBeanViewModel
 
+// Fragment/View bound to the AddBean UI
 class AddBeanFragment : Fragment() {
     private lateinit var binding: FragmentAddBeanBinding
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var bytes: ByteArray? = null
+
+    // accessing the corresponding viewModel functions
     private val viewModel: AddBeanViewModel by viewModels {
         AddBeanViewModel.Provider((requireActivity().applicationContext as MyApplication).beanRepo)
     }
@@ -31,6 +34,7 @@ class AddBeanFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // defining the .xml file to bind this fragment to
         binding = FragmentAddBeanBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -38,8 +42,8 @@ class AddBeanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //when an image file is selected, convert it to byteArray and store it in variable bytes
-        //decode the bytes to bitmap and display the image on ivBeanImage
+        // when an image file is selected, convert it to byteArray and store it in variable bytes
+        // decode the bytes to bitmap and display the image on ivBeanImage
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
@@ -52,12 +56,12 @@ class AddBeanFragment : Fragment() {
         }
 
         binding.run {
-            //when the this image image is clicked, opens gallery
+            // when the this image image is clicked, opens gallery
             ivBeanImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
 
-            //when add btn is clicked, add bean to room db and go back to the previous fragment
+            // when addBtn is clicked, add bean to room db and go back to the previous fragment
             btnAdd.setOnClickListener {
                 val title = binding.etTitle.text.toString()
                 val subtitle = binding.etSubtitle.text.toString()

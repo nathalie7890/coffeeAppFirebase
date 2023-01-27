@@ -92,8 +92,8 @@ class DrinkDetailFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(action)
         }
 
-        //when delete btn is clicked, show a Dialog that requests confirmation
-        //if confirmed, this drink is deleted
+        // when delete btn is clicked, show a Dialog that requests confirmation
+        // if confirmed, this drink is deleted
         binding.btnDelete.setOnClickListener {
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)
@@ -109,7 +109,7 @@ class DrinkDetailFragment : Fragment() {
                 .show()
         }
 
-        //from edit drink fragment. After refresh, show Snackbar with an action btn to go back to Drink Fragment
+        // from edit drink fragment. After refresh, show Snackbar with an action btn to go back to Drink Fragment
         setFragmentResultListener("from_edit_drink") { _, result ->
             val refresh = result.getBoolean("refresh")
             parentViewModel.shouldRefreshDrinks(refresh)

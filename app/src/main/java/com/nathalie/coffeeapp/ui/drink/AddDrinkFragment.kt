@@ -51,12 +51,12 @@ class AddDrinkFragment : Fragment() {
             }
         }
 
-        //when ivDrinkImage is clicked, go to gallery
+        // when ivDrinkImage is clicked, go to gallery
         binding.ivDrinkImage.setOnClickListener {
             filePickerLauncher.launch("image/*")
         }
 
-        //when one of the radio buttons in radio group of "Hot" & "Cold" is selected, save it's value to category
+        // when one of the radio buttons in radio group of "Hot" & "Cold" is selected, save it's value to category
         binding.drinkRadioGroup.setOnCheckedChangeListener { _, id ->
             category = if (id == R.id.btnClassic) 1
             else 2
