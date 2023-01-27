@@ -20,12 +20,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navController = findNavController(R.id.navHostFragment)
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-
-        val navigationView = findViewById<NavigationView>(R.id.navigationView)
-        navigationView.setupWithNavController(navController)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+//        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+//
+//        val navigationView = findViewById<NavigationView>(R.id.navigationView)
+//        navigationView.setupWithNavController(navController)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
 
