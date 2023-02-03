@@ -20,6 +20,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.databinding.FragmentDrinkDetailBinding
+import com.nathalie.coffeeapp.utils.Utils
+import com.nathalie.coffeeapp.utils.Utils.showSnackbar
+import com.nathalie.coffeeapp.utils.Utils.showSnackbarAction
 import com.nathalie.coffeeapp.viewmodels.drink.DrinkDetailViewModel
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 
@@ -63,28 +66,22 @@ class DrinkDetailFragment : Fragment() {
             }
         }
 
-        binding.btnFav.setOnClickListener { view ->
-            Log.d("debug", viewModel.isFav().toString())
+        binding.btnFav.setOnClickListener { _ ->
             var favMsg = ""
 
-            if (viewModel.isFav()) {
+            favMsg = if (viewModel.isFav()) {
                 viewModel.favDrink(navArgs.id, false)
-                favMsg = "Removed from favorite!"
+                "Removed from favorite!"
             } else {
                 viewModel.favDrink(navArgs.id, true)
-                favMsg = "Added to favorite!"
+                "Added to favorite!"
             }
 
-            val snackbar = Snackbar.make(requireView(), favMsg, Snackbar.LENGTH_SHORT)
-            val view2 = snackbar.view
-            val params = view2.layoutParams as FrameLayout.LayoutParams
-            params.gravity = Gravity.TOP
-            view2.layoutParams = params
-            snackbar
-                .setBackgroundTint(resources.getColor(R.color.almond))
-                .setActionTextColor(resources.getColor(R.color.chestnut))
-                .setTextColor(resources.getColor(R.color.smoky))
-                .show()
+            showSnackbar(
+                requireView(),
+                requireContext(),
+                favMsg
+            )
         }
 
         binding.btnEdit.setOnClickListener {
@@ -95,6 +92,7 @@ class DrinkDetailFragment : Fragment() {
         // when delete btn is clicked, show a Dialog that requests confirmation
         // if confirmed, this drink is deleted
         binding.btnDelete.setOnClickListener {
+            val title = binding.tvTitle.text.toString()
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)
             MaterialAlertDialogBuilder(requireContext(), R.style.CoffeeApp_AlertDialog)
@@ -104,6 +102,7 @@ class DrinkDetailFragment : Fragment() {
                     viewModel.deleteDrink(navArgs.id)
                     setFragmentResult("from_delete_drink", bundle)
                     NavHostFragment.findNavController(this).popBackStack()
+                    showSnackbar(requireView(), requireContext(), "$title deleted!")
                 }.setNegativeButton("Cancel") { _, it ->
                 }
                 .show()
@@ -112,21 +111,15 @@ class DrinkDetailFragment : Fragment() {
         // from edit drink fragment. After refresh, show Snackbar with an action btn to go back to Drink Fragment
         setFragmentResultListener("from_edit_drink") { _, result ->
             val refresh = result.getBoolean("refresh")
+            val title = result.getString("title")
             parentViewModel.shouldRefreshDrinks(refresh)
-            snackbar = Snackbar.make(requireView(), "Drink updated!", Snackbar.LENGTH_LONG)
-            val view2 = snackbar!!.view
-            val params = view2.layoutParams as FrameLayout.LayoutParams
-            params.gravity = Gravity.TOP
-            view2.layoutParams = params
-            snackbar!!
-                .setAction("Back To Drinks") {
-                    NavHostFragment.findNavController(this).popBackStack()
-                }
-                .setBackgroundTint(resources.getColor(R.color.almond))
-                .setActionTextColor(resources.getColor(R.color.chestnut))
-                .setTextColor(resources.getColor(R.color.smoky))
-                .setAnchorView(binding.btnEdit)
-                .show()
+            snackbar = showSnackbarAction(
+                requireView(),
+                requireContext(),
+                "$title updated!",
+                this,
+                "Back to drinks"
+            )
         }
     }
 

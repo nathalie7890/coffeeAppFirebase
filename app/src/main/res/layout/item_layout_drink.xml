@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="top"
+                android:fontFamily="@font/quicksand"
                 android:text="Title"
                 android:textColor="@color/almond"
                 android:textSize="20sp"
@@ -59,7 +60,7 @@
             android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:text="Subtitle"
-            android:textColor="@color/beige"
+            android:textColor="@color/grey"
             android:textSize="13sp" />
     </LinearLayout>
 

@@ -1,21 +1,20 @@
 package com.nathalie.coffeeapp.ui.drink
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.nathalie.coffeeapp.MyApplication
-import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.adapters.DrinkAdapter
 import com.nathalie.coffeeapp.databinding.FragmentDrinksBinding
 import com.nathalie.coffeeapp.ui.MainFragmentDirections
@@ -41,6 +40,12 @@ class DrinksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("debug", orientation.toString())
+        } else {
+            Log.d("debug", orientation.toString())
+        }
 
         setupAdapter()
 

@@ -18,6 +18,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.databinding.FragmentBeanDetailBinding
+import com.nathalie.coffeeapp.utils.Utils
+import com.nathalie.coffeeapp.utils.Utils.showSnackbar
 import com.nathalie.coffeeapp.viewmodels.bean.BeanDetailViewModel
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 
@@ -80,6 +82,7 @@ class BeanDetailFragment : Fragment() {
         // when delete btn is clicked, a dialog that requests confirmation will pop up
         // once confirmed, this coffee bean will be deleted
         binding.btnDelete.setOnClickListener {
+            val title = binding.tvTitle.text.toString()
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)
             MaterialAlertDialogBuilder(requireContext(), R.style.CoffeeApp_AlertDialog)
@@ -89,6 +92,7 @@ class BeanDetailFragment : Fragment() {
                     viewModel.deleteBean(navArgs.id)
                     setFragmentResult("from_delete_bean", bundle)
                     NavHostFragment.findNavController(this).popBackStack()
+                    showSnackbar(requireView(), requireContext(), "$title deleted!")
                 }.setNegativeButton("Cancel") { _, it ->
                 }
                 .show()
@@ -97,23 +101,17 @@ class BeanDetailFragment : Fragment() {
         // this is coming from edit bean fragment, it will refresh the current fragment
         setFragmentResultListener("from_edit_bean") { _, result ->
             val refresh = result.getBoolean("refresh")
+            val title = result.getString("title")
             parentViewModel.shouldRefreshDrinks(refresh)
 
             // Snackbar that tells user the coffee bean is updated, with an action button that once clicked, will take user back to BeanFragment.kt
-            snackbar = Snackbar.make(requireView(), "Coffee bean updated!", Snackbar.LENGTH_LONG)
-            val view2 = snackbar!!.view
-            val params = view2.layoutParams as FrameLayout.LayoutParams
-            params.gravity = Gravity.TOP
-            view2.layoutParams = params
-            snackbar!!
-                .setAction("Back To Beans") {
-                    NavHostFragment.findNavController(this).popBackStack()
-                }
-                .setBackgroundTint(resources.getColor(R.color.almond))
-                .setActionTextColor(resources.getColor(R.color.chestnut))
-                .setTextColor(resources.getColor(R.color.smoky))
-                .setAnchorView(binding.btnEdit)
-                .show()
+            snackbar = Utils.showSnackbarAction(
+                requireView(),
+                requireContext(),
+                "$title updated!",
+                this,
+                "Back to beans"
+            )
         }
     }
 

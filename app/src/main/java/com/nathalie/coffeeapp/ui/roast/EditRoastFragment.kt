@@ -14,11 +14,14 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.Roast
 import com.nathalie.coffeeapp.databinding.FragmentEditRoastBinding
+import com.nathalie.coffeeapp.utils.Utils
+import com.nathalie.coffeeapp.utils.Utils.showSnackbar
 import com.nathalie.coffeeapp.viewmodels.bean.EditBeanViewModel
 import com.nathalie.coffeeapp.viewmodels.roast.EditRoastViewModel
 
@@ -92,36 +95,30 @@ class EditRoastFragment : Fragment() {
                 setFragmentResult("from_edit_roast", bundle)
                 NavHostFragment.findNavController(this@EditRoastFragment).popBackStack()
 
-                val snackbar =
-                    Snackbar.make(requireView(), "Roast level updated!", Snackbar.LENGTH_SHORT)
-                val view2 = snackbar.view
-                val params = view2.layoutParams as FrameLayout.LayoutParams
-                params.gravity = Gravity.TOP
-                view2.layoutParams = params
-                snackbar
-                    .setBackgroundTint(resources.getColor(R.color.almond))
-                    .setActionTextColor(resources.getColor(R.color.chestnut))
-                    .setTextColor(resources.getColor(R.color.smoky))
-                    .show()
+                showSnackbar(
+                    requireView(),
+                    requireContext(),
+                    "$title updated!"
+                )
             }
 
+            //when delete btn is clicked, confirmation dialog will pop up
+            //if confirmed, drink will be deleted and snackbar will indicate the users of the deletion
             btnDelete.setOnClickListener {
-                viewModel.deleteRoast(navArgs.id)
+                val title = etTitle.text.toString()
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
-                setFragmentResult("from_delete_roast", bundle)
-                NavHostFragment.findNavController(this@EditRoastFragment).popBackStack()
 
-                val snackbar =
-                    Snackbar.make(requireView(), "Roast deleted!", Snackbar.LENGTH_SHORT)
-                val view2 = snackbar.view
-                val params = view2.layoutParams as FrameLayout.LayoutParams
-                params.gravity = Gravity.TOP
-                view2.layoutParams = params
-                snackbar
-                    .setBackgroundTint(resources.getColor(R.color.almond))
-                    .setActionTextColor(resources.getColor(R.color.chestnut))
-                    .setTextColor(resources.getColor(R.color.smoky))
+                MaterialAlertDialogBuilder(requireContext(), R.style.CoffeeApp_AlertDialog)
+                    .setTitle("Delete $title?")
+                    .setCancelable(true)
+                    .setPositiveButton("Delete") { _, it ->
+                        viewModel.deleteRoast(navArgs.id)
+                        setFragmentResult("from_delete_drink", bundle)
+                        NavHostFragment.findNavController(this@EditRoastFragment).popBackStack()
+                        showSnackbar(requireView(), requireContext(), "$title deleted!")
+                    }.setNegativeButton("Cancel") { _, it ->
+                    }
                     .show()
             }
         }

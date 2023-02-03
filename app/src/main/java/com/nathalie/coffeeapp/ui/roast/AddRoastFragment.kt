@@ -2,18 +2,24 @@ package com.nathalie.coffeeapp.ui.roast
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.snackbar.Snackbar
 import com.nathalie.coffeeapp.MyApplication
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.Roast
 import com.nathalie.coffeeapp.databinding.FragmentAddRoastBinding
+import com.nathalie.coffeeapp.utils.Utils
+import com.nathalie.coffeeapp.utils.Utils.showSnackbar
 import com.nathalie.coffeeapp.viewmodels.roast.AddRoastViewModel
 
 class AddRoastFragment : Fragment() {
@@ -60,12 +66,21 @@ class AddRoastFragment : Fragment() {
                 val title = etTitle.text.toString()
                 val details = etDetails.text.toString()
 
-                val roast = Roast(null, title, details, bytes)
-                viewModel.addRoast(roast)
-                val bundle = Bundle()
-                bundle.putBoolean("refresh", true)
-                setFragmentResult("from_add_roast", bundle)
-                NavHostFragment.findNavController(this@AddRoastFragment).popBackStack()
+                if (title.isNotEmpty() || details.isNotEmpty()) {
+                    val roast = Roast(null, title, details, bytes)
+                    viewModel.addRoast(roast)
+                    val bundle = Bundle()
+                    bundle.putBoolean("refresh", true)
+                    setFragmentResult("from_add_roast", bundle)
+                    NavHostFragment.findNavController(this@AddRoastFragment).popBackStack()
+                    showSnackbar(requireView(), requireContext(), "$title added to Roast Levels!")
+                } else {
+                    showSnackbar(
+                        requireView(),
+                        requireContext(),
+                        "Make sure you fill in everything!"
+                    )
+                }
             }
         }
     }

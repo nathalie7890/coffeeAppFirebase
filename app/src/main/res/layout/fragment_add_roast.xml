@@ -5,75 +5,106 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/smoky"
-    android:paddingHorizontal="50dp"
-    android:paddingVertical="30dp"
     tools:context=".ui.roast.AddRoastFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cvImage"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/chocolate"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/etTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
-        <ImageView
-            android:id="@+id/ivRoastImage"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnAdd"
+        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:clickable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/upload_image_roast" />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/add_drink_bean_input"
-        android:hint="Title"
-        android:padding="15dp"
-        android:textColor="@color/almond"
-        android:textColorHint="@color/almond"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvImage" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/chocolate"
+                app:strokeWidth="2dp">
 
-    <EditText
-        android:id="@+id/etDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/add_drink_bean_input"
-        android:hint="Details"
-        android:padding="10dp"
-        android:lines="15"
-        android:gravity="top"
-        android:textColor="@color/grey"
-        android:textColorHint="@color/grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+                <ImageView
+                    android:id="@+id/ivRoastImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/upload_image_roast" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/add_drink_bean_input"
+                android:hint="Title"
+                android:padding="10dp"
+                android:textColor="@color/almond"
+                android:textColorHint="@color/almond" />
+
+            <EditText
+                android:id="@+id/etDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/add_drink_bean_input"
+                android:gravity="top"
+                android:hint="Details"
+                android:lines="10"
+                android:padding="10dp"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/grey" />
+
+        </LinearLayout>
+    </ScrollView>
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/chestnut"
         android:text="Add"
         android:textAllCaps="false"
         app:cornerRadius="50dp"
-        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDetails" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

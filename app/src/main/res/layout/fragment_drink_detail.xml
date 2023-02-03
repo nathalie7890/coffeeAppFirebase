@@ -1,140 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/smoky"
-    android:orientation="vertical"
-    android:weightSum="2"
     tools:context=".ui.drink.DrinkDetailFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
 
     <ImageView
         android:id="@+id/ivDrinkImage"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:scaleType="centerCrop"
-        android:src="@drawable/mocha" />
+        android:src="@drawable/mocha"
+        app:layout_constraintBottom_toTopOf="@id/guidelineTop50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvDetails"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-30dp"
-        android:layout_weight="1"
         android:paddingBottom="8dp"
         app:cardBackgroundColor="@color/smoky"
         app:cardCornerRadius="30dp"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@id/llBtns"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop40">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingHorizontal="35dp"
-            android:paddingTop="20dp"
-            android:weightSum="1"
-            app:alignItems="center"
-            app:flexDirection="column"
-            app:justifyContent="space_between">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="Name"
-                    android:textColor="@color/chestnut"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/btnFav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@color/smoky"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_favorite_border" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvSubtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="Description"
-                android:textColor="@color/grey"
-                android:textSize="17sp" />
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp"
+                android:paddingTop="20dp"
+                android:weightSum="1"
+                app:alignItems="center"
+                app:flexDirection="column"
+                app:justifyContent="space_between">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <TextView
-                        android:id="@+id/tvDetails"
+                        android:id="@+id/tvTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="Details"
-                        android:textColor="@color/almond"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tvIngredients"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ingredients/More"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand"
+                        android:text="Name"
                         android:textColor="@color/chestnut"
-                        android:textSize="17sp" />
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/btnFav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/smoky"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_favorite_border" />
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
 
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:justifyContent="space_between">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnEdit"
+                <TextView
+                    android:id="@+id/tvSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="30dp"
-                    android:text="Edit"
-                    android:textColor="@color/smoky"
-                    app:backgroundTint="@color/beige"
-                    app:cornerRadius="20dp"
-                    app:layout_flexBasisPercent="49%"
-                    app:layout_minHeight="50dp" />
+                    android:layout_marginBottom="20dp"
+                    android:text="Description"
+                    android:textColor="@color/grey"
+                    android:textSize="17sp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDelete"
+                <TextView
+                    android:id="@+id/tvDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Delete"
-                    android:textColor="@color/beige"
-                    app:backgroundTint="@color/chestnut"
-                    app:cornerRadius="20dp"
-                    app:layout_flexBasisPercent="49%"
-                    app:layout_minHeight="50dp" />
+                    android:layout_marginBottom="20dp"
+                    android:text="Details"
+                    android:textColor="@color/almond"
+                    android:textSize="18sp" />
 
-            </com.google.android.flexbox.FlexboxLayout>
-
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredients/More"
+                    android:textColor="@color/chestnut"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.cardview.widget.CardView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:weightSum="2"
+        android:paddingHorizontal="30dp"
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvDetails">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:layout_marginEnd="8dp"
+            android:textAllCaps="false"
+            android:textColor="@color/smoky"
+            app:backgroundTint="@color/beige"
+            app:cornerRadius="20dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="@color/beige"
+            app:backgroundTint="@color/chestnut"
+            app:cornerRadius="20dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,138 +5,161 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/smoky"
-    android:paddingHorizontal="50dp"
-    android:paddingVertical="30dp"
-    tools:context=".ui.drink.EditDrinkFragment">
+    tools:context=".ui.drink.AddDrinkFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cvImage"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/chocolate"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/etTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/ivDrinkImage"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:clickable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/upload_image" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/add_drink_bean_input"
-        android:hint="Title"
-        android:padding="15dp"
-        android:textColor="@color/almond"
-        android:textColorHint="@color/almond"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvImage" />
-
-    <EditText
-        android:id="@+id/etSubtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/add_drink_bean_input"
-        android:hint="Subtitle"
-        android:padding="10dp"
-        android:textColor="@color/grey"
-        android:textColorHint="@color/grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle" />
-
-    <EditText
-        android:id="@+id/etDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/add_drink_bean_input"
-        android:gravity="start"
-        android:hint="Details"
-        android:lines="5"
-        android:padding="10dp"
-        android:textColor="@color/grey"
-        android:textColorHint="@color/grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSubtitle" />
-    <EditText
-        android:id="@+id/etIngredients"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/add_drink_bean_input"
-        android:gravity="start"
-        android:hint="Ingredients"
-        android:lines="5"
-        android:padding="10dp"
-        android:textColor="@color/grey"
-        android:textColorHint="@color/grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDetails" />
-    <RadioGroup
-        android:id="@+id/drinkRadioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:checkedButton="@+id/radio_button_1"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etIngredients">
+        app:layout_constraintGuide_percent="0.05" />
 
-        <RadioButton
-            android:id="@+id/btnClassic"
-            style="@style/Widget.App.RadioButton"
-            android:layout_width="0dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnSave"
+        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+        app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Classic"
-            android:textColor="@color/grey"
-            android:textSize="20sp" />
+            android:orientation="vertical">
 
-        <!--            style="@style/Widget.App.RadioButton"-->
-        <RadioButton
-            android:id="@+id/btnNonClassic"
-            style="@style/Widget.App.RadioButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Non Classic"
-            android:textColor="@color/grey"
-            android:textSize="20sp" />
-    </RadioGroup>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/chocolate"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:id="@+id/ivDrinkImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/upload_image" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/add_drink_bean_input"
+                android:hint="Title"
+                android:padding="10dp"
+                android:textColor="@color/almond"
+                android:textColorHint="@color/almond" />
+
+            <EditText
+                android:id="@+id/etSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/add_drink_bean_input"
+                android:hint="Subtitle"
+                android:padding="10dp"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/grey" />
+
+            <EditText
+                android:id="@+id/etDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/add_drink_bean_input"
+                android:gravity="start"
+                android:hint="Details"
+                android:padding="10dp"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/grey" />
+
+            <EditText
+                android:id="@+id/etIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/add_drink_bean_input"
+                android:gravity="start"
+                android:hint="Ingredients"
+                android:padding="10dp"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/grey" />
+
+            <RadioGroup
+                android:id="@+id/drinkRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:checkedButton="@+id/radio_button_1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/btnClassic"
+                    style="@style/Widget.App.RadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Classic"
+                    android:textColor="@color/grey"
+                    android:textSize="20sp" />
+
+                <!--            style="@style/Widget.App.RadioButton"-->
+                <RadioButton
+                    android:id="@+id/btnAwesome"
+                    style="@style/Widget.App.RadioButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Awesome"
+                    android:textColor="@color/grey"
+                    android:textSize="20sp" />
+            </RadioGroup>
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
         android:backgroundTint="@color/chestnut"
         android:text="Save"
         android:textAllCaps="false"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft" />
 </androidx.constraintlayout.widget.ConstraintLayout>

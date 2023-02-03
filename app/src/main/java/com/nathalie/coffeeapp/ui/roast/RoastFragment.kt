@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -12,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
@@ -70,8 +72,12 @@ class RoastFragment : Fragment() {
     }
 
     fun setupAdapter() {
-        val layoutManager =
+        val orientation = resources.configuration.orientation
+        val layoutManager: LinearLayoutManager = if (orientation == 1) {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        } else {
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
         adapter = RoastAdapter(emptyList()) {
             val action = MainFragmentDirections.actionMainToEditRoast(it)
             NavHostFragment.findNavController(this).navigate(action)

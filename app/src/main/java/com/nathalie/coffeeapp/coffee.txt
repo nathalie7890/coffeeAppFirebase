@@ -134,10 +134,12 @@ insert into bean values
 INSERT INTO ROAST
 ----------------------------------------------------------------------------------------------------
 insert into roast values
-(1, "Light Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+(1, "Raw/Unroasted", "Coffee beans are actually a seed, not a vegetable. When the “seeds” or beans are removed from the fruit of the coffee plant, they are green. Later, after they have been roasted, they take on their characteristic, dark brown color. Green coffee beans are dried and cleaned in preparation for roasting.", null),
 
-(2, "Medium Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+(2, "Light Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
 
-(3, "Medium to Dark Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+(3, "Medium Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
 
-(4, "Dark Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+(4, "Medium to Dark Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
+
+(5, "Dark Roast", "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!", null),
