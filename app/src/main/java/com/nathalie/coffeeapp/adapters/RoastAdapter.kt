@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.Bean
 import com.nathalie.coffeeapp.data.model.Roast
 import com.nathalie.coffeeapp.databinding.ItemLayoutRoastBinding
@@ -36,10 +37,24 @@ class RoastAdapter(
             tvTitle2.text = item.title
             tvDetails.text = item.details
 
-            item.image?.let { bytes ->
-                val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
-                ivRoastImage.setImageBitmap(bitmap)
-            }
+            //if image is not null, decode using decodeByteArray
+            //else if defaultImage is not null, decode using decodeResources
+            //else if both are null, default image set in xml will be displayed
+            if (item.image != null) {
+                item.image.let { bytes ->
+                    val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
+                    ivRoastImage.setImageBitmap(bitmap)
+                }
+            } else if (item.defaultImage != null) {
+                val img = holder.itemView.context.resources.getIdentifier(
+                    item.defaultImage,
+                    "drawable",
+                    holder.itemView.context.packageName
+                )
+                ivRoastImage.setImageResource(img)
+            } else ivRoastImage.setImageResource(R.drawable.coffee_bean)
+
+
             val components =
                 arrayOf(ivDarkOverlay, tvTitle, tvTitle2, tvDetails, btnEdit)
             cvRoast.setOnClickListener {

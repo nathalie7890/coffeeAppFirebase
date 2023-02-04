@@ -62,7 +62,7 @@
                     android:layout_height="250dp"
                     android:clickable="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/upload_image" />
+                    android:src="@color/smoky" />
             </com.google.android.material.card.MaterialCardView>
 
             <EditText

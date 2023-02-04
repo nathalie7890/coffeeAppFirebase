@@ -49,10 +49,23 @@ class EditRoastFragment : Fragment() {
         viewModel.getRoastById(navArgs.id)
         viewModel.roast.observe(viewLifecycleOwner) {
             binding.run {
-                it.image?.let { bytes ->
-                    val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
-                    ivRoastImage.setImageBitmap(bitmap)
-                }
+                //if image is not null, decode using decodeByteArray
+                //else if defaultImage is not null, decode using decodeResources
+                //else if both are null, default image set in xml will be displayed
+                if (it.image != null) {
+                    it.image.let { bytes ->
+                        val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
+                        ivRoastImage.setImageBitmap(bitmap)
+                    }
+                } else if (it.defaultImage != null) {
+                    val id = resources.getIdentifier(
+                        it.defaultImage, "drawable",
+                        context?.packageName
+                    )
+                    val img = BitmapFactory.decodeResource(resources, id)
+                    ivRoastImage.setImageBitmap(img)
+                } else ivRoastImage.setImageResource(R.drawable.upload_image_roast)
+
                 etTitle.setText(it.title)
                 etDetails.setText(it.details)
             }

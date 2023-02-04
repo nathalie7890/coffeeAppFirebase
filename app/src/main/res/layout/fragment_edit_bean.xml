@@ -64,7 +64,7 @@
                     android:contentDescription="@string/coffee_bean"
                     android:focusable="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/upload_image_bean" />
+                    android:src="@color/smoky" />
             </com.google.android.material.card.MaterialCardView>
 
             <EditText

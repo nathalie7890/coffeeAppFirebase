@@ -1,0 +1,13 @@
+[
+  {
+    "id": 10,
+    "title": "smtg",
+    "subtitle": "smtg",
+    "details": "smtg",
+    "ingredients": "smtg",
+    "category": 1,
+    "favorite": false,
+    "image": null,
+    "defaultImage": "americano_dark"
+  }
+]

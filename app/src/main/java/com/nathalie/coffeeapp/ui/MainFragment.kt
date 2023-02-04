@@ -39,6 +39,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var currentPage = 0
 
+        //list of fragments in viewPager
         val adapter = ViewPagerAdapter(
             listOf(drinksFragment, beansFragment, roastFragment),
             childFragmentManager,
@@ -88,6 +89,7 @@ class MainFragment : Fragment() {
             viewModel.shouldRefreshRoast(refresh)
         }
 
+        //set tab names and icons
         TabLayoutMediator(binding.tlCoffee, binding.vpCoffee) { tab, pos ->
             when (pos) {
                 0 -> {

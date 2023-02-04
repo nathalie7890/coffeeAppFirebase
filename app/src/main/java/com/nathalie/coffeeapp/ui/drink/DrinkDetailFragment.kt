@@ -2,14 +2,10 @@ package com.nathalie.coffeeapp.ui.drink
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -20,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.databinding.FragmentDrinkDetailBinding
-import com.nathalie.coffeeapp.utils.Utils
 import com.nathalie.coffeeapp.utils.Utils.showSnackbar
 import com.nathalie.coffeeapp.utils.Utils.showSnackbarAction
 import com.nathalie.coffeeapp.viewmodels.drink.DrinkDetailViewModel
@@ -51,10 +46,23 @@ class DrinkDetailFragment : Fragment() {
 
         viewModel.drink.observe(viewLifecycleOwner) {
             binding.run {
-                it.image?.let { bytes ->
-                    val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
-                    ivDrinkImage.setImageBitmap(bitmap)
-                }
+                //if image is not null, decode using decodeByteArray
+                //else if defaultImage is not null, decode using decodeResources
+                //else if both are null, default image set in xml will be displayed
+                if (it.image != null) {
+                    it.image.let { bytes ->
+                        val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
+                        ivDrinkImage.setImageBitmap(bitmap)
+                    }
+                } else if (it.defaultImage != null) {
+                    val id = resources.getIdentifier(
+                        it.defaultImage, "drawable",
+                        context?.packageName
+                    )
+                    val img = BitmapFactory.decodeResource(resources, id)
+                    ivDrinkImage.setImageBitmap(img)
+                } else ivDrinkImage.setImageResource(R.drawable.mocha)
+
                 tvTitle.text = it.title
                 tvSubtitle.text = it.subtitle
                 tvDetails.text = it.details
@@ -65,6 +73,9 @@ class DrinkDetailFragment : Fragment() {
             }
         }
 
+        //when btnFav/heart shape icon is clicked, checked is drink.favorite is true
+        //if true, make drink.favorite false, else make it true
+        //snakcbar will pop up
         binding.btnFav.setOnClickListener { _ ->
             var favMsg = ""
 
@@ -83,6 +94,8 @@ class DrinkDetailFragment : Fragment() {
             )
         }
 
+
+        //when btnEdit is clicked, take user to edit drink fragment
         binding.btnEdit.setOnClickListener {
             val action = DrinkDetailFragmentDirections.actionDrinkDetailToEdit(navArgs.id)
             NavHostFragment.findNavController(this).navigate(action)

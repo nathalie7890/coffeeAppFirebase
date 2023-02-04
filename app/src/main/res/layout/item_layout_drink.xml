@@ -21,7 +21,7 @@
             android:layout_height="130dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/mocha" />
+            android:src="@color/chocolate" />
 
         <LinearLayout
             android:layout_width="match_parent"

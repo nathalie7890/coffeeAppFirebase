@@ -53,10 +53,23 @@ class EditDrinkFragment : Fragment() {
         viewModel.getDrinkById(navArgs.id)
         viewModel.drink.observe(viewLifecycleOwner) {
             binding.run {
-                it.image?.let { bytes ->
-                    val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
-                    ivDrinkImage.setImageBitmap(bitmap)
-                }
+                //if image is not null, decode using decodeByteArray
+                //else if defaultImage is not null, decode using decodeResources
+                //else if both are null, default image set in xml will be displayed
+                if (it.image != null) {
+                    it.image.let { bytes ->
+                        val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
+                        ivDrinkImage.setImageBitmap(bitmap)
+                    }
+                } else if (it.defaultImage != null) {
+                    val id = resources.getIdentifier(
+                        it.defaultImage, "drawable",
+                        context?.packageName
+                    )
+                    val img = BitmapFactory.decodeResource(resources, id)
+                    ivDrinkImage.setImageBitmap(img)
+                } else ivDrinkImage.setImageResource(R.drawable.upload_image)
+
                 etTitle.setText(it.title)
                 etSubtitle.setText(it.subtitle)
                 etDetails.setText(it.details)
@@ -70,6 +83,7 @@ class EditDrinkFragment : Fragment() {
             }
         }
 
+        //get selected image from gallery then display that image
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
@@ -125,8 +139,8 @@ class EditDrinkFragment : Fragment() {
                         details,
                         ingredients,
                         category,
-                        imageBytes,
-                        isFav
+                        isFav,
+                        imageBytes
                     )
                     viewModel.editDrink(navArgs.id, drink)
                     val bundle = Bundle()

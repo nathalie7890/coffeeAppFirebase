@@ -130,7 +130,7 @@
                 android:layout_height="180dp"
                 android:layout_marginBottom="16dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/coffee_bean" />
+                android:src="@color/chocolate" />
 
             <TextView
                 android:id="@+id/tvTitle"

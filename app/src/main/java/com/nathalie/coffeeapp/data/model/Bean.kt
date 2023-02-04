@@ -17,7 +17,8 @@ data class Bean(
     val body: Int,
     val aroma: Int,
     val caffeine: Int,
-    val image: ByteArray? = null
+    val image: ByteArray? = null,
+    val defaultImage: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

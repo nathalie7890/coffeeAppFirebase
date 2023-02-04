@@ -1,10 +1,14 @@
 package com.nathalie.coffeeapp.adapters
 
+import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.Drink
 import com.nathalie.coffeeapp.databinding.ItemLayoutDrinkBinding
 
@@ -23,6 +27,7 @@ class DrinkAdapter(
     }
 
     // bind Drinks data that will be displayed by the above created UI
+
     override fun onBindViewHolder(holder: ItemDrinkHolder, position: Int) {
         val item = items[position]
 
@@ -30,12 +35,27 @@ class DrinkAdapter(
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
 
-            item.image?.let { bytes ->
-                val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
-                ivDrinkImage.setImageBitmap(bitmap)
-            }
+            //if image is not null, decode using decodeByteArray
+            //else if defaultImage is not null, decode using decodeResources
+            //else if both are null, default image set in xml will be displayed
+            if (item.image != null) {
+                item.image.let { bytes ->
+                    val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
+                    ivDrinkImage.setImageBitmap(bitmap)
+                }
+            } else if (item.defaultImage != null) {
+                val img = holder.itemView.context.resources.getIdentifier(
+                    item.defaultImage,
+                    "drawable",
+                    holder.itemView.context.packageName
+                )
+                ivDrinkImage.setImageResource(img)
+            } else ivDrinkImage.setImageResource(R.drawable.mocha)
 
+            //is item.favorite is true, reveal heart icon else hide heart icon
             ivFav.isVisible = item.favorite == true
+
+            //when item is clicked, take user to drink detail fragment
             cvDrinkItem.setOnClickListener {
                 onClick(item)
             }

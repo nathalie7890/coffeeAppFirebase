@@ -96,6 +96,7 @@ class AddDrinkFragment : Fragment() {
                         details,
                         ingredients,
                         category,
+                        false,
                         bytes
                     )
                 )

@@ -12,7 +12,8 @@ data class Roast(
     val id: Long? = null,
     val title: String,
     val details: String,
-    val image: ByteArray? = null
+    val image: ByteArray? = null,
+    val defaultImage: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

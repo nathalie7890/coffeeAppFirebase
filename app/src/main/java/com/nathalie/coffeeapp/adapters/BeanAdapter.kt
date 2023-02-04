@@ -5,6 +5,7 @@ import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.Bean
 import com.nathalie.coffeeapp.databinding.ItemLayoutBeanBinding
 
@@ -36,10 +37,22 @@ class BeanAdapter(
             sliderCaffeine.isEnabled = false
 
 
-            item.image?.let { bytes ->
-                val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
-                ivBeanImage.setImageBitmap(bitmap)
-            }
+            //if image is not null, decode using decodeByteArray
+            //else if defaultImage is not null, decode using decodeResources
+            //else if both are null, default image set in xml will be displayed
+            if (item.image != null) {
+                item.image.let { bytes ->
+                    val bitmap = BitmapFactory.decodeByteArray(item.image, 0, bytes.size)
+                    ivBeanImage.setImageBitmap(bitmap)
+                }
+            } else if (item.defaultImage != null) {
+                val img = holder.itemView.context.resources.getIdentifier(
+                    item.defaultImage,
+                    "drawable",
+                    holder.itemView.context.packageName
+                )
+                ivBeanImage.setImageResource(img)
+            } else ivBeanImage.setImageResource(R.drawable.coffee_bean)
 
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle

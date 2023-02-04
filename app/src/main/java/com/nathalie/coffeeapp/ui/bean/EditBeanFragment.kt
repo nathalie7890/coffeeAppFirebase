@@ -50,10 +50,23 @@ class EditBeanFragment : Fragment() {
         viewModel.getBeanById(navArgs.id)
         viewModel.bean.observe(viewLifecycleOwner) {
             binding.run {
-                it.image?.let { bytes ->
-                    val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
-                    ivBeanImage.setImageBitmap(bitmap)
-                }
+                //if image is not null, decode using decodeByteArray
+                //else if defaultImage is not null, decode using decodeResources
+                //else if both are null, default image set in xml will be displayed
+                if (it.image != null) {
+                    it.image.let { bytes ->
+                        val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)
+                        ivBeanImage.setImageBitmap(bitmap)
+                    }
+                } else if (it.defaultImage != null) {
+                    val id = resources.getIdentifier(
+                        it.defaultImage, "drawable",
+                        context?.packageName
+                    )
+                    val img = BitmapFactory.decodeResource(resources, id)
+                    ivBeanImage.setImageBitmap(img)
+                } else ivBeanImage.setImageResource(R.drawable.upload_image_bean)
+
                 etTitle.setText(it.title)
                 etSubtitle.setText(it.subtitle)
                 etTaste.setText(it.taste)
