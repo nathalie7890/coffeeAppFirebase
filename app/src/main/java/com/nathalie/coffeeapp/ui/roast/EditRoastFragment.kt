@@ -88,18 +88,26 @@ class EditRoastFragment : Fragment() {
                 val title = etTitle.text.toString()
                 val details = etDetails.text.toString()
 
-                val roast = Roast(navArgs.id, title, details, imageBytes)
-                viewModel.editRoast(navArgs.id, roast)
-                val bundle = Bundle()
-                bundle.putBoolean("refresh", true)
-                setFragmentResult("from_edit_roast", bundle)
-                NavHostFragment.findNavController(this@EditRoastFragment).popBackStack()
+                if (title.isNotEmpty() && details.isNotEmpty()) {
+                    val roast = Roast(navArgs.id, title, details, imageBytes)
+                    viewModel.editRoast(navArgs.id, roast)
+                    val bundle = Bundle()
+                    bundle.putBoolean("refresh", true)
+                    setFragmentResult("from_edit_roast", bundle)
+                    NavHostFragment.findNavController(this@EditRoastFragment).popBackStack()
 
-                showSnackbar(
-                    requireView(),
-                    requireContext(),
-                    "$title updated!"
-                )
+                    showSnackbar(
+                        requireView(),
+                        requireContext(),
+                        "$title updated!"
+                    )
+                } else {
+                    showSnackbar(
+                        requireView(),
+                        requireContext(),
+                        "Make sure you fill in everything!"
+                    )
+                }
             }
 
             //when delete btn is clicked, confirmation dialog will pop up

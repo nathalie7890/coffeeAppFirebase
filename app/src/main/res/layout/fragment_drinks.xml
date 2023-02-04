@@ -21,10 +21,8 @@
 
             <include
                 android:id="@+id/search"
-                layout="@layout/item_layout_search"
-                android:visibility="visible" />
+                layout="@layout/item_layout_search" />
         </LinearLayout>
-
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/btn_filter"
@@ -83,7 +81,10 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="1">
-
+                <include
+                    android:id="@+id/emptyDrink"
+                    android:visibility="gone"
+                    layout="@layout/item_layout_empty_msg"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvDrinks"
                     android:layout_width="match_parent"
@@ -106,7 +107,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/beige"
                         android:text="Favorites"

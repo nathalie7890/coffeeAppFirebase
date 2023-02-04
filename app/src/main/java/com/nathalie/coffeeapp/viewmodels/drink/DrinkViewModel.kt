@@ -13,17 +13,19 @@ import kotlinx.coroutines.launch
 class DrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
     val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
+
     init {
         getDrinks("", 0, false)
     }
 
-    fun getDrinks(str: String, cat:Int, fav: Boolean) {
+    fun getDrinks(str: String, cat: Int, fav: Boolean) {
         viewModelScope.launch {
             var res = repo.getDrinks(str, cat, fav)
             res = res.reversed()
             drinks.value = res
         }
     }
+
 
     fun onRefresh() {
         viewModelScope.launch {

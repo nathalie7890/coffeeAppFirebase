@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,24 +36,30 @@ class BeansFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupAdapter()
+
+        //show the second item in recycle view
         binding.rvBeans.post {
             binding.rvBeans.scrollToPosition(1)
         }
 
         viewModel.beans.observe(viewLifecycleOwner) {
             adapter.setBeans(it)
+            //if no item, display this
+            binding.emptyBeans.llEmpty.isVisible = adapter.itemCount <= 0
         }
 
         parentViewModel.refreshBeans.observe(viewLifecycleOwner) {
             refresh()
         }
 
-      binding.btnAddBean.setOnClickListener {
-          val action = MainFragmentDirections.actionMainToAddBean()
-          NavHostFragment.findNavController(requireParentFragment()).navigate(action)
-      }
+        //when add bean btn is clicked, take user to add bean fragment
+        binding.btnAddBean.setOnClickListener {
+            val action = MainFragmentDirections.actionMainToAddBean()
+            NavHostFragment.findNavController(requireParentFragment()).navigate(action)
+        }
     }
 
+    //fetch beans
     fun refresh() {
         viewModel.getBeans()
     }

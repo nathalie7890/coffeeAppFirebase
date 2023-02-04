@@ -8,6 +8,7 @@ import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -42,10 +43,14 @@ class RoastFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
+
         viewModel.roasts.observe(viewLifecycleOwner) {
             adapter.setRoasts(it)
+            //if no item, display this
+            binding.emptyRoast?.isVisible = adapter.itemCount <= 0
         }
 
+        //when refresh is done, hide the refesh icon
         viewModel.swipeRefreshLayoutFinished.asLiveData()
             .observe(viewLifecycleOwner) {
                 binding.srlRefresh.isRefreshing = false
@@ -56,10 +61,12 @@ class RoastFragment : Fragment() {
         }
 
         binding.run {
+            //when swipe down to refresh, refresh this fragment
             srlRefresh.setOnRefreshListener {
                 viewModel.onRefresh()
             }
 
+            //when add roast level btn is clicked, take user to add roast fragment
             binding.btnAddRoast.setOnClickListener {
                 val action = MainFragmentDirections.actionMainToAddRoast()
                 NavHostFragment.findNavController(this@RoastFragment).navigate(action)
@@ -67,17 +74,16 @@ class RoastFragment : Fragment() {
         }
     }
 
+    //fetch roasts
     fun refresh() {
         viewModel.getRoasts()
     }
 
     fun setupAdapter() {
         val orientation = resources.configuration.orientation
-        val layoutManager: LinearLayoutManager = if (orientation == 1) {
+        val layoutManager: LinearLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        } else {
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        }
+
         adapter = RoastAdapter(emptyList()) {
             val action = MainFragmentDirections.actionMainToEditRoast(it)
             NavHostFragment.findNavController(this).navigate(action)

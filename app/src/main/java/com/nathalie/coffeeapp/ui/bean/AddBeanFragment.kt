@@ -78,6 +78,7 @@ class AddBeanFragment : Fragment() {
                 val aroma = binding.sliderAroma.value.toInt()
                 val caffeine = binding.sliderCaffeine.value.toInt()
 
+                //validate input
                 if (validate(title, subtitle, taste, details)) {
                     val bean =
                         Bean(null, title, subtitle, taste, details, body, aroma, caffeine, bytes)
@@ -98,6 +99,7 @@ class AddBeanFragment : Fragment() {
         }
     }
 
+    //check if every input contains value
     private fun validate(vararg list: String): Boolean {
         for (field in list) {
             if (field.isEmpty()) {

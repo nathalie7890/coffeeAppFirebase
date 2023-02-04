@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -40,34 +41,36 @@ class DrinksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.d("debug", orientation.toString())
-        } else {
-            Log.d("debug", orientation.toString())
-        }
 
         setupAdapter()
 
         viewModel.drinks.observe(viewLifecycleOwner) {
             adapter.setDrinks(it)
+            //if no item, display this
+            binding.emptyDrink.llEmpty.isVisible = adapter.itemCount <= 0
         }
 
         parentViewModel.refreshDrinks.observe(viewLifecycleOwner) {
             refresh("", 0, false)
         }
 
+        //once refresh in done, hides the refresh icon
         viewModel.swipeRefreshLayoutFinished.asLiveData()
             .observe(viewLifecycleOwner) {
                 binding.srlRefresh.isRefreshing = false
             }
 
         binding.run {
+            //when swipe down to refresh, refresh the fragment
+            // change btnAdd bg color to be darker than the rest to indicate it is selected
             srlRefresh.setOnRefreshListener {
                 viewModel.onRefresh()
                 binding.search.etSearch.setText("")
+                Utils.updateColors(requireContext(), btnAll, btnClassic, btnAwesome, btnFav)
             }
 
+            //when user press enter while focus on the search bar/typing in the search bar
+            //hide keyboard
             search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     val search = search.etSearch.text.toString()
@@ -78,11 +81,15 @@ class DrinksFragment : Fragment() {
                 false
             }
 
+
+            //when btn add is clicked, take user to add drink fragment
             btnAdd.setOnClickListener {
                 val action = MainFragmentDirections.actionMainToAddDrink()
                 NavHostFragment.findNavController(requireParentFragment()).navigate(action)
             }
 
+            //only one of btnAll, btnClassic, btnAwesome has darker than the rest
+            //darker btn indicates to user it is selected
             btnAll.setOnClickListener {
                 refresh("", 0, false)
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnAwesome, btnFav)
@@ -96,6 +103,8 @@ class DrinksFragment : Fragment() {
                 Utils.updateColors(requireContext(), btnAwesome, btnAll, btnClassic, btnFav)
             }
 
+            //when btnFav is clicked, fetch drinks that favorite == true
+            //change btnAll's bg color to be darker
             btnFav.setOnClickListener {
                 refresh("", 0, true)
                 Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnAwesome)

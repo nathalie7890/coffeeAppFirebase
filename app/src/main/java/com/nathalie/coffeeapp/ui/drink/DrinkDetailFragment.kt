@@ -50,7 +50,6 @@ class DrinkDetailFragment : Fragment() {
         viewModel.getDrinkById(navArgs.id)
 
         viewModel.drink.observe(viewLifecycleOwner) {
-            Log.d("debug", it.toString())
             binding.run {
                 it.image?.let { bytes ->
                     val bitmap = BitmapFactory.decodeByteArray(it.image, 0, bytes.size)

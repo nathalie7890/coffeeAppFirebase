@@ -108,6 +108,7 @@ class EditDrinkFragment : Fragment() {
                 val details = binding.etDetails.text.toString()
                 val ingredients = binding.etIngredients.text.toString()
 
+                //validate input and radio btn, function is written below
                 if (validate(
                         binding.btnClassic,
                         binding.btnAwesome,
@@ -144,6 +145,7 @@ class EditDrinkFragment : Fragment() {
         }
     }
 
+    //check if all input contains value and either btn1 or btn2 is selected
     private fun validate(btn1: RadioButton, btn2: RadioButton, vararg list: String): Boolean {
         if (!btn1.isChecked && !btn2.isChecked) {
             return false

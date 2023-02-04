@@ -25,39 +25,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand"
-                android:textStyle="bold"
                 android:text="Roast Levels"
                 android:textColor="@color/almond"
-                android:textSize="30dp" />
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/emptyRoast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:gravity="center">
+                <include layout="@layout/item_layout_empty_msg" />
+            </LinearLayout>
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/srlRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvRoast"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:paddingTop="8dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRoast"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:paddingTop="8dp" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAddRoast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/chestnut"
-        android:fontFamily="@font/varela_round"
-        android:text="Add Roast Level"
-        android:textAllCaps="false"
-        app:cornerRadius="50dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddRoast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/chestnut"
+            android:fontFamily="@font/varela_round"
+            android:text="Add Roast Level"
+            android:textAllCaps="false"
+            app:cornerRadius="50dp" />
 
-</LinearLayout>
+    </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

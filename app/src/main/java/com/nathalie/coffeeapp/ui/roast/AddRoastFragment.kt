@@ -66,7 +66,9 @@ class AddRoastFragment : Fragment() {
                 val title = etTitle.text.toString()
                 val details = etDetails.text.toString()
 
-                if (title.isNotEmpty() || details.isNotEmpty()) {
+                //if title or details is empty, show a snackbar to remind user to fill in both inputs
+                //else call viewModel.addRoast()
+                if (title.isNotEmpty() && details.isNotEmpty()) {
                     val roast = Roast(null, title, details, bytes)
                     viewModel.addRoast(roast)
                     val bundle = Bundle()
