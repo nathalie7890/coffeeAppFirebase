@@ -33,6 +33,7 @@ class EditBeanFragment : Fragment() {
     }
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var imageBytes: ByteArray? = null
+    private lateinit var defaultImage: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +73,7 @@ class EditBeanFragment : Fragment() {
                 etTaste.setText(it.taste)
                 etDetails.setText(it.details)
                 imageBytes = it.image
+                defaultImage = it.defaultImage.toString()
             }
         }
 
@@ -121,7 +123,8 @@ class EditBeanFragment : Fragment() {
                             body,
                             aroma,
                             caffeine,
-                            imageBytes
+                            imageBytes,
+                            defaultImage
                         )
                     viewModel.editBean(navArgs.id, bean)
                     val bundle = Bundle()

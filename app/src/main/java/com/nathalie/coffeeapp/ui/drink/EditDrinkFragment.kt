@@ -34,6 +34,7 @@ class EditDrinkFragment : Fragment() {
     }
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var imageBytes: ByteArray? = null
+    private lateinit var defaultImage: String
     private var category = 0
     private var isFav = false
 
@@ -76,10 +77,11 @@ class EditDrinkFragment : Fragment() {
                 etIngredients.setText(it.ingredients)
                 category = it.category
                 imageBytes = it.image
+                defaultImage = it.defaultImage.toString()
                 isFav = it.favorite!!
 
                 if (it.category == 1) btnClassic.isChecked = true
-                else btnAwesome.isChecked = true
+                else btnCraft.isChecked = true
             }
         }
 
@@ -125,7 +127,7 @@ class EditDrinkFragment : Fragment() {
                 //validate input and radio btn, function is written below
                 if (validate(
                         binding.btnClassic,
-                        binding.btnAwesome,
+                        binding.btnCraft,
                         title,
                         subtitle,
                         details,
@@ -140,7 +142,8 @@ class EditDrinkFragment : Fragment() {
                         ingredients,
                         category,
                         isFav,
-                        imageBytes
+                        imageBytes,
+                        defaultImage
                     )
                     viewModel.editDrink(navArgs.id, drink)
                     val bundle = Bundle()

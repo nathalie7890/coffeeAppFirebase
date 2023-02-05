@@ -67,7 +67,7 @@ class DrinksFragment : Fragment() {
             srlRefresh.setOnRefreshListener {
                 viewModel.onRefresh()
                 binding.search.etSearch.setText("")
-                Utils.updateColors(requireContext(), btnAll, btnClassic, btnAwesome, btnFav)
+                Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
 
             //when user press enter while focus on the search bar/typing in the search bar
@@ -89,26 +89,26 @@ class DrinksFragment : Fragment() {
                 NavHostFragment.findNavController(requireParentFragment()).navigate(action)
             }
 
-            //only one of btnAll, btnClassic, btnAwesome has darker than the rest
+            //only one of btnAll, btnClassic, btnCraft has darker than the rest
             //darker btn indicates to user it is selected
             btnAll.setOnClickListener {
                 refresh("", 0, false)
-                Utils.updateColors(requireContext(), btnAll, btnClassic, btnAwesome, btnFav)
+                Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
             btnClassic.setOnClickListener {
                 refresh("", 1, false)
-                Utils.updateColors(requireContext(), btnClassic, btnAll, btnAwesome, btnFav)
+                Utils.updateColors(requireContext(), btnClassic, btnAll, btnCraft, btnFav)
             }
-            btnAwesome.setOnClickListener {
+            btnCraft.setOnClickListener {
                 refresh("", 2, false)
-                Utils.updateColors(requireContext(), btnAwesome, btnAll, btnClassic, btnFav)
+                Utils.updateColors(requireContext(), btnCraft, btnAll, btnClassic, btnFav)
             }
 
             //when btnFav is clicked, fetch drinks that favorite == true
             //change btnAll's bg color to be darker
             btnFav.setOnClickListener {
                 refresh("", 0, true)
-                Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnAwesome)
+                Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnCraft)
             }
         }
     }

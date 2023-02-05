@@ -136,13 +136,13 @@
 
                 <!--            style="@style/Widget.App.RadioButton"-->
                 <RadioButton
-                    android:id="@+id/btnAwesome"
+                    android:id="@+id/btnCraft"
                     style="@style/Widget.App.RadioButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Awesome"
+                    android:text="Craft"
                     android:textColor="@color/grey"
                     android:textSize="20sp" />
             </RadioGroup>

@@ -81,7 +81,7 @@ class AddDrinkFragment : Fragment() {
             //validate inputs and radio btn, function is written below
             if (validate(
                     binding.btnClassic,
-                    binding.btnAwesome,
+                    binding.btnCraft,
                     title,
                     subtitle,
                     details,

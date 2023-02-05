@@ -29,6 +29,7 @@ class EditRoastFragment : Fragment() {
     private lateinit var binding: FragmentEditRoastBinding
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private var imageBytes: ByteArray? = null
+    private lateinit var defaultImage: String
     val viewModel: EditRoastViewModel by viewModels {
         EditRoastViewModel.Provider((requireActivity().applicationContext as MyApplication).roastRepo)
     }
@@ -68,6 +69,7 @@ class EditRoastFragment : Fragment() {
 
                 etTitle.setText(it.title)
                 etDetails.setText(it.details)
+                defaultImage = it.defaultImage.toString()
             }
         }
 
@@ -102,7 +104,7 @@ class EditRoastFragment : Fragment() {
                 val details = etDetails.text.toString()
 
                 if (title.isNotEmpty() && details.isNotEmpty()) {
-                    val roast = Roast(navArgs.id, title, details, imageBytes)
+                    val roast = Roast(navArgs.id, title, details, imageBytes, defaultImage)
                     viewModel.editRoast(navArgs.id, roast)
                     val bundle = Bundle()
                     bundle.putBoolean("refresh", true)

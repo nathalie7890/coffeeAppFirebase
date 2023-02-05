@@ -107,7 +107,45 @@ pinch of ground nutmeg,
 3 tsp sugar (15g),
 1/2 cup coconut evaporated milk (125g),
 3 tbsp coconut condensed milk (45g)",
-2, 0,null, "coffee_jelly")
+2, 0,null, "coffee_jelly"),
+
+(21, "Cookie Butter Latte",
+"Comforting, cozy, sweet and spiced",
+"Brew your espresso and set it aside. Warm some milk and stir in cookie butter and a teensy pinch of salt to bring some balance to things. Froth the milk and cookie butter together until smooth and creamy and delightful.",
+"2–4 shots of espresso,
+12 oz milk of choice,
+3 teaspoons cookie butter,
+Tiny pinch of sea salt,
+Whipped cream, for garnish,
+Ground cinnamon, for dusting,
+Warmed cookie butter, for drizzling,
+Biscoff cookies, for serving",
+2, 0,null, "cookie_butter_latte"),
+
+(22, "Salted Caramel Mocha",
+"Mocha with salted caramel sauce",
+"If you have an espresso machine, this copycat recipe is super simple. It’s basically just making your latte as normal, using two shots of espresso and milk of choice. Before you add in the milk, mix in the caramel sauce and the cocoa powder to the espresso shots.",
+"(Coffee)
+2 shots espresso,
+1 Tbsp salted caramel sauce,
+1 tsp unsweetened cocoa powder,
+1 cup milk of choice,
+(Topping)
+whipped cream,
+1 Tbsp salted caramel sauce,
+1 tsp chocolate shavings",
+2, 0,null, "salted_caramel_mocha"),
+
+(23, "Chai Latte",
+"Dairy-free and naturally sweetened",
+"Similar to a latte made with coffee, a chai latte is typically made with a tea concentrate and steamed milk. Chai lattes that are made with black tea do have some caffeine. In this particular recipe, you can make it with or without the tea– either way it will taste great!",
+"2 cups almond milk,
+2 black tea bags,
+3/4 teaspoon ground cinnamon,
+1/4 teaspoon ground ginger,
+1/8 teaspoon ground cloves,
+3 tablespoons maple syrup",
+2, 0,null, "chai_latte")
 
 ----------------------------------------------------------------------------------------------------
 INSERT INTO BEAN
