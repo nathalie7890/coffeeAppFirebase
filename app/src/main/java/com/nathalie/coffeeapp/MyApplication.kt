@@ -1,6 +1,7 @@
 package com.nathalie.coffeeapp
 
 import android.app.Application
+import android.util.Log
 import androidx.room.Room
 import com.nathalie.coffeeapp.data.CoffeeDatabase
 import com.nathalie.coffeeapp.data.StartingDrinks
@@ -14,7 +15,6 @@ class MyApplication : Application() {
     lateinit var roastRepo: RoastRepository
     override fun onCreate() {
         super.onCreate()
-
         val coffeeDatabase = Room.databaseBuilder(
             this,
             CoffeeDatabase::class.java,

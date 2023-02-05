@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.adapters.DrinkAdapter
+import com.nathalie.coffeeapp.data.CoffeeDatabase
 import com.nathalie.coffeeapp.databinding.FragmentDrinksBinding
 import com.nathalie.coffeeapp.ui.MainFragmentDirections
 import com.nathalie.coffeeapp.utils.Utils

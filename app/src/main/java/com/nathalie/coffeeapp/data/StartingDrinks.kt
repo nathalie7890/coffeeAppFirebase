@@ -6,15 +6,19 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.Drink
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
-import timber.log.Timber
 import java.io.BufferedReader
 
 class StartingDrinks(private val context: Context) : RoomDatabase.Callback() {
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
-
+        CoroutineScope(Dispatchers.IO).launch {
+            fillWithStartingNotes(context)
+        }
     }
 
     private fun loadJSONArray(context: Context): JSONArray {
@@ -32,7 +36,6 @@ class StartingDrinks(private val context: Context) : RoomDatabase.Callback() {
         try {
             val drinks = loadJSONArray(context)
             for (i in 0 until drinks.length()) {
-
                 val item = drinks.getJSONObject(i)
                 val id = item.getLong("id")
                 val title = item.getString("title")
@@ -59,7 +62,7 @@ class StartingDrinks(private val context: Context) : RoomDatabase.Callback() {
                 coffeeDao?.insert(drink)
             }
         } catch (e: JSONException) {
-            Timber.d("fillWithStartingNotes: $e")
+//            Timber.d("fillWithStartingNotes: $e")
         }
     }
 }
