@@ -32,8 +32,9 @@
             android:gravity="center"
             android:text="The Coffee App"
             android:textColor="@color/chestnut"
-            android:textSize="17sp"
-            android:textStyle="italic" />
+            android:fontFamily="@font/quicksand"
+            android:textSize="16sp"
+            android:textStyle="italic|bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,17 +44,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGuest"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/chestnut"
-            android:text="Enter"
-            android:textSize="17sp"
-            android:paddingHorizontal="32dp"
-            android:paddingVertical="10dp"
-            android:textAllCaps="false"
-            app:cornerRadius="50dp" />
+            android:gravity="center"
+            android:text="I don't need an inspirational quote.\n I need coffee."
+            android:textColor="@color/chocolate"
+            android:fontFamily="@font/quicksand"
+            android:textSize="20sp"
+            android:textStyle="italic|bold" />
     </LinearLayout>
 
     <ImageView
