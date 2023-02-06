@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nathalie.coffeeapp.MyApplication
@@ -24,6 +25,7 @@ import com.nathalie.coffeeapp.utils.Utils
 import com.nathalie.coffeeapp.utils.Utils.hideKeyboard
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import com.nathalie.coffeeapp.viewmodels.drink.DrinkViewModel
+import kotlinx.coroutines.launch
 
 class DrinksFragment : Fragment() {
     private lateinit var adapter: DrinkAdapter
@@ -40,9 +42,13 @@ class DrinksFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        lifecycleScope.launchWhenResumed {
+            viewModel.getDrinks("", 0, false)
+        }
         setupAdapter()
 
         viewModel.drinks.observe(viewLifecycleOwner) {
@@ -115,7 +121,7 @@ class DrinksFragment : Fragment() {
 
     // fetch words
     fun refresh(str: String, cat: Int, fav: Boolean) {
-        viewModel.getDrinks(str, cat, fav)
+        viewModel.onRefresh(str, cat, fav)
     }
 
     // adapter for words

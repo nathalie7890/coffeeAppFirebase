@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "Raw/Unroasted",
+    "details": "Coffee beans are actually a seed, not a vegetable. When the seeds or beans are removed from the fruit of the coffee plant, they are green. Later, after they have been roasted, they take on their characteristic, dark brown color. Green coffee beans are dried and cleaned in preparation for roasting.",
+    "image": null,
+    "defaultImage": "raw"
+  },
+  {
+    "id": 2,
+    "title": "Light Roast",
+    "details": "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!",
+    "image": null,
+    "defaultImage": "light_roast"
+  },
+  {
+    "id": 3,
+    "title": "Medium Roast",
+    "details": "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!",
+    "image": null,
+    "defaultImage": "medium_roast"
+  },
+  {
+    "id": 4,
+    "title": "Medium to Dark Roast",
+    "details": "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!",
+    "image": null,
+    "defaultImage": "dark_medium_roast"
+  },
+  {
+    "id": 5,
+    "title": "Dark Roast",
+    "details": "The four types of coffee roasts are light roast, medium roast, medium-dark roast, and dark roast. Each of these roast levels has a different aroma, appearance, and flavor. Keep reading to learn all about the four types of coffee roasts!",
+    "image": null,
+    "defaultImage": "dark_roast"
+  }
+]

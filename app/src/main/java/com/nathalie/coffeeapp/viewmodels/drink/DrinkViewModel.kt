@@ -1,5 +1,6 @@
 package com.nathalie.coffeeapp.viewmodels.drink
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,23 +15,21 @@ class DrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
     val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
 
-    init {
-        getDrinks("", 0, false)
+//    init {
+//        getDrinks("", 0, false)
+//    }
+
+    suspend fun getDrinks(str: String = "", cat: Int = 0, fav: Boolean = false) {
+        var res = repo.getDrinks(str, cat, fav)
+        res = res.reversed()
+        drinks.value = res
     }
 
-    fun getDrinks(str: String, cat: Int, fav: Boolean) {
-        viewModelScope.launch {
-            var res = repo.getDrinks(str, cat, fav)
-            res = res.reversed()
-            drinks.value = res
-        }
-    }
 
-
-    fun onRefresh() {
+    fun onRefresh(str: String = "", cat: Int = 0, fav: Boolean = false) {
         viewModelScope.launch {
             delay(1000)
-            getDrinks("", 0, false)
+            getDrinks(str, cat, fav)
             swipeRefreshLayoutFinished.emit(Unit)
         }
     }

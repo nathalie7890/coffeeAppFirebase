@@ -15,16 +15,7 @@ class MyApplication : Application() {
     lateinit var roastRepo: RoastRepository
     override fun onCreate() {
         super.onCreate()
-        val coffeeDatabase = Room.databaseBuilder(
-            this,
-            CoffeeDatabase::class.java,
-            CoffeeDatabase.DATABASE_NAME
-        )
-            .fallbackToDestructiveMigration()
-            .addMigrations(
-            )
-            .addCallback(StartingDrinks(this))
-            .build()
+        val coffeeDatabase = CoffeeDatabase.getInstance(this)
 
         drinkRepo = DrinkRepository(coffeeDatabase.coffeeDao)
         beanRepo = BeanRepository(coffeeDatabase.coffeeDao)

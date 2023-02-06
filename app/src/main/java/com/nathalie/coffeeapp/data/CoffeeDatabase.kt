@@ -21,7 +21,7 @@ abstract class CoffeeDatabase : RoomDatabase() {
 
         @Volatile
         private var instance: CoffeeDatabase? = null
-        fun getInstance(context: Context): CoffeeDatabase? {
+        fun getInstance(context: Context): CoffeeDatabase {
             if (instance == null) {
                 synchronized(CoffeeDatabase::class.java) {
                     instance = Room.databaseBuilder(
@@ -30,10 +30,12 @@ abstract class CoffeeDatabase : RoomDatabase() {
                         "drinks"
                     )
                         .addCallback(StartingDrinks(context))
+                        .addCallback(StartingBeans(context))
+                        .addCallback(StartingRoasts(context))
                         .build()
                 }
             }
-            return instance
+            return instance!!
         }
     }
 }

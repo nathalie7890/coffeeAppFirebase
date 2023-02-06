@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.Drink
+import com.nathalie.coffeeapp.data.model.Roast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,24 +14,22 @@ import org.json.JSONArray
 import org.json.JSONException
 import java.io.BufferedReader
 
-class StartingDrinks(private val context: Context) : RoomDatabase.Callback() {
+class StartingRoasts(private val context: Context) : RoomDatabase.Callback() {
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
         CoroutineScope(Dispatchers.IO).launch {
-            fillWithStartingDrinks(context)
+            fillWithStartingRoasts(context)
         }
     }
 
     private fun loadJSONArray(context: Context): JSONArray {
-
-        val inputStream = context.resources.openRawResource(R.raw.drinks)
-
+        val inputStream = context.resources.openRawResource(R.raw.roasts)
         BufferedReader(inputStream.reader()).use {
             return JSONArray(it.readText())
         }
     }
 
-    private suspend fun fillWithStartingDrinks(context: Context) {
+    private suspend fun fillWithStartingRoasts(context: Context) {
         val coffeeDao = CoffeeDatabase.getInstance(context).coffeeDao
 
         try {
@@ -39,26 +38,18 @@ class StartingDrinks(private val context: Context) : RoomDatabase.Callback() {
                 val item = drinks.getJSONObject(i)
                 val id = item.getLong("id")
                 val title = item.getString("title")
-                val subtitle = item.getString("subtitle")
                 val details = item.getString("details")
-                val ingredients = item.getString("ingredients")
-                val category = item.getInt("category")
-                val favorite = item.getBoolean("favorite")
                 val defaultImage = item.getString("defaultImage")
 
-                val drink = Drink(
+                val roast = Roast(
                     id,
                     title,
-                    subtitle,
-                    ingredients,
                     details,
-                    category,
-                    favorite,
                     image = null,
                     defaultImage
                 )
 
-                coffeeDao.insert(drink)
+                coffeeDao.insertRoast(roast)
             }
         } catch (e: JSONException) {
 //            Timber.d("fillWithStartingNotes: $e")
