@@ -1,6 +1,7 @@
 package com.nathalie.coffeeapp.ui.roast
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.nathalie.coffeeapp.MyApplication
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.adapters.RoastAdapter
 import com.nathalie.coffeeapp.databinding.FragmentRoastBinding
+import com.nathalie.coffeeapp.ui.MainFragment
 import com.nathalie.coffeeapp.ui.MainFragmentDirections
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import com.nathalie.coffeeapp.viewmodels.roast.RoastViewModel
@@ -44,6 +46,8 @@ class RoastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
 
+        (requireParentFragment() as MainFragment).sayHello()
+
         viewModel.roasts.observe(viewLifecycleOwner) {
             adapter.setRoasts(it)
             //if no item, display this
@@ -57,7 +61,10 @@ class RoastFragment : Fragment() {
             }
 
         parentViewModel.refreshRoast.observe(viewLifecycleOwner) {
-            refresh()
+            if (it) {
+                refresh()
+                parentViewModel.shouldRefreshRoast(false)
+            }
         }
 
         binding.run {

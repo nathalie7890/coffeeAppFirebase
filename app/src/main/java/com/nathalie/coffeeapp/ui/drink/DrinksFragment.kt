@@ -42,13 +42,18 @@ class DrinksFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.getDrinks("", 0, false)
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launchWhenResumed {
-            viewModel.getDrinks("", 0, false)
-        }
         setupAdapter()
 
         viewModel.drinks.observe(viewLifecycleOwner) {
@@ -58,7 +63,10 @@ class DrinksFragment : Fragment() {
         }
 
         parentViewModel.refreshDrinks.observe(viewLifecycleOwner) {
-            refresh("", 0, false)
+            if (it.first) {
+                refresh("", 0, it.second)
+                parentViewModel.shouldRefreshDrinks(false)
+            }
         }
 
         //once refresh in done, hides the refresh icon
@@ -99,14 +107,17 @@ class DrinksFragment : Fragment() {
             //darker btn indicates to user it is selected
             btnAll.setOnClickListener {
                 refresh("", 0, false)
+                parentViewModel.fav = false
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
             btnClassic.setOnClickListener {
                 refresh("", 1, false)
+                parentViewModel.fav = false
                 Utils.updateColors(requireContext(), btnClassic, btnAll, btnCraft, btnFav)
             }
             btnCraft.setOnClickListener {
                 refresh("", 2, false)
+                parentViewModel.fav = false
                 Utils.updateColors(requireContext(), btnCraft, btnAll, btnClassic, btnFav)
             }
 
@@ -114,6 +125,7 @@ class DrinksFragment : Fragment() {
             //change btnAll's bg color to be darker
             btnFav.setOnClickListener {
                 refresh("", 0, true)
+                parentViewModel.fav = true
                 Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnCraft)
             }
         }

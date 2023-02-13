@@ -66,7 +66,9 @@ class DrinkDetailFragment : Fragment() {
                 tvTitle.text = it.title
                 tvSubtitle.text = it.subtitle
                 tvDetails.text = it.details
-                tvIngredients.text = it.ingredients
+
+                val ingredients = it.ingredients.replace(", ",",\n")
+                tvIngredients.text = ingredients
 
                 if (it.favorite == true) btnFav.setImageResource(R.drawable.ic_favorite)
                 else btnFav.setImageResource(R.drawable.ic_favorite_border)
@@ -86,6 +88,10 @@ class DrinkDetailFragment : Fragment() {
                 viewModel.favDrink(navArgs.id, true)
                 "Added to favorite!"
             }
+
+            val bundle = Bundle()
+            bundle.putBoolean("refresh", true)
+            setFragmentResult("from_fav_drink", bundle)
 
             showSnackbar(
                 requireView(),

@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nathalie.coffeeapp.R
+import android.util.Log
 import com.nathalie.coffeeapp.adapters.ViewPagerAdapter
 import com.nathalie.coffeeapp.databinding.FragmentMainBinding
 import com.nathalie.coffeeapp.ui.bean.BeansFragment
@@ -65,6 +66,11 @@ class MainFragment : Fragment() {
             viewModel.shouldRefreshDrinks(refresh)
         }
 
+        setFragmentResultListener("from_fav_drink") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            viewModel.shouldRefreshDrinks(refresh, viewModel.fav)
+        }
+
         setFragmentResultListener("from_add_bean") { _, result ->
             val refresh = result.getBoolean("refresh")
             viewModel.shouldRefreshBeans(refresh)
@@ -89,6 +95,7 @@ class MainFragment : Fragment() {
             viewModel.shouldRefreshRoast(refresh)
         }
 
+
         //set tab names and icons
         TabLayoutMediator(binding.tlCoffee, binding.vpCoffee) { tab, pos ->
             when (pos) {
@@ -106,5 +113,9 @@ class MainFragment : Fragment() {
                 }
             }
         }.attach()
+    }
+
+    fun sayHello() {
+        Log.d("debug", "hello from main")
     }
 }

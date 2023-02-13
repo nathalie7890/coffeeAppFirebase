@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nathalie.coffeeapp.MyApplication
@@ -49,7 +50,10 @@ class BeansFragment : Fragment() {
         }
 
         parentViewModel.refreshBeans.observe(viewLifecycleOwner) {
-            refresh()
+            if (it) {
+                refresh()
+                parentViewModel.shouldRefreshBeans(false)
+            }
         }
 
         //when add bean btn is clicked, take user to add bean fragment

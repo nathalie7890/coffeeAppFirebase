@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:text="Details"
-                    android:textColor="@color/almond"
+                    android:textColor="@color/chestnut"
                     android:textSize="18sp" />
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ingredients/More"
-                    android:textColor="@color/chestnut"
+                    android:textColor="@color/beige"
                     android:textSize="17sp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

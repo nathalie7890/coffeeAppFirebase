@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/beanDetail"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="bottom|center"
     android:layout_marginHorizontal="16dp"
     android:gravity="bottom"
     android:orientation="vertical"
     android:weightSum="1">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -124,6 +125,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layout_constraintGuide_percent="0.6" />-->
+
             <ImageView
                 android:id="@+id/ivBeanImage"
                 android:layout_width="match_parent"
@@ -138,11 +145,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/quicksand"
-                android:textStyle="bold"
                 android:paddingHorizontal="16dp"
                 android:text="Title"
                 android:textColor="@color/almond"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
