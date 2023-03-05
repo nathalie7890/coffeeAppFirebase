@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1035977374095",
+    "project_id": "caffeine-13c24",
+    "storage_bucket": "caffeine-13c24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035977374095:android:5ca31d275bc3b36b49b3fa",
+        "android_client_info": {
+          "package_name": "com.nathalie.coffeeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035977374095-1esg9buu5gbj7sedhkcj9a3f828j2tt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIwyQ1gupq4AiyU3ATyC6Lv3neiqr-lqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035977374095-1esg9buu5gbj7sedhkcj9a3f828j2tt7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

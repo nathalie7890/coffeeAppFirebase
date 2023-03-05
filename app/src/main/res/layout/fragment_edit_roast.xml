@@ -1,128 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/smoky"
-    tools:context=".ui.roast.EditRoastFragment">
+<layout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/smoky"
+        tools:context=".ui.presentation.roast.EditRoastFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
 
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/llBtns"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintStart_toEndOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/llBtns"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/chocolate"
+                    app:strokeWidth="2dp">
+
+                    <ImageView
+                        android:id="@+id/ivRoastImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:clickable="true"
+                        android:scaleType="centerCrop"
+                        android:src="@color/smoky" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <EditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/add_drink_bean_input"
+                    android:hint="Title"
+                    android:padding="10dp"
+                    android:textColor="@color/almond"
+                    android:textColorHint="@color/almond" />
+
+                <EditText
+                    android:id="@+id/etDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/add_drink_bean_input"
+                    android:gravity="top"
+                    android:hint="Details"
+                    android:padding="10dp"
+                    android:textColor="@color/grey"
+                    android:textColorHint="@color/grey" />
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/llBtns"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:weightSum="2"
+            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvImage"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:strokeColor="@color/chocolate"
-                app:strokeWidth="2dp">
+                android:layout_weight="1"
+                android:backgroundTint="@color/beige"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/smoky"
+                app:cornerRadius="50dp" />
 
-                <ImageView
-                    android:id="@+id/ivRoastImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:clickable="true"
-                    android:scaleType="centerCrop"
-                    android:src="@color/smoky" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <EditText
-                android:id="@+id/etTitle"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/add_drink_bean_input"
-                android:hint="Title"
-                android:padding="10dp"
-                android:textColor="@color/almond"
-                android:textColorHint="@color/almond" />
-
-            <EditText
-                android:id="@+id/etDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:autoSizeTextType="uniform"
-                android:background="@drawable/add_drink_bean_input"
-                android:gravity="top"
-                android:hint="Details"
-                android:padding="10dp"
-                android:textColor="@color/grey"
-                android:textColorHint="@color/grey" />
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/chestnut"
+                android:text="Delete"
+                android:textAllCaps="false"
+                android:textColor="@color/beige"
+                app:cornerRadius="50dp" />
         </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/llBtns"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSave"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/beige"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@color/smoky"
-            app:cornerRadius="50dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDelete"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/chestnut"
-            android:text="Delete"
-            android:textAllCaps="false"
-            android:textColor="@color/beige"
-            app:cornerRadius="50dp" />
-    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

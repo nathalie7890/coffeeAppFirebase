@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainFragment">
+<layout>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1"
-        tools:context=".ui.MainFragment">
+        tools:context=".ui.presentation.MainFragment">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vpCoffee"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1"
+            tools:context=".ui.presentation.MainFragment">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tlCoffee"
-            app:tabTextColor="@color/almond"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/chestnut"
-            app:tabSelectedTextColor="@color/chestnut"
-            app:tabIconTint="@color/white"
-            android:background="@color/smoky" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpCoffee"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-    </LinearLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlCoffee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/smoky"
+                app:tabIconTint="@color/white"
+                app:tabIndicatorColor="@color/chestnut"
+                app:tabSelectedTextColor="@color/chestnut"
+                app:tabTextColor="@color/almond" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

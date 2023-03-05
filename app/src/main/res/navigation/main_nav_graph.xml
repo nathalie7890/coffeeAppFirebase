@@ -5,9 +5,19 @@
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/mainFragment">
 
+    <action
+        android:id="@+id/to_login_fragment"
+        app:popUpTo="@id/mainFragment"
+        app:popUpToInclusive="true"
+        app:destination="@id/loginFragment" />
+
+    <action
+        android:id="@+id/to_main_fragment"
+        app:destination="@id/mainFragment" />
+
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.nathalie.coffeeapp.ui.MainFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.MainFragment"
         android:label="Home"
         tools:layout="@layout/fragment_main">
         <action
@@ -31,38 +41,38 @@
     </fragment>
     <fragment
         android:id="@+id/addDrinkFragment2"
-        android:name="com.nathalie.coffeeapp.ui.drink.AddDrinkFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.drink.AddDrinkFragment"
         android:label="Add Drink"
         tools:layout="@layout/fragment_add_drink" />
     <fragment
         android:id="@+id/drinkDetailFragment"
-        android:name="com.nathalie.coffeeapp.ui.drink.DrinkDetailFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.drink.DrinkDetailFragment"
         android:label="Drink Description"
         tools:layout="@layout/fragment_drink_detail">
         <argument
             android:name="id"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/action_drink_detail_to_edit"
             app:destination="@id/editDrinkFragment" />
     </fragment>
     <fragment
         android:id="@+id/editDrinkFragment"
-        android:name="com.nathalie.coffeeapp.ui.drink.EditDrinkFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.drink.EditDrinkFragment"
         android:label="Edit Drink"
         tools:layout="@layout/fragment_edit_drink">
         <argument
             android:name="id"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addBeanFragment"
-        android:name="com.nathalie.coffeeapp.ui.bean.AddBeanFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.bean.AddBeanFragment"
         android:label="fragment_add_bean"
         tools:layout="@layout/fragment_add_bean" />
     <fragment
         android:id="@+id/beanDetailFragment"
-        android:name="com.nathalie.coffeeapp.ui.bean.BeanDetailFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.bean.BeanDetailFragment"
         android:label="fragment_bean_detail"
         tools:layout="@layout/fragment_bean_detail">
         <argument
@@ -74,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/editBeanFragment"
-        android:name="com.nathalie.coffeeapp.ui.bean.EditBeanFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.bean.EditBeanFragment"
         android:label="fragment_edit_bean"
         tools:layout="@layout/fragment_edit_bean">
         <argument
@@ -83,18 +93,32 @@
     </fragment>
     <fragment
         android:id="@+id/addRoastFragment"
-        android:name="com.nathalie.coffeeapp.ui.roast.AddRoastFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.roast.AddRoastFragment"
         android:label="fragment_add_roast"
         tools:layout="@layout/fragment_add_roast" />
     <fragment
         android:id="@+id/editRoastFragment"
-        android:name="com.nathalie.coffeeapp.ui.roast.EditRoastFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.roast.EditRoastFragment"
         android:label="fragment_edit_roast"
         tools:layout="@layout/fragment_edit_roast">
         <argument
             android:name="id"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.user.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_signup"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.nathalie.coffeeapp.ui.presentation.user.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" />
 
 
 </navigation>

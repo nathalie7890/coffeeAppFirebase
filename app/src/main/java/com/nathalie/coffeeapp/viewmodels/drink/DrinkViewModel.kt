@@ -1,6 +1,5 @@
 package com.nathalie.coffeeapp.viewmodels.drink
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +10,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class DrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
+class DrinkViewModel (private val repo: DrinkRepository) :
+    ViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
     val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
 
@@ -30,6 +30,7 @@ class DrinkViewModel(private val repo: DrinkRepository) : ViewModel() {
             swipeRefreshLayoutFinished.emit(Unit)
         }
     }
+
 
     class Provider(val repo: DrinkRepository) :
         ViewModelProvider.Factory {

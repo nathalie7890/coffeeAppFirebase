@@ -1,18 +1,13 @@
 package com.nathalie.coffeeapp.adapters
 
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.nathalie.coffeeapp.R
-import com.nathalie.coffeeapp.data.model.Bean
 import com.nathalie.coffeeapp.data.model.Roast
 import com.nathalie.coffeeapp.databinding.ItemLayoutRoastBinding
-import com.nathalie.coffeeapp.ui.MainFragmentDirections
 
 // Contains functions and information for the RecyclerView(list that holds all the Roasts)
 // items(list of Roasts), onClick(function to get details of a specific Roast to navigate to that Roast's details)

@@ -1,61 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/smoky"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="16dp"
-    tools:context=".ui.bean.BeansFragment">
+<layout>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand"
-            android:text="Coffee Beans"
-            android:textColor="@color/almond"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+        android:background="@color/smoky"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="16dp"
+        tools:context=".ui.presentation.bean.BeansFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-            <include
-                android:id="@+id/emptyBeans"
-                layout="@layout/item_layout_empty_msg"
-                android:visibility="gone"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvBeans"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:text="Coffee Beans"
+                android:textColor="@color/almond"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:paddingHorizontal="32dp"
-                android:paddingTop="8dp" />
+                android:gravity="center">
+
+                <include
+                    android:id="@+id/emptyBeans"
+                    layout="@layout/item_layout_empty_msg"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBeans"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="32dp"
+                    android:paddingTop="8dp" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddBean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/chestnut"
+                android:text="Add Bean"
+                android:textAllCaps="false"
+                app:cornerRadius="50dp" />
+
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddBean"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:backgroundTint="@color/chestnut"
-            android:text="Add Bean"
-            android:textAllCaps="false"
-            app:cornerRadius="50dp" />
-
-    </LinearLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

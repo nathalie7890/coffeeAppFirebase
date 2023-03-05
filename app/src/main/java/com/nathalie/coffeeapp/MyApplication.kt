@@ -8,7 +8,9 @@ import com.nathalie.coffeeapp.data.StartingDrinks
 import com.nathalie.coffeeapp.repository.BeanRepository
 import com.nathalie.coffeeapp.repository.DrinkRepository
 import com.nathalie.coffeeapp.repository.RoastRepository
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApplication : Application() {
     lateinit var drinkRepo: DrinkRepository
     lateinit var beanRepo: BeanRepository

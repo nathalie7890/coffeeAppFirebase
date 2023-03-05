@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/almond"
-    android:orientation="vertical"
-    android:weightSum="3"
-    tools:context=".ui.HomeFragment">
-
-    <LinearLayout
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/almond"
+        android:orientation="vertical"
+        android:weightSum="3"
+        tools:context=".ui.HomeFragment">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/send_flowers_regular"
-            android:gravity="center"
-            android:text="Caffeine"
-            android:textColor="@color/chestnut"
-            android:textSize="50sp"
-            android:textStyle="bold" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/send_flowers_regular"
+                android:gravity="center"
+                android:text="Caffeine"
+                android:textColor="@color/chestnut"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:gravity="center"
+                android:text="The Coffee App"
+                android:textColor="@color/chestnut"
+                android:textSize="16sp"
+                android:textStyle="italic|bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="The Coffee App"
-            android:textColor="@color/chestnut"
-            android:fontFamily="@font/quicksand"
-            android:textSize="16sp"
-            android:textStyle="italic|bold" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:gravity="center"
+                android:text="I don't need an inspirational quote.\n I need coffee."
+                android:textColor="@color/chocolate"
+                android:textSize="20sp"
+                android:textStyle="italic|bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/coffee_table" />
+
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="I don't need an inspirational quote.\n I need coffee."
-            android:textColor="@color/chocolate"
-            android:fontFamily="@font/quicksand"
-            android:textSize="20sp"
-            android:textStyle="italic|bold" />
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:scaleType="centerInside"
-        android:src="@drawable/coffee_table" />
-
-</LinearLayout>
+</layout>
