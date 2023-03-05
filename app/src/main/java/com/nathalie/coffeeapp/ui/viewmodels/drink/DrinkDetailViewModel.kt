@@ -28,4 +28,15 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository) : BaseDrin
             finish.emit(Unit)
         }
     }
+
+    fun favDrink(id: String, fav: Int) {
+        viewModelScope.launch {
+            safeApiCall { repo.favDrink(id, fav) }
+            btnFavClicked.emit(Unit)
+        }
+    }
+
+    fun isFav(): Int? {
+        return drink.value?.favorite
+    }
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseDrinkViewModel(val repo: DrinkRepository) : BaseViewModel() {
     val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val btnFavClicked: MutableSharedFlow<Unit> = MutableSharedFlow()
 
     fun validate(
         title: String,

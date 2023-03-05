@@ -16,9 +16,8 @@ abstract class BaseDrinkFragment : BaseFragment<FragmentAddDrinkBinding>() {
             val details = etDetails.text.toString()
             val ingredients = etIngredients.text.toString()
 
-            Log.d("debugging", "category = $category")
             Drink(
-                null, title, subtitle, details, ingredients, category, 0, "", ""
+                null, title, subtitle, details, ingredients, category, 2, "", ""
             )
         }
     }

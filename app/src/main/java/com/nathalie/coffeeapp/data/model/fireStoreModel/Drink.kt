@@ -7,7 +7,7 @@ data class Drink(
     val details: String = "",
     val ingredients: String ="",
     val category: Int = 0,
-    var favorite: Int = 0,
+    var favorite: Int = 2,
     val image: String = "",
     val defaultImage: String = "",
 ) {

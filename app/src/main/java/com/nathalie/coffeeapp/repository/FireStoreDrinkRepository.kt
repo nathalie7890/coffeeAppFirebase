@@ -11,7 +11,7 @@ import kotlinx.coroutines.tasks.await
 class FireStoreDrinkRepository(
     private val ref: CollectionReference
 ) : DrinkRepository {
-    override suspend fun getAllDrinks(cat: Int): List<Drink> {
+    override suspend fun getAllDrinks(search: String, cat: Int): List<Drink> {
         val drinks = mutableListOf<Drink>()
         var res: QuerySnapshot
         if (cat == 1) {
@@ -26,7 +26,12 @@ class FireStoreDrinkRepository(
             drinks.add(document.toObject(Drink::class.java).copy(id = document.id))
         }
 
-        return drinks
+        return drinks.filter {
+            Regex(
+                search,
+                RegexOption.IGNORE_CASE
+            ).containsMatchIn(it.title)
+        }
     }
 
     override suspend fun getDrinkById(id: String): Drink? {
@@ -46,5 +51,9 @@ class FireStoreDrinkRepository(
         val update = drink.copy(id = id)
         ref.document(id).set(update.toHashMap()).await()
         return update
+    }
+
+    override suspend fun favDrink(id: String, fav: Int) {
+        ref.document(id).update("favorite", fav).await()
     }
 }

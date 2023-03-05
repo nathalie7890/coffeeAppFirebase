@@ -30,7 +30,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getDrinks(0)
+        viewModel.getDrinks("",0)
     }
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
 
         binding?.run {
             srlRefresh.setOnRefreshListener {
-                viewModel.onRefresh(0)
+                viewModel.onRefresh("",0)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
@@ -52,7 +52,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
             search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     val search = search.etSearch.text.toString()
-                    refresh(2)
+                    refresh(search,0)
                     hideKeyboard()
                     return@OnKeyListener true
                 }
@@ -71,17 +71,20 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
             }
 
             btnAll.setOnClickListener {
-                refresh(0)
+                refresh("", 0)
+                search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
 
             btnClassic.setOnClickListener {
-                refresh(1)
+                refresh("", 1)
+                search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnClassic, btnAll, btnCraft, btnFav)
             }
 
             btnCraft.setOnClickListener {
-                refresh(2)
+                refresh("", 2)
+                search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnCraft, btnAll, btnClassic, btnFav)
             }
 
@@ -97,14 +100,14 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
 
         parentViewModel.refreshDrinks.observe(viewLifecycleOwner) {
             if (it.first) {
-                refresh(0)
+                refresh("", 0)
                 parentViewModel.shouldRefreshDrinks(false)
             }
         }
     }
 
-    fun refresh(cat: Int) {
-        viewModel.onRefresh(cat)
+    fun refresh(search: String, cat: Int) {
+        viewModel.onRefresh(search, cat)
     }
 
     fun setupAdapter() {
