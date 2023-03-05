@@ -7,6 +7,8 @@ import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.repository.fireStoreRepo.DrinkRepository
 import com.nathalie.coffeeapp.ui.viewmodels.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +18,7 @@ class DrinkViewModel @Inject constructor(
     private val authRepo: AuthService
 ) : BaseViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
+    val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
 
 //    override fun onViewCreated() {
 //        super.onViewCreated()
@@ -23,7 +26,11 @@ class DrinkViewModel @Inject constructor(
 //    }
 
     fun onRefresh(cat:Int) {
-        getDrinks(cat)
+        viewModelScope.launch {
+            delay(1000)
+            getDrinks(cat)
+            swipeRefreshLayoutFinished.emit(Unit)
+        }
     }
 
     fun logout() {

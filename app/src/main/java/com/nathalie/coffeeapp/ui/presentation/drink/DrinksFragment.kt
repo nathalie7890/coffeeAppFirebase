@@ -2,8 +2,10 @@ package com.nathalie.coffeeapp.ui.presentation.drink
 
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nathalie.coffeeapp.R
@@ -13,6 +15,7 @@ import com.nathalie.coffeeapp.ui.adapter.DrinkAdapter
 import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 import com.nathalie.coffeeapp.ui.presentation.MainFragmentDirections
 import com.nathalie.coffeeapp.ui.utils.Utils
+import com.nathalie.coffeeapp.ui.utils.Utils.hideKeyboard
 import com.nathalie.coffeeapp.ui.viewmodels.drink.DrinkViewModel
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +37,28 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         super.onBindView(view, savedInstanceState)
         setupAdapter()
 
+        viewModel.swipeRefreshLayoutFinished.asLiveData()
+            .observe(viewLifecycleOwner) {
+                binding?.srlRefresh?.isRefreshing = false
+            }
+
         binding?.run {
+            srlRefresh.setOnRefreshListener {
+                viewModel.onRefresh(0)
+                search.etSearch.setText("")
+                Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
+            }
+
+            search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    val search = search.etSearch.text.toString()
+                    refresh(2)
+                    hideKeyboard()
+                    return@OnKeyListener true
+                }
+                false
+            }
+
             btnLogout.setOnClickListener {
                 viewModel.logout()
                 val action = MainFragmentDirections.toLoginFragment()
@@ -57,7 +81,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
             }
 
             btnCraft.setOnClickListener {
-               refresh(2)
+                refresh(2)
                 Utils.updateColors(requireContext(), btnCraft, btnAll, btnClassic, btnFav)
             }
 

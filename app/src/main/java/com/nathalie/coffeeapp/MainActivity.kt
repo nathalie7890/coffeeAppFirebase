@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.navHostFragment)
 
+
         if (!authRepo.isAuthenticate()) {
             findNavController(R.id.navHostFragment).navigate(R.id.loginFragment)
         }
