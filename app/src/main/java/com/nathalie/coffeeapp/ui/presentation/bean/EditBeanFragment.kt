@@ -48,7 +48,7 @@ class EditBeanFragment : Fragment() {
 
         val navArgs: EditBeanFragmentArgs by navArgs()
 
-        viewModel.getBeanById(navArgs.id)
+        viewModel.getBeanById(navArgs.id.toLong())
         viewModel.bean.observe(viewLifecycleOwner) {
             binding.run {
                 //if image is not null, decode using decodeByteArray
@@ -115,7 +115,7 @@ class EditBeanFragment : Fragment() {
                 if (validate(title, subtitle, taste, details)) {
                     val bean =
                         Bean(
-                            navArgs.id,
+                            navArgs.id.toLong(),
                             title,
                             subtitle,
                             taste,
@@ -126,7 +126,7 @@ class EditBeanFragment : Fragment() {
                             imageBytes,
                             defaultImage
                         )
-                    viewModel.editBean(navArgs.id, bean)
+                    viewModel.editBean(navArgs.id.toLong(), bean)
                     val bundle = Bundle()
                     bundle.putBoolean("refresh", true)
                     bundle.putString("title", title)

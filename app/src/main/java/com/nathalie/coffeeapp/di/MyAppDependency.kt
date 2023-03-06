@@ -6,7 +6,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nathalie.coffeeapp.data.service.AuthService
+import com.nathalie.coffeeapp.repository.FireStoreBeanRepository
 import com.nathalie.coffeeapp.repository.FireStoreDrinkRepository
+import com.nathalie.coffeeapp.repository.fireStoreRepo.BeanRepository
 import com.nathalie.coffeeapp.repository.fireStoreRepo.DrinkRepository
 import dagger.Module
 import dagger.Provides
@@ -36,6 +38,12 @@ object MyAppDependency {
     @Singleton
     fun getFireStoreDrinkRepository(db: FirebaseFirestore): DrinkRepository {
         return FireStoreDrinkRepository(db.collection("drinks"))
+    }
+
+    @Provides
+    @Singleton
+    fun getFireStoreBeanRepository(db: FirebaseFirestore): BeanRepository {
+        return FireStoreBeanRepository(db.collection("beans"))
     }
 
     @Provides

@@ -28,6 +28,12 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.navHostFragment)
 
+//        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+//        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+//
+//        val navigationView = findViewById<NavigationView>(R.id.navigationView)
+//        navigationView.setupWithNavController(navController)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
 
         if (!authRepo.isAuthenticate()) {
             findNavController(R.id.navHostFragment).navigate(R.id.loginFragment)

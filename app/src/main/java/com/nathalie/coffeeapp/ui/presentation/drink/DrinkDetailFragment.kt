@@ -10,9 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.databinding.FragmentDrinkDetailBinding
 import com.nathalie.coffeeapp.ui.presentation.BaseFragment
+import com.nathalie.coffeeapp.ui.utils.Utils
 import  com.nathalie.coffeeapp.ui.viewmodels.drink.DrinkDetailViewModel
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,15 +43,26 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                     btnFav.setImageResource(R.drawable.ic_favorite)
                 }
 
+                //delete drink
                 btnDelete.setOnClickListener { _ ->
-                    viewModel.deleteDrink(it.id.toString())
+                    MaterialAlertDialogBuilder(requireContext(), R.style.CoffeeApp_AlertDialog)
+                        .setTitle("Delete ${binding!!.tvTitle.text}?")
+                        .setCancelable(true)
+                        .setPositiveButton("Delete") { _, _ ->
+                            viewModel.deleteDrink(it.id.toString())
+
+                        }.setNegativeButton("Cancel") { _, _ ->
+                        }
+                        .show()
                 }
 
+                //goes to edit drink fragment
                 btnEdit.setOnClickListener {
                     val action = DrinkDetailFragmentDirections.actionDrinkDetailToEdit(navArgs.id)
                     navController.navigate(action)
                 }
 
+                //update drink.favorite 1 = false, 2 = true
                 btnFav.setOnClickListener { _ ->
                     if (viewModel.isFav() == 2) {
                         viewModel.favDrink(navArgs.id, 1)
@@ -65,15 +78,18 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
         super.onBindData(view)
         val navArgs: DrinkDetailFragmentArgs by navArgs()
 
+        //after delete drink, set fragment result, goes back to previous fragment and show snackbar
         lifecycleScope.launch {
             viewModel.finish.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("finish_delete_drink", bundle)
                 navController.popBackStack()
+                Utils.showSnackbar(requireView(), requireContext(), "Drink deleted!")
             }
         }
 
+        //after updating drink.favorite, refresh the drink
         lifecycleScope.launch {
             viewModel.btnFavClicked.collect {
                 viewModel.onRefresh(navArgs.id)

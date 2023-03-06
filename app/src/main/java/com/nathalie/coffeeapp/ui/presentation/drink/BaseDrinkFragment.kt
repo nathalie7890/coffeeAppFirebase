@@ -9,7 +9,7 @@ import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 abstract class BaseDrinkFragment : BaseFragment<FragmentAddDrinkBinding>() {
     override fun getLayoutResource() = R.layout.fragment_add_drink
 
-    fun getDrink(category:Int): Drink? {
+    fun getDrink(category: Int, img:String): Drink? {
         return binding?.run {
             val title = etTitle.text.toString()
             val subtitle = etSubtitle.text.toString()
@@ -17,7 +17,7 @@ abstract class BaseDrinkFragment : BaseFragment<FragmentAddDrinkBinding>() {
             val ingredients = etIngredients.text.toString()
 
             Drink(
-                null, title, subtitle, details, ingredients, category, 2, "", ""
+                null, title, subtitle, details, ingredients, category, 2, img, ""
             )
         }
     }

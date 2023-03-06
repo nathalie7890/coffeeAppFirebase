@@ -43,7 +43,7 @@ class BeanDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val navArgs: BeanDetailFragmentArgs by navArgs()
-        viewModel.getBeanById(navArgs.id)
+        viewModel.getBeanById(navArgs.id.toLong())
 
 
         viewModel.bean.observe(viewLifecycleOwner) {
@@ -100,7 +100,7 @@ class BeanDetailFragment : Fragment() {
                 .setTitle("Delete ${binding.tvTitle.text}?")
                 .setCancelable(true)
                 .setPositiveButton("Delete") { _, it ->
-                    viewModel.deleteBean(navArgs.id)
+                    viewModel.deleteBean(navArgs.id.toLong())
                     setFragmentResult("from_delete_bean", bundle)
                     NavHostFragment.findNavController(this).popBackStack()
                     showSnackbar(requireView(), requireContext(), "$title deleted!")

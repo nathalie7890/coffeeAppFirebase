@@ -1,5 +1,6 @@
 package com.nathalie.coffeeapp.ui.adapter
 
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,6 +26,16 @@ class DrinkAdapter(private var items: MutableList<Drink>) :
         holder.binding.run {
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
+
+            if (item.image.isNotEmpty()) {
+                val imgBytes = item.image.toByteArray()
+
+                imgBytes.let { bytes ->
+                    val bitmap =
+                        BitmapFactory.decodeByteArray(imgBytes, 0, bytes.size)
+                    ivDrinkImage.setImageBitmap(bitmap)
+                }
+            }
 
             cvDrinkItem.setOnClickListener {
                 listener?.onClick(item)

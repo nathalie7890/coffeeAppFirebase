@@ -1,82 +1,63 @@
 package com.nathalie.coffeeapp.ui.presentation.bean
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nathalie.coffeeapp.MyApplication
-import com.nathalie.coffeeapp.adapters.BeanAdapter
+import com.nathalie.coffeeapp.R
+import com.nathalie.coffeeapp.data.model.fireStoreModel.Bean
 import com.nathalie.coffeeapp.databinding.FragmentBeansBinding
-import com.nathalie.coffeeapp.ui.presentation.MainFragmentDirections
-import com.nathalie.coffeeapp.viewmodels.bean.BeanViewModel
+import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
+import com.nathalie.coffeeapp.ui.adapter.BeanAdapter
+import com.nathalie.coffeeapp.ui.presentation.MainFragmentDirections
+import com.nathalie.coffeeapp.ui.viewmodels.bean.BeanViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class BeansFragment : Fragment() {
-    private lateinit var binding: FragmentBeansBinding
+@AndroidEntryPoint
+class BeansFragment : BaseFragment<FragmentBeansBinding>() {
     private lateinit var adapter: BeanAdapter
-    private val viewModel: BeanViewModel by viewModels {
-        BeanViewModel.Provider((requireActivity().applicationContext as MyApplication).beanRepo)
-    }
     private val parentViewModel: MainViewModel by viewModels(ownerProducer = { requireParentFragment() })
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentBeansBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    override val viewModel: BeanViewModel by viewModels()
+    override fun getLayoutResource() = R.layout.fragment_beans
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupAdapter()
-
-        //show the second item in recycle view
-        binding.rvBeans.post {
-            binding.rvBeans.scrollToPosition(1)
-        }
-
-        viewModel.beans.observe(viewLifecycleOwner) {
-            adapter.setBeans(it)
-            //if no item, display this
-            binding.emptyBeans.llEmpty.isVisible = adapter.itemCount <= 0
-        }
-
-        parentViewModel.refreshBeans.observe(viewLifecycleOwner) {
-            if (it) {
-                refresh()
-                parentViewModel.shouldRefreshBeans(false)
-            }
-        }
-
-        //when add bean btn is clicked, take user to add bean fragment
-        binding.btnAddBean.setOnClickListener {
-            val action = MainFragmentDirections.actionMainToAddBean()
-            NavHostFragment.findNavController(requireParentFragment()).navigate(action)
-        }
-    }
-
-    //fetch beans
-    fun refresh() {
         viewModel.getBeans()
     }
 
+    override fun onBindView(view: View, savedInstanceState: Bundle?) {
+        super.onBindView(view, savedInstanceState)
+        setupAdapter()
+        Log.d("debugging", "beans observe")
+        viewModel.beans.observe(viewLifecycleOwner) {
+            adapter.setBeans(it.toMutableList())
+        }
+    }
+
+    override fun onBindData(view: View) {
+        super.onBindData(view)
+
+    }
+
     fun setupAdapter() {
+        Log.d("debugging", "Beans fragment")
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter = BeanAdapter(emptyList()) {
-            val action = MainFragmentDirections.actionMainToDetailBean(it.id!!)
-            NavHostFragment.findNavController(this).navigate(action)
+        adapter = BeanAdapter(mutableListOf())
+        adapter.listener = object : BeanAdapter.Listener {
+            override fun onClick(item: Bean) {
+                val action = item.id?.let { MainFragmentDirections.actionMainToDetailBean(it) }
+                if (action != null) {
+                    NavHostFragment.findNavController(this@BeansFragment).navigate(action)
+                }
+            }
         }
-        binding.rvBeans.adapter = adapter
-        binding.rvBeans.layoutManager = layoutManager
+
+        binding?.rvBeans?.adapter = adapter
+        binding?.rvBeans?.layoutManager = layoutManager
     }
 
     companion object {
@@ -86,6 +67,7 @@ class BeansFragment : Fragment() {
                 beansFragmentInstance = BeansFragment()
             }
 
+            Log.d("debugging", "beans get instance")
             return beansFragmentInstance!!
         }
     }
