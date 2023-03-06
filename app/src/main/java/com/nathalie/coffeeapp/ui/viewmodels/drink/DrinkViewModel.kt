@@ -25,10 +25,10 @@ class DrinkViewModel @Inject constructor(
 //        getDrinks(0)
 //    }
 
-    fun onRefresh(search: String, cat: Int) {
+    fun onRefresh(search: String, cat: Int, fav: Int) {
         viewModelScope.launch {
             delay(1000)
-            getDrinks(search, cat)
+            getDrinks(search, cat, fav)
             swipeRefreshLayoutFinished.emit(Unit)
         }
     }
@@ -37,9 +37,9 @@ class DrinkViewModel @Inject constructor(
         authRepo.deAuthenticate()
     }
 
-    fun getDrinks(search: String, cat: Int) {
+    fun getDrinks(search: String, cat: Int, fav: Int) {
         viewModelScope.launch {
-            val res = safeApiCall { repo.getAllDrinks(search, cat) }
+            val res = safeApiCall { repo.getAllDrinks(search, cat, fav) }
             res?.let {
                 drinks.value = it
             }

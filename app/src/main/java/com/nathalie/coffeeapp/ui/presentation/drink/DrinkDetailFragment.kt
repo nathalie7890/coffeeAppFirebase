@@ -35,9 +35,9 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                 tvSubtitle.text = it.subtitle
                 tvDetails.text = it.details
                 tvIngredients.text = it.ingredients
-                if(it.favorite == 2) {
+                if (it.favorite == 2) {
                     btnFav.setImageResource(R.drawable.ic_favorite_border)
-                }else {
+                } else {
                     btnFav.setImageResource(R.drawable.ic_favorite)
                 }
 
@@ -63,6 +63,7 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
 
     override fun onBindData(view: View) {
         super.onBindData(view)
+        val navArgs: DrinkDetailFragmentArgs by navArgs()
 
         lifecycleScope.launch {
             viewModel.finish.collect {
@@ -74,23 +75,9 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
         }
 
         lifecycleScope.launch {
-            viewModel.btnFavClicked.collect{
-                Log.d("debugging", "finish_fav")
-                val bundle = Bundle()
-                bundle.putBoolean("refresh", true)
-                setFragmentResult("finish_fav_drink", bundle)
+            viewModel.btnFavClicked.collect {
+                viewModel.onRefresh(navArgs.id)
             }
-        }
-    }
-
-    companion object {
-        private var drinkDetailFragmentInstance: DrinkDetailFragment? = null
-        fun getInstance(): DrinkDetailFragment {
-            if (drinkDetailFragmentInstance == null) {
-                drinkDetailFragmentInstance = DrinkDetailFragment()
-            }
-
-            return drinkDetailFragmentInstance!!
         }
     }
 }

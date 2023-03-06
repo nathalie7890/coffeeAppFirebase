@@ -39,4 +39,8 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository) : BaseDrin
     fun isFav(): Int? {
         return drink.value?.favorite
     }
+
+    fun onRefresh(id: String) {
+        getDrinkById(id)
+    }
 }

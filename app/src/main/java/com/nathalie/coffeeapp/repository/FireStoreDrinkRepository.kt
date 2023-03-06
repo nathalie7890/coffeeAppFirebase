@@ -11,10 +11,12 @@ import kotlinx.coroutines.tasks.await
 class FireStoreDrinkRepository(
     private val ref: CollectionReference
 ) : DrinkRepository {
-    override suspend fun getAllDrinks(search: String, cat: Int): List<Drink> {
+    override suspend fun getAllDrinks(search: String, cat: Int, fav: Int): List<Drink> {
         val drinks = mutableListOf<Drink>()
         var res: QuerySnapshot
-        if (cat == 1) {
+        if (fav == 1) {
+            res = ref.whereEqualTo("favorite", fav).get().await()
+        } else if (cat == 1) {
             res = ref.whereEqualTo("category", 1).get().await()
         } else if (cat == 2) {
             res = ref.whereEqualTo("category", 2).get().await()

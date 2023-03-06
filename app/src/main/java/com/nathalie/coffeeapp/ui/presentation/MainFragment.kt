@@ -76,11 +76,10 @@ class MainFragment : Fragment() {
             viewModel.shouldRefreshDrinks(refresh)
         }
 
-        setFragmentResultListener("finish_fav_drink") { _, result ->
-            Log.d("debugging", "finish_fav_main")
-            val refresh = result.getBoolean("refresh")
-            viewModel.shouldRefreshDrinks(refresh, viewModel.fav)
-        }
+//        setFragmentResultListener("finish_fav_drink") { _, result ->
+//            val refresh = result.getBoolean("refresh")
+//            viewModel.shouldRefreshDrinks(refresh, viewModel.fav)
+//        }
 
         setFragmentResultListener("from_add_bean") { _, result ->
             val refresh = result.getBoolean("refresh")
