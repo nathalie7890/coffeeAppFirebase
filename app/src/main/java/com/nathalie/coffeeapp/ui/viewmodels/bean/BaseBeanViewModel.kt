@@ -16,9 +16,6 @@ abstract class BaseBeanViewModel(val repo: BeanRepository) : BaseViewModel() {
         subtitle: String,
         taste: String,
         details: String,
-        body: Int,
-        aroma: Int,
-        caffeine: Int,
     ): Boolean {
         if (Utils.validate(title, subtitle, taste, details)) {
             return true

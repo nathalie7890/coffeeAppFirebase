@@ -31,19 +31,24 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
         setupAdapter()
-        Log.d("debugging", "beans observe")
-        viewModel.beans.observe(viewLifecycleOwner) {
-            adapter.setBeans(it.toMutableList())
+
+        binding?.run {
+            btnAddBean.setOnClickListener {
+                val action = MainFragmentDirections.actionMainToAddBean()
+                navController.navigate(action)
+            }
         }
     }
 
     override fun onBindData(view: View) {
         super.onBindData(view)
 
+        viewModel.beans.observe(viewLifecycleOwner) {
+            adapter.setBeans(it.toMutableList())
+        }
     }
 
     fun setupAdapter() {
-        Log.d("debugging", "Beans fragment")
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter = BeanAdapter(mutableListOf())
@@ -67,7 +72,6 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
                 beansFragmentInstance = BeansFragment()
             }
 
-            Log.d("debugging", "beans get instance")
             return beansFragmentInstance!!
         }
     }

@@ -81,12 +81,12 @@ class MainFragment : Fragment() {
 //            viewModel.shouldRefreshDrinks(refresh, viewModel.fav)
 //        }
 
-        setFragmentResultListener("from_add_bean") { _, result ->
+        setFragmentResultListener("finish_add_bean") { _, result ->
             val refresh = result.getBoolean("refresh")
             viewModel.shouldRefreshBeans(refresh)
         }
 
-        setFragmentResultListener("from_delete_bean") { _, result ->
+        setFragmentResultListener("finish_delete_bean") { _, result ->
             val refresh = result.getBoolean("refresh")
             viewModel.shouldRefreshBeans(refresh)
         }

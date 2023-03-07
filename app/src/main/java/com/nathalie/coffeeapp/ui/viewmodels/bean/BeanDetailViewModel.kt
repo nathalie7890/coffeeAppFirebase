@@ -10,15 +10,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BeanDetailViewModel @Inject constructor(repo: BeanRepository): BaseBeanViewModel(repo) {
-    val bean :MutableLiveData<Bean> = MutableLiveData()
+class BeanDetailViewModel @Inject constructor(repo: BeanRepository) : BaseBeanViewModel(repo) {
+    val bean: MutableLiveData<Bean> = MutableLiveData()
 
-    fun getBeanById(id: String){
+    fun getBeanById(id: String) {
         viewModelScope.launch {
             val res = safeApiCall { repo.getBeanById(id) }
             res?.let {
                 bean.value = it
             }
+        }
+    }
+
+    fun deleteBean(id: String) {
+        viewModelScope.launch {
+            safeApiCall { repo.deleteBean(id) }
+            finish.emit(Unit)
         }
     }
 }

@@ -16,7 +16,6 @@ class FireStoreBeanRepository(
         for (document in res) {
             beans.add(document.toObject(Bean::class.java).copy(id = document.id))
         }
-        Log.d("debugging", "Bean:$beans")
         return beans
     }
 
@@ -26,15 +25,16 @@ class FireStoreBeanRepository(
     }
 
     override suspend fun addBean(bean: Bean) {
-        TODO("Not yet implemented")
+        ref.add(bean.toHashMap()).await()
     }
 
     override suspend fun updateBean(id: String, bean: Bean): Bean? {
-        TODO("Not yet implemented")
+        val update = bean.copy(id = id)
+        ref.document(id).set(update.toHashMap()).await()
+        return update
     }
 
     override suspend fun deleteBean(id: String) {
-        TODO("Not yet implemented")
+        ref.document(id).delete().await()
     }
-
 }
