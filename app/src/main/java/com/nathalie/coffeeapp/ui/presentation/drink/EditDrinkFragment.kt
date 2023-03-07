@@ -67,7 +67,7 @@ class EditDrinkFragment : BaseDrinkFragment() {
                 }
 
                 btnAdd.setOnClickListener {
-                    val drink = getDrink(category, imgBytes.toString())
+                    val drink = getDrink(category)
                     drink?.let {
                         viewModel.editDrink(navArgs.id, it)
                     }

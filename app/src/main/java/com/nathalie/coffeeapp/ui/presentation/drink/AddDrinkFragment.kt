@@ -2,6 +2,7 @@ package com.nathalie.coffeeapp.ui.presentation.drink
 
 
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,8 +23,8 @@ class AddDrinkFragment : BaseDrinkFragment() {
     override fun getLayoutResource() = R.layout.fragment_add_drink
 
     //for selecting image from gallery
-    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
-    private var bytes: ByteArray? = null
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+    private var fileUri: Uri? = null
 
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
@@ -31,14 +32,10 @@ class AddDrinkFragment : BaseDrinkFragment() {
         var category = 1
 
         //select image from gallery and display in ivDrinkImage
-        filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            fileUri = it
             it?.let { uri ->
-                val inputStream = requireContext().contentResolver.openInputStream(uri)
-                bytes = inputStream?.readBytes()
-                inputStream?.close()
-
-                val bitmap = bytes?.let { it1 -> BitmapFactory.decodeByteArray(bytes, 0, it1.size) }
-                binding?.ivDrinkImage?.setImageBitmap(bitmap)
+                binding?.ivDrinkImage?.setImageURI(uri)
             }
         }
 
@@ -51,14 +48,14 @@ class AddDrinkFragment : BaseDrinkFragment() {
 
             //select image from gallery
             ivDrinkImage.setOnClickListener {
-                filePickerLauncher.launch("image/*")
+                imagePickerLauncher.launch("image/*")
             }
 
             //add drink button
             btnAdd.setOnClickListener {
-                val drink = getDrink(category, bytes.toString())
+                val drink = getDrink(category)
                 drink?.let {
-                    viewModel.addDrink(it)
+                    viewModel.addDrink(it, fileUri)
                 }
             }
 

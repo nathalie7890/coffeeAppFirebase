@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
+import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.ItemLayoutDrinkBinding
 import com.nathalie.coffeeapp.ui.utils.Utils.update
 
@@ -28,12 +31,13 @@ class DrinkAdapter(private var items: MutableList<Drink>) :
             tvSubtitle.text = item.subtitle
 
             if (item.image.isNotEmpty()) {
-                val imgBytes = item.image.toByteArray()
-
-                imgBytes.let { bytes ->
-                    val bitmap =
-                        BitmapFactory.decodeByteArray(imgBytes, 0, bytes.size)
-                    ivDrinkImage.setImageBitmap(bitmap)
+                item.image.let {
+                    StorageService.getImageUri(it) { uri ->
+                        Glide.with(holder.binding.root)
+                            .load(uri)
+                            .placeholder(R.color.chocolate)
+                            .into(ivDrinkImage)
+                    }
                 }
             }
 
