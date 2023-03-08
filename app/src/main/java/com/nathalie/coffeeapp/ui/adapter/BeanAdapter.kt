@@ -4,7 +4,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Bean
+import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.ItemLayoutBeanBinding
 import com.nathalie.coffeeapp.ui.utils.Utils.update
 
@@ -22,7 +25,7 @@ class BeanAdapter(private var items: MutableList<Bean>) :
 
     override fun onBindViewHolder(holder: ItemBeanHolder, position: Int) {
         val item = items[position]
-        Log.d("debugging", "Bean:$item")
+
         holder.binding.run {
             sliderBody.value = item.body.toFloat()
             sliderAroma.value = item.aroma.toFloat()
@@ -36,6 +39,17 @@ class BeanAdapter(private var items: MutableList<Bean>) :
             tvSubtitle.text = item.subtitle
             tvTaste.text = item.taste
 
+            if (item.image.isNotEmpty()) {
+                item.image.let {
+                    StorageService.getImageUri(it) { uri ->
+                        Glide.with(holder.binding.root)
+                            .load(uri)
+                            .placeholder(R.color.chocolate)
+                            .into(ivBeanImage)
+                    }
+                }
+            }
+
             beanDetail.setOnClickListener {
                 listener?.onClick(item)
             }
@@ -47,7 +61,6 @@ class BeanAdapter(private var items: MutableList<Bean>) :
     }
 
     fun setBeans(items: MutableList<Bean>) {
-        Log.d("debugging", "set beans")
         val oldItems = this.items
         this.items = items.toMutableList()
         update(oldItems, items) { product1, product2 ->

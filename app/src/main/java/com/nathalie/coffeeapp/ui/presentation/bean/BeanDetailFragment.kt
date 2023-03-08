@@ -6,8 +6,10 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nathalie.coffeeapp.R
+import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.FragmentBeanDetailBinding
 import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 import com.nathalie.coffeeapp.ui.utils.Utils
@@ -44,6 +46,15 @@ class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
                 sliderBody.isEnabled = false
                 sliderAroma.isEnabled = false
                 sliderCaffeine.isEnabled = false
+
+                it.image.let {
+                    StorageService.getImageUri(it) { uri ->
+                        Glide.with(this@BeanDetailFragment)
+                            .load(uri)
+                            .placeholder(R.color.chocolate)
+                            .into(ivBeanImage)
+                    }
+                }
 
                 btnEdit.setOnClickListener {
                     val action = BeanDetailFragmentDirections.actionBeanDetailToEditBean(navArgs.id)

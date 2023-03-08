@@ -1,5 +1,6 @@
 package com.nathalie.coffeeapp.ui.viewmodels.drink
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
@@ -22,7 +23,7 @@ class EditDrinkViewModel @Inject constructor(repo: DrinkRepository) : BaseDrinkV
         }
     }
 
-    fun editDrink(id: String, drink: Drink) {
+    fun editDrink(id: String, drink: Drink, imageUri: Uri) {
         val validationStatus = Utils.validate(
             drink.title,
             drink.subtitle,
@@ -30,6 +31,7 @@ class EditDrinkViewModel @Inject constructor(repo: DrinkRepository) : BaseDrinkV
             drink.ingredients,
             drink.category.toString()
         )
+
         viewModelScope.launch {
             if (validationStatus) {
                 safeApiCall { repo.updateDrink(id, drink) }

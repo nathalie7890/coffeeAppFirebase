@@ -1,8 +1,11 @@
 package com.nathalie.coffeeapp.ui.presentation.bean
 
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,17 +19,33 @@ import kotlinx.coroutines.launch
 // Fragment/View bound to the AddBean UI
 class AddBeanFragment : BaseBeanFragment() {
     override val viewModel: AddBeanViewModel by viewModels()
+
+    //for selecting image from gallery
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+    private var fileUri: Uri? = null
     override fun getLayoutResource() = R.layout.fragment_add_bean
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
+        //select image from gallery and display in ivDrinkImage
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            fileUri = it
+            it?.let { uri ->
+                binding?.ivBeanImage?.setImageURI(uri)
+            }
+        }
+
         binding?.run {
             btnAdd.setOnClickListener {
                 val bean = getBean("")
                 bean?.let {
-                    viewModel.addBean(it)
+                    viewModel.addBean(it, fileUri)
                 }
+            }
+
+            ivBeanImage.setOnClickListener {
+                imagePickerLauncher.launch("image/*")
             }
         }
     }
