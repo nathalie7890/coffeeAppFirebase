@@ -122,7 +122,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
             override fun onClick(item: Drink) {
                 val action = item.id?.let { MainFragmentDirections.actionMainToDetail(it) }
                 if (action != null) {
-                    NavHostFragment.findNavController(this@DrinksFragment).navigate(action)
+                    navController.navigate(action)
                 }
             }
         }

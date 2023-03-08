@@ -1,6 +1,5 @@
 package com.nathalie.coffeeapp.ui.presentation.drink
 
-import android.util.Log
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
 import com.nathalie.coffeeapp.databinding.FragmentAddDrinkBinding
