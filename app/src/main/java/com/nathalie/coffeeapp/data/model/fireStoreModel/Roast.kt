@@ -5,7 +5,8 @@ data class Roast(
     val title: String = "",
     val details: String = "",
     val image: String? = null,
-    val defaultImage: String = ""
+    val defaultImage: String = "",
+    val uid: String = ""
 )
 //{
 //    fun toHashMap(): HashMap<String, Any> {

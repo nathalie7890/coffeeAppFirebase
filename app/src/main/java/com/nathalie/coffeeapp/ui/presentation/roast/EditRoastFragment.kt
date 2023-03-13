@@ -9,8 +9,11 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nathalie.coffeeapp.R
+import com.nathalie.coffeeapp.data.service.StorageService
+import com.nathalie.coffeeapp.ui.utils.Utils
 import com.nathalie.coffeeapp.ui.utils.Utils.showSnackbar
 import com.nathalie.coffeeapp.ui.viewmodels.roast.EditRoastViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,10 +50,24 @@ class EditRoastFragment : BaseRoastFragment() {
                     imagePickerLauncher.launch("image/*")
                 }
 
+                roast.image?.let {
+                    StorageService.getImageUri(it) { uri ->
+                        Glide.with(this@EditRoastFragment)
+                            .load(uri)
+                            .placeholder(R.color.chocolate)
+                            .into(ivRoastImage)
+                    }
+                }
+
                 btnAdd.setOnClickListener {
-                    val roast = getRoast()?.copy(image = roast.image)
+                    val roast = getRoast()?.copy(image = roast.image, uid = roast.uid)
                     roast?.let {
                         viewModel.editRoast(navArgs.id, it, fileUri)
+                        showSnackbar(
+                            requireView(),
+                            requireContext(),
+                            "${it.title} Roast Level edited!"
+                        )
                     }
                 }
 
