@@ -6,10 +6,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.nathalie.coffeeapp.data.service.AuthService
+import com.nathalie.coffeeapp.repository.FireStoreBeanRepository
 import com.nathalie.coffeeapp.repository.FireStoreDrinkRepository
-import com.nathalie.coffeeapp.repository.FireStoreRoastRepository
+import com.nathalie.coffeeapp.repository.fireStoreRepo.BeanRepository
 import com.nathalie.coffeeapp.repository.fireStoreRepo.DrinkRepository
-import com.nathalie.coffeeapp.repository.fireStoreRepo.RoastRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,13 +42,13 @@ object MyAppDependency {
 
     @Provides
     @Singleton
-    fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): AuthService {
-        return AuthService(auth, db.collection("users"))
+    fun getFireStoreBeanRepository(db: FirebaseFirestore): BeanRepository {
+        return FireStoreBeanRepository(db.collection("beans"))
     }
 
     @Provides
     @Singleton
-    fun getFireStoreRoastRepository(db: FirebaseFirestore): RoastRepository {
-        return FireStoreRoastRepository(db.collection("roasts"))
+    fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): AuthService {
+        return AuthService(auth, db.collection("users"))
     }
 }

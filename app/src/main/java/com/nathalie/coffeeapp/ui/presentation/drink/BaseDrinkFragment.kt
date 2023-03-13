@@ -8,7 +8,7 @@ import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 abstract class BaseDrinkFragment : BaseFragment<FragmentAddDrinkBinding>() {
     override fun getLayoutResource() = R.layout.fragment_add_drink
 
-    fun getDrink(category:Int): Drink? {
+    fun getDrink(category: Int): Drink? {
         return binding?.run {
             val title = etTitle.text.toString()
             val subtitle = etSubtitle.text.toString()

@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
 import com.nathalie.coffeeapp.data.service.AuthService
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,9 +29,21 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.navHostFragment)
 
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+
+        val navigationView = findViewById<NavigationView>(R.id.navigationView)
+        navigationView.setupWithNavController(navController)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        val btnLogout = findViewById<MaterialButton>(R.id.btnLogout)
+        btnLogout.setOnClickListener {
+            authRepo.deAuthenticate()
+            findNavController(R.id.navHostFragment).navigate(R.id.to_login_fragment)
+        }
 
         if (!authRepo.isAuthenticate()) {
-            findNavController(R.id.navHostFragment).navigate(R.id.loginFragment)
+            findNavController(R.id.navHostFragment).navigate(R.id.to_login_fragment)
         }
     }
 

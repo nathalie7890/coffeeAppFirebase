@@ -59,12 +59,6 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
                 false
             }
 
-            btnLogout.setOnClickListener {
-                viewModel.logout()
-                val action = MainFragmentDirections.toLoginFragment()
-                navController.navigate(action)
-            }
-
             btnAdd.setOnClickListener {
                 val action = MainFragmentDirections.actionMainToAddDrink()
                 navController.navigate(action)

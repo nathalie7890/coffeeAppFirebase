@@ -68,16 +68,16 @@
     <fragment
         android:id="@+id/addBeanFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.bean.AddBeanFragment"
-        android:label="fragment_add_bean"
+        android:label="Add Coffee Bean"
         tools:layout="@layout/fragment_add_bean" />
     <fragment
         android:id="@+id/beanDetailFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.bean.BeanDetailFragment"
-        android:label="fragment_bean_detail"
+        android:label="Coffee Bean Description"
         tools:layout="@layout/fragment_bean_detail">
         <argument
             android:name="id"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/action_bean_detail_to_edit_bean"
             app:destination="@id/editBeanFragment" />
@@ -85,21 +85,21 @@
     <fragment
         android:id="@+id/editBeanFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.bean.EditBeanFragment"
-        android:label="fragment_edit_bean"
+        android:label="Edit Coffee Bean"
         tools:layout="@layout/fragment_edit_bean">
         <argument
             android:name="id"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addRoastFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.roast.AddRoastFragment"
-        android:label="fragment_add_roast"
+        android:label="Add Coffee Roast"
         tools:layout="@layout/fragment_add_roast" />
     <fragment
         android:id="@+id/editRoastFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.roast.EditRoastFragment"
-        android:label="fragment_edit_roast"
+        android:label="Edit Coffee Roast"
         tools:layout="@layout/fragment_edit_roast">
         <argument
             android:name="id"
@@ -108,7 +108,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.user.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_login_to_signup"
@@ -117,7 +117,7 @@
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.user.SignupFragment"
-        android:label="fragment_signup"
+        android:label="Signup"
         tools:layout="@layout/fragment_signup" />
 
 
