@@ -103,7 +103,7 @@
         tools:layout="@layout/fragment_edit_roast">
         <argument
             android:name="id"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

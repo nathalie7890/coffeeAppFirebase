@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Bean
+import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.repository.fireStoreRepo.BeanRepository
 import com.nathalie.coffeeapp.ui.viewmodels.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,16 +13,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BeanViewModel @Inject constructor(
-    private val repo: BeanRepository,
+    private val repo: BeanRepository, private val authRepo: AuthService
 ) : BaseViewModel() {
     val beans: MutableLiveData<List<Bean>> = MutableLiveData()
 
     fun getBeans() {
         viewModelScope.launch {
-            val res = safeApiCall { repo.getAllBeans() }
-            res?.let {
-                beans.value = it
-                Log.d("debugging", "get beans")
+            val uid = authRepo.getUid()
+            if(uid != null) {
+                val res = safeApiCall { repo.getAllBeans(uid) }
+                res?.let {
+                    beans.value = it
+                }
             }
         }
     }

@@ -47,7 +47,7 @@ class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
                 sliderAroma.isEnabled = false
                 sliderCaffeine.isEnabled = false
 
-                it.image.let {
+                it.image?.let {
                     StorageService.getImageUri(it) { uri ->
                         Glide.with(this@BeanDetailFragment)
                             .load(uri)

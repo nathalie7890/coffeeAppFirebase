@@ -38,7 +38,7 @@ class AddBeanFragment : BaseBeanFragment() {
 
         binding?.run {
             btnAdd.setOnClickListener {
-                val bean = getBean("")
+                val bean = getBean()
                 bean?.let {
                     viewModel.addBean(it, fileUri)
                 }

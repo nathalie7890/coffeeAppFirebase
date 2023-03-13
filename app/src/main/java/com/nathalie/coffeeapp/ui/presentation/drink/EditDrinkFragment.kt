@@ -42,21 +42,20 @@ class EditDrinkFragment : BaseDrinkFragment() {
             }
         }
 
-        viewModel.drink.observe(viewLifecycleOwner) {
+        viewModel.drink.observe(viewLifecycleOwner) { drink ->
             binding?.run {
-                etTitle.setText(it.title)
-                etSubtitle.setText(it.subtitle)
-                etDetails.setText(it.details)
-                etIngredients.setText(it.ingredients)
-                category = it.category
+                etTitle.setText(drink.title)
+                etSubtitle.setText(drink.subtitle)
+                etDetails.setText(drink.details)
+                etIngredients.setText(drink.ingredients)
+                category = drink.category
 
                 //check radio button according to drink's category
                 if (category == 1) btnClassic.isChecked = true
                 else btnCraft.isChecked = true
 
-                it.image.let {
+                drink.image?.let {
                     StorageService.getImageUri(it) { uri ->
-                        fileUri = uri
                         Glide.with(this@EditDrinkFragment)
                             .load(uri)
                             .placeholder(R.color.chocolate)
@@ -77,9 +76,9 @@ class EditDrinkFragment : BaseDrinkFragment() {
                 }
 
                 btnAdd.setOnClickListener {
-                    val drink = getDrink(category)
+                    val drink = getDrink(category)?.copy(image = drink.image, uid = drink.uid)
                     drink?.let {
-                        viewModel.editDrink(navArgs.id, it, fileUri!!)
+                        viewModel.editDrink(navArgs.id, drink, fileUri)
                     }
                 }
             }

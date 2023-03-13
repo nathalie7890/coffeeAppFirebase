@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,22 +29,29 @@ class EditBeanFragment : BaseBeanFragment() {
         super.onBindView(view, savedInstanceState)
         val navArgs: EditBeanFragmentArgs by navArgs()
 
+        //select image from gallery and display in ivDrinkImage
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            fileUri = it
+            it?.let { uri ->
+                binding?.ivBeanImage?.setImageURI(uri)
+            }
+        }
+
 
         viewModel.getBeanById(navArgs.id)
 
-        viewModel.bean.observe(viewLifecycleOwner) {
+        viewModel.bean.observe(viewLifecycleOwner) { bean ->
             binding?.run {
-                etTitle.setText(it.title)
-                etSubtitle.setText(it.subtitle)
-                etTaste.setText(it.taste)
-                etDetails.setText(it.details)
-                sliderBody.value = it.body.toFloat()
-                sliderAroma.value = it.aroma.toFloat()
-                sliderCaffeine.value = it.caffeine.toFloat()
+                etTitle.setText(bean.title)
+                etSubtitle.setText(bean.subtitle)
+                etTaste.setText(bean.taste)
+                etDetails.setText(bean.details)
+                sliderBody.value = bean.body.toFloat()
+                sliderAroma.value = bean.aroma.toFloat()
+                sliderCaffeine.value = bean.caffeine.toFloat()
 
-                it.image.let {
+                bean.image?.let {
                     StorageService.getImageUri(it) { uri ->
-                        fileUri = uri
                         Glide.with(this@EditBeanFragment)
                             .load(uri)
                             .placeholder(R.color.chocolate)
@@ -51,11 +59,15 @@ class EditBeanFragment : BaseBeanFragment() {
                     }
                 }
 
+                ivBeanImage.setOnClickListener {
+                    imagePickerLauncher.launch("image/*")
+                }
+
                 btnAdd.text = "Save"
                 btnAdd.setOnClickListener {
-                    val bean = getBean("")
+                    val bean = getBean()?.copy(image = bean.image, uid = bean.uid)
                     bean?.let {
-                        viewModel.editBean(navArgs.id, it)
+                        viewModel.editBean(navArgs.id, it, fileUri)
                     }
                 }
             }

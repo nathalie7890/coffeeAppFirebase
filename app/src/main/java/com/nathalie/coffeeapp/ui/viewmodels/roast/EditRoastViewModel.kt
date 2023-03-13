@@ -1,11 +1,11 @@
-package com.nathalie.coffeeapp.ui.viewmodels.bean
+package com.nathalie.coffeeapp.ui.viewmodels.roast
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.nathalie.coffeeapp.data.model.fireStoreModel.Bean
+import com.nathalie.coffeeapp.data.model.fireStoreModel.Roast
 import com.nathalie.coffeeapp.data.service.StorageService
-import com.nathalie.coffeeapp.repository.fireStoreRepo.BeanRepository
+import com.nathalie.coffeeapp.repository.fireStoreRepo.RoastRepository
 import com.nathalie.coffeeapp.ui.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,29 +14,26 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class EditBeanViewModel @Inject constructor(repo: BeanRepository) : BaseBeanViewModel(repo) {
-    val bean = MutableLiveData<Bean>()
+class EditRoastViewModel @Inject constructor(repo: RoastRepository) : BaseRoastViewModel(repo) {
+    val roast = MutableLiveData<Roast>()
 
-    fun getBeanById(id: String) {
+    fun getRoastById(id: String) {
         viewModelScope.launch {
-            val res = safeApiCall { repo.getBeanById(id) }
+            val res = safeApiCall { repo.getRoastById(id) }
             res?.let {
-                bean.value = it
+                roast.value = it
             }
         }
     }
 
-    fun editBean(id: String, bean: Bean, imageUri: Uri?) {
+    fun editRoast(id: String, roast: Roast, imageUri: Uri?) {
         val validationStatus = Utils.validate(
-            bean.title,
-            bean.subtitle,
-            bean.taste,
-            bean.details,
+            roast.title, roast.details
         )
 
         val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ENGLISH)
         val date = Date()
-        val imageName: String = bean.image ?: formatter.format(date)
+        val imageName: String = roast.image ?: formatter.format(date)
 
         if (validationStatus) {
             if (imageUri != null) {
@@ -47,14 +44,14 @@ class EditBeanViewModel @Inject constructor(repo: BeanRepository) : BaseBeanView
                         }
                     } else {
                         viewModelScope.launch {
-                            safeApiCall { repo.updateBean(id, bean.copy(image = imageName)) }
+                            safeApiCall { repo.updateRoast(id, roast.copy(image = imageName)) }
                             finish.emit(Unit)
                         }
                     }
                 }
             } else {
                 viewModelScope.launch {
-                    safeApiCall { repo.updateBean(id, bean.copy(image = imageName)) }
+                    safeApiCall { repo.updateRoast(id, roast.copy(image = imageName)) }
                     finish.emit(Unit)
                 }
             }
@@ -62,6 +59,13 @@ class EditBeanViewModel @Inject constructor(repo: BeanRepository) : BaseBeanView
             viewModelScope.launch {
                 error.emit("Kindly provide all information")
             }
+        }
+    }
+
+    fun deleteRoast(id: String) {
+        viewModelScope.launch {
+            safeApiCall { repo.deleteRoast(id) }
+            finish.emit(Unit)
         }
     }
 }

@@ -1,12 +1,10 @@
-package com.nathalie.coffeeapp.ui.viewmodels.drink
+package com.nathalie.coffeeapp.ui.viewmodels.roast
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
-import com.nathalie.coffeeapp.data.service.AuthService
+import com.nathalie.coffeeapp.data.model.fireStoreModel.Roast
 import com.nathalie.coffeeapp.data.service.StorageService
-import com.nathalie.coffeeapp.repository.fireStoreRepo.DrinkRepository
+import com.nathalie.coffeeapp.repository.fireStoreRepo.RoastRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -14,21 +12,10 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class AddDrinkViewModel @Inject constructor(
-    repo: DrinkRepository,
-    private val authRepo: AuthService
-) : BaseDrinkViewModel(repo) {
-    fun addDrink(
-        drink: Drink,
-        imageUri: Uri?
-    ) {
-        val validationStatus = validate(
-            drink.title,
-            drink.subtitle,
-            drink.details,
-            drink.ingredients,
-            drink.category.toString(),
-        )
+class AddRoastViewModel @Inject constructor(repo: RoastRepository) : BaseRoastViewModel(repo) {
+
+    fun addRoast(roast: Roast, imageUri: Uri?) {
+        val validationStatus = validate(roast.title, roast.details)
 
         val formatter = SimpleDateFormat("yyyy_MM_HH_mm_ss", Locale.ENGLISH)
         val date = Date()
@@ -45,11 +32,8 @@ class AddDrinkViewModel @Inject constructor(
                 }
             }
             if (validationStatus) {
-                val uid = authRepo.getUid()
-                if (uid != null) {
-                    safeApiCall { repo.addDrink(drink.copy(image = imageName, uid = uid)) }
-                    finish.emit(Unit)
-                }
+                safeApiCall { repo.addRoast(roast.copy(image = imageName)) }
+                finish.emit(Unit)
             } else {
                 error.emit("Kindly provide all information")
             }

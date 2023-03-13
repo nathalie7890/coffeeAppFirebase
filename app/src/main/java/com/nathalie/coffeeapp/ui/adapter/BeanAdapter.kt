@@ -39,16 +39,16 @@ class BeanAdapter(private var items: MutableList<Bean>) :
             tvSubtitle.text = item.subtitle
             tvTaste.text = item.taste
 
-            if (item.image.isNotEmpty()) {
-                item.image.let {
-                    StorageService.getImageUri(it) { uri ->
-                        Glide.with(holder.binding.root)
-                            .load(uri)
-                            .placeholder(R.color.chocolate)
-                            .into(ivBeanImage)
-                    }
+
+            item.image?.let {
+                StorageService.getImageUri(it) { uri ->
+                    Glide.with(holder.binding.root)
+                        .load(uri)
+                        .placeholder(R.color.chocolate)
+                        .into(ivBeanImage)
                 }
             }
+
 
             beanDetail.setOnClickListener {
                 listener?.onClick(item)

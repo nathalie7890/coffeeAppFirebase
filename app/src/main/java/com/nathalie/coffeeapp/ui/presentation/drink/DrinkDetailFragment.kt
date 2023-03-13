@@ -45,7 +45,7 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                     btnFav.setImageResource(R.drawable.ic_favorite)
                 }
 
-                it.image.let {
+                it.image?.let {
                     StorageService.getImageUri(it) { uri ->
                         Glide.with(this@DrinkDetailFragment)
                             .load(uri)

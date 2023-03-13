@@ -3,6 +3,7 @@ package com.nathalie.coffeeapp.ui.viewmodels.bean
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Bean
+import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.repository.fireStoreRepo.BeanRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,10 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class AddBeanViewModel @Inject constructor(repo: BeanRepository) : BaseBeanViewModel(repo) {
+class AddBeanViewModel @Inject constructor(
+    repo: BeanRepository,
+    private val authRepo: AuthService
+) : BaseBeanViewModel(repo) {
     fun addBean(
         bean: Bean,
         imageUri: Uri?
@@ -39,8 +43,11 @@ class AddBeanViewModel @Inject constructor(repo: BeanRepository) : BaseBeanViewM
                 }
             }
             if (validationStatus) {
-                safeApiCall { repo.addBean(bean.copy(image = imageName)) }
-                finish.emit(Unit)
+                val uid = authRepo.getUid()
+                if(uid != null) {
+                    safeApiCall { repo.addBean(bean.copy(image = imageName, uid = uid)) }
+                    finish.emit(Unit)
+                }
             } else {
                 error.emit("Kindly provide all information")
             }
