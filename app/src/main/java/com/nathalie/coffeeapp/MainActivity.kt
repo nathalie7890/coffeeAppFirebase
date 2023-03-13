@@ -1,8 +1,10 @@
 package com.nathalie.coffeeapp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -12,8 +14,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
+import com.nathalie.coffeeapp.data.StartingBeans
 import com.nathalie.coffeeapp.data.service.AuthService
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.json.JSONArray
+import java.io.BufferedReader
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         btnLogout.setOnClickListener {
             authRepo.deAuthenticate()
             findNavController(R.id.navHostFragment).navigate(R.id.to_login_fragment)
+
+            drawerLayout.closeDrawer(GravityCompat.START)
         }
 
         if (!authRepo.isAuthenticate()) {

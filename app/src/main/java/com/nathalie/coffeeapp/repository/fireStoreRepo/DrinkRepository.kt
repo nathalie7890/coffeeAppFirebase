@@ -4,7 +4,7 @@ import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
 
 
 interface DrinkRepository {
-    suspend fun getAllDrinks(search: String, cat: Int, fav: Int): List<Drink>
+    suspend fun getAllDrinks(search: String, cat: Int, fav: Int, uid:String): List<Drink>
     suspend fun getDrinkById(id: String): Drink?
     suspend fun addDrink(drink: Drink)
     suspend fun updateDrink(id: String, drink: Drink): Drink?

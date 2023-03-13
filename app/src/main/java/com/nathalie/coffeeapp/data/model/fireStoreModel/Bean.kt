@@ -9,22 +9,22 @@ data class Bean(
     val body: Int = 1,
     val aroma: Int = 1,
     val caffeine: Int = 1,
-    val image: String = "",
-    val defaultImage: String = ""
-) {
-
-    fun toHashMap(): HashMap<String, Any> {
-        return hashMapOf(
-            "title" to title,
-            "subtitle" to subtitle,
-            "taste" to taste,
-            "details" to details,
-            "body" to body,
-            "aroma" to aroma,
-            "caffeine" to caffeine,
-            "image" to image,
-            "defaultImage" to defaultImage
-        )
-    }
-}
+    val image: String? = null,
+    val uid: String = ""
+)
+//{
+//    fun toHashMap(): HashMap<String, Any> {
+//        return hashMapOf(
+//            "title" to title,
+//            "subtitle" to subtitle,
+//            "taste" to taste,
+//            "details" to details,
+//            "body" to body,
+//            "aroma" to aroma,
+//            "caffeine" to caffeine,
+//            "image" to image,
+//            "defaultImage" to defaultImage
+//        )
+//    }
+//}
 

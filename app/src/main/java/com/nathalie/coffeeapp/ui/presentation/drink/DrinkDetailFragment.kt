@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nathalie.coffeeapp.R
+import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.FragmentDrinkDetailBinding
 import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 import com.nathalie.coffeeapp.ui.utils.Utils
@@ -43,6 +45,15 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                     btnFav.setImageResource(R.drawable.ic_favorite)
                 }
 
+                it.image?.let {
+                    StorageService.getImageUri(it) { uri ->
+                        Glide.with(this@DrinkDetailFragment)
+                            .load(uri)
+                            .placeholder(R.color.chocolate)
+                            .into(ivDrinkImage)
+                    }
+                }
+
                 //delete drink
                 btnDelete.setOnClickListener { _ ->
                     MaterialAlertDialogBuilder(requireContext(), R.style.CoffeeApp_AlertDialog)
@@ -70,6 +81,8 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                         viewModel.favDrink(navArgs.id, 2)
                     }
                 }
+
+
             }
         }
     }

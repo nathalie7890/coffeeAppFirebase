@@ -4,7 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Roast
+import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.ItemLayoutRoastBinding
 import com.nathalie.coffeeapp.ui.utils.Utils.update
 
@@ -29,6 +32,15 @@ class RoastAdapter(private var items: MutableList<Roast>) :
             tvTitle.text = item.title
             tvTitle2.text = item.title
             tvDetails.text = item.details
+
+            item.image?.let {
+                StorageService.getImageUri(it) { uri ->
+                    Glide.with(holder.binding.root)
+                        .load(uri)
+                        .placeholder(R.color.chocolate)
+                        .into(ivRoastImage)
+                }
+            }
 
             val components = arrayOf(ivDarkOverlay, tvTitle, tvTitle2, tvDetails, btnEdit)
             cvRoast.setOnClickListener {

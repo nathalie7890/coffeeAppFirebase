@@ -13,6 +13,7 @@ class MainViewModel : ViewModel() {
     val refreshRoast: MutableLiveData<Boolean> = MutableLiveData(false)
     var fav = false
 
+
     fun shouldRefreshDrinks(refresh: Boolean, fav: Boolean = false) {
         refreshDrinks.value = Pair(refresh, fav)
     }

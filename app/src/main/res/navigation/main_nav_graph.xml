@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/drinkDetailFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.drink.DrinkDetailFragment"
-        android:label="Drink Description"
+        android:label="Drink"
         tools:layout="@layout/fragment_drink_detail">
         <argument
             android:name="id"
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/editDrinkFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.drink.EditDrinkFragment"
-        android:label="Edit Drink"
+        android:label="Edit"
         tools:layout="@layout/fragment_edit_drink">
         <argument
             android:name="id"
@@ -73,7 +73,7 @@
     <fragment
         android:id="@+id/beanDetailFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.bean.BeanDetailFragment"
-        android:label="Coffee Bean Description"
+        android:label="Coffee Bean"
         tools:layout="@layout/fragment_bean_detail">
         <argument
             android:name="id"
@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/editBeanFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.bean.EditBeanFragment"
-        android:label="Edit Coffee Bean"
+        android:label="Edit"
         tools:layout="@layout/fragment_edit_bean">
         <argument
             android:name="id"
@@ -99,7 +99,7 @@
     <fragment
         android:id="@+id/editRoastFragment"
         android:name="com.nathalie.coffeeapp.ui.presentation.roast.EditRoastFragment"
-        android:label="Edit Coffee Roast"
+        android:label="Edit"
         tools:layout="@layout/fragment_edit_roast">
         <argument
             android:name="id"

@@ -8,7 +8,7 @@ import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 abstract class BaseBeanFragment : BaseFragment<FragmentAddBeanBinding>() {
     override fun getLayoutResource() = R.layout.fragment_add_bean
 
-    fun getBean(img: String): Bean? {
+    fun getBean(): Bean? {
         return binding?.run {
             val title = etTitle.text.toString()
             val subtitle = etSubtitle.text.toString()
@@ -19,7 +19,7 @@ abstract class BaseBeanFragment : BaseFragment<FragmentAddBeanBinding>() {
             val caffeine = sliderCaffeine.value.toInt()
 
             Bean(
-                null, title, subtitle, taste, details, body, aroma, caffeine, img, ""
+                null, title, subtitle, taste, details, body, aroma, caffeine, "", ""
             )
         }
     }

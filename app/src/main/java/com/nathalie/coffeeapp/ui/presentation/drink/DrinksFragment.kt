@@ -2,10 +2,14 @@ package com.nathalie.coffeeapp.ui.presentation.drink
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nathalie.coffeeapp.R
@@ -19,6 +23,7 @@ import com.nathalie.coffeeapp.ui.utils.Utils.hideKeyboard
 import com.nathalie.coffeeapp.ui.viewmodels.drink.DrinkViewModel
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
@@ -30,17 +35,20 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getDrinks("", 0, 0)
+        lifecycleScope.launch {
+            viewModel.getDrinks("", 0, 0)
+        }
     }
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
         setupAdapter()
 
-        viewModel.swipeRefreshLayoutFinished.asLiveData()
-            .observe(viewLifecycleOwner) {
+        lifecycleScope.launch {
+            viewModel.swipeRefreshLayoutFinished.collect {
                 binding?.srlRefresh?.isRefreshing = false
             }
+        }
 
         binding?.run {
             srlRefresh.setOnRefreshListener {
@@ -102,6 +110,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
                 refresh("", 0, 0)
                 parentViewModel.shouldRefreshDrinks(false)
             }
+
         }
     }
 

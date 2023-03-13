@@ -1,5 +1,6 @@
 package com.nathalie.coffeeapp.ui.viewmodels.drink
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
@@ -20,29 +21,30 @@ class DrinkViewModel @Inject constructor(
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
     val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
 
-//    override fun onViewCreated() {
-//        super.onViewCreated()
-//        getDrinks(0)
-//    }
+    override fun onViewCreated() {
+        super.onViewCreated()
+        viewModelScope.launch {
+            getDrinks("", 0, 0)
+        }
+    }
 
     fun onRefresh(search: String, cat: Int, fav: Int) {
         viewModelScope.launch {
-            delay(1000)
+//            delay(1000)
             getDrinks(search, cat, fav)
             swipeRefreshLayoutFinished.emit(Unit)
         }
     }
 
-    fun logout() {
-        authRepo.deAuthenticate()
-    }
 
-    fun getDrinks(search: String, cat: Int, fav: Int) {
-        viewModelScope.launch {
-            val res = safeApiCall { repo.getAllDrinks(search, cat, fav) }
+    suspend fun getDrinks(search: String, cat: Int, fav: Int) {
+        val uid = authRepo.getUid()
+        if (uid != null) {
+            val res = safeApiCall { repo.getAllDrinks(search, cat, fav, uid) }
             res?.let {
                 drinks.value = it
             }
+
         }
     }
 }

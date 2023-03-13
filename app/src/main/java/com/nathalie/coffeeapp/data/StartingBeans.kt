@@ -22,7 +22,6 @@ class StartingBeans(private val context: Context) : RoomDatabase.Callback() {
             fillWithStartingBeans(context)
         }
     }
-
     private fun loadJSONArray(context: Context): JSONArray {
 
         val inputStream = context.resources.openRawResource(R.raw.bean)
@@ -31,6 +30,7 @@ class StartingBeans(private val context: Context) : RoomDatabase.Callback() {
             return JSONArray(it.readText())
         }
     }
+
 
     private suspend fun fillWithStartingBeans(context: Context) {
         val coffeeDao = CoffeeDatabase.getInstance(context).coffeeDao

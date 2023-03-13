@@ -1,12 +1,16 @@
 package com.nathalie.coffeeapp.ui.viewmodels.roast
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Roast
+import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.repository.fireStoreRepo.RoastRepository
 import com.nathalie.coffeeapp.ui.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,18 +26,38 @@ class EditRoastViewModel @Inject constructor(repo: RoastRepository) : BaseRoastV
         }
     }
 
-    fun editRoast(id: String, roast: Roast) {
+    fun editRoast(id: String, roast: Roast, imageUri: Uri?) {
         val validationStatus = Utils.validate(
             roast.title, roast.details
         )
-        viewModelScope.launch {
-            if (validationStatus) {
-                safeApiCall { repo.updateRoast(id, roast) }
-                finish.emit(Unit)
+
+        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ENGLISH)
+        val date = Date()
+        val imageName: String = roast.image ?: formatter.format(date)
+
+        if (validationStatus) {
+            if (imageUri != null) {
+                StorageService.addImage(imageUri, imageName) { status ->
+                    if (!status) {
+                        viewModelScope.launch {
+                            error.emit("Image Upload Failed")
+                        }
+                    } else {
+                        viewModelScope.launch {
+                            safeApiCall { repo.updateRoast(id, roast.copy(image = imageName)) }
+                            finish.emit(Unit)
+                        }
+                    }
+                }
             } else {
                 viewModelScope.launch {
-                    error.emit("Kindly provide all information")
+                    safeApiCall { repo.updateRoast(id, roast.copy(image = imageName)) }
+                    finish.emit(Unit)
                 }
+            }
+        } else {
+            viewModelScope.launch {
+                error.emit("Kindly provide all information")
             }
         }
     }

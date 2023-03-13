@@ -4,15 +4,16 @@ data class Roast(
     val id: String? = null,
     val title: String = "",
     val details: String = "",
-    val image: String = "",
+    val image: String? = null,
     val defaultImage: String = ""
-) {
-    fun toHashMap(): HashMap<String, Any> {
-        return hashMapOf(
-            "title" to title,
-            "details" to details,
-            "image" to image,
-            "defaultImage" to defaultImage
-        )
-    }
-}
+)
+//{
+//    fun toHashMap(): HashMap<String, Any> {
+//        return hashMapOf(
+//            "title" to title,
+//            "details" to details,
+//            "image" to image,
+//            "defaultImage" to defaultImage
+//        )
+//    }
+//}

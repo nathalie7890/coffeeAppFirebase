@@ -1,7 +1,10 @@
 package com.nathalie.coffeeapp.ui.presentation.roast
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,26 +18,39 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EditRoastFragment : BaseRoastFragment() {
-    //    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
-//    private var imageBytes: ByteArray? = null
-//    private lateinit var defaultImage: String
     override val viewModel: EditRoastViewModel by viewModels()
+
+    //for selecting image from gallery
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+    private var fileUri: Uri? = null
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
         val navArgs: EditRoastFragmentArgs by navArgs()
+
+        //select image from gallery and display in ivDrinkImage
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            fileUri = it
+            it?.let { uri ->
+                binding?.ivRoastImage?.setImageURI(uri)
+            }
+        }
         viewModel.getRoastById(navArgs.id)
 
-        viewModel.roast.observe(viewLifecycleOwner) {
+        viewModel.roast.observe(viewLifecycleOwner) { roast ->
             binding?.run {
-                etTitle.setText(it.title)
-                etDetails.setText(it.details)
+                etTitle.setText(roast.title)
+                etDetails.setText(roast.details)
                 btnAdd.text = "Save"
 
+                ivRoastImage.setOnClickListener {
+                    imagePickerLauncher.launch("image/*")
+                }
+
                 btnAdd.setOnClickListener {
-                    val roast = getRoast()
+                    val roast = getRoast()?.copy(image = roast.image)
                     roast?.let {
-                        viewModel.editRoast(navArgs.id, it)
+                        viewModel.editRoast(navArgs.id, it, fileUri)
                     }
                 }
 

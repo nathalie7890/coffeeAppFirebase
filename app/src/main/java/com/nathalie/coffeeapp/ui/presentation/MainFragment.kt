@@ -32,7 +32,6 @@ class MainFragment : Fragment() {
     private val roastFragment = RoastFragment.getInstance()
     private val viewModel: MainViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +59,12 @@ class MainFragment : Fragment() {
                 currentPage = position
             }
         })
+
+        setFragmentResultListener("finish_login") { _, result ->
+            Log.d("debugging", "from login")
+            val refresh = result.getBoolean("refresh")
+            viewModel.shouldRefreshDrinks(refresh)
+        }
 
         setFragmentResultListener("finish_add_drink") { _, result ->
             val refresh = result.getBoolean("refresh")

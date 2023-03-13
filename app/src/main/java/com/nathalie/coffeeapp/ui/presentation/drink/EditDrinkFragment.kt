@@ -2,15 +2,19 @@ package com.nathalie.coffeeapp.ui.presentation.drink
 
 
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.nathalie.coffeeapp.R
+import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.ui.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import com.nathalie.coffeeapp.ui.viewmodels.drink.EditDrinkViewModel
@@ -21,8 +25,8 @@ class EditDrinkFragment : BaseDrinkFragment() {
     override val viewModel: EditDrinkViewModel by viewModels()
 
     //for selecting image from gallery
-    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
-    private var imgBytes: ByteArray? = null
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+    private var fileUri: Uri? = null
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
@@ -31,29 +35,34 @@ class EditDrinkFragment : BaseDrinkFragment() {
         var category = 0
 
         //select image from gallery and display in ivDrinkImage
-        filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            fileUri = it
             it?.let { uri ->
-                val inputStream = requireContext().contentResolver.openInputStream(uri)
-                imgBytes = inputStream?.readBytes()
-                inputStream?.close()
-
-                val bitmap =
-                    imgBytes?.let { it1 -> BitmapFactory.decodeByteArray(imgBytes, 0, it1.size) }
-                binding?.ivDrinkImage?.setImageBitmap(bitmap)
-
+                binding?.ivDrinkImage?.setImageURI(uri)
             }
         }
 
-        viewModel.drink.observe(viewLifecycleOwner) {
+        viewModel.drink.observe(viewLifecycleOwner) { drink ->
             binding?.run {
-                etTitle.setText(it.title)
-                etSubtitle.setText(it.subtitle)
-                etDetails.setText(it.details)
-                etIngredients.setText(it.ingredients)
-                imgBytes = it.image.toByteArray()
-                category = it.category
+                etTitle.setText(drink.title)
+                etSubtitle.setText(drink.subtitle)
+                etDetails.setText(drink.details)
+                etIngredients.setText(drink.ingredients)
+                category = drink.category
+
+                //check radio button according to drink's category
                 if (category == 1) btnClassic.isChecked = true
                 else btnCraft.isChecked = true
+
+                drink.image?.let {
+                    StorageService.getImageUri(it) { uri ->
+                        Glide.with(this@EditDrinkFragment)
+                            .load(uri)
+                            .placeholder(R.color.chocolate)
+                            .into(ivDrinkImage)
+                    }
+                }
+
                 btnAdd.text = "Save"
 
                 drinkRadioGroup.setOnCheckedChangeListener { _, id ->
@@ -63,13 +72,13 @@ class EditDrinkFragment : BaseDrinkFragment() {
 
                 //select image from gallery
                 ivDrinkImage.setOnClickListener {
-                    filePickerLauncher.launch("image/*")
+                    imagePickerLauncher.launch("image/*")
                 }
 
                 btnAdd.setOnClickListener {
-                    val drink = getDrink(category)
+                    val drink = getDrink(category)?.copy(image = drink.image, uid = drink.uid)
                     drink?.let {
-                        viewModel.editDrink(navArgs.id, it)
+                        viewModel.editDrink(navArgs.id, drink, fileUri)
                     }
                 }
             }

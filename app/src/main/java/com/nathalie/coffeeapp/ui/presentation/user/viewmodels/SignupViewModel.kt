@@ -1,13 +1,18 @@
 package com.nathalie.coffeeapp.ui.presentation.user.viewmodels
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
+import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.model.User
 import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.ui.utils.Utils
 import com.nathalie.coffeeapp.ui.viewmodels.BaseViewModel
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import java.io.BufferedReader
 import javax.inject.Inject
 
 @HiltViewModel

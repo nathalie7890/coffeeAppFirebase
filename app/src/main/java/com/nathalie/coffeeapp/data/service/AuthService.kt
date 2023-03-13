@@ -17,7 +17,6 @@ class AuthService(private val auth: FirebaseAuth, private val ref: CollectionRef
 
     suspend fun login(email: String, pass: String): Boolean {
         val res = auth.signInWithEmailAndPassword(email, pass).await()
-//        Log.d("debugging", "hello ${res.user?.uid}")
         return res.user?.uid != null
     }
 
@@ -31,6 +30,10 @@ class AuthService(private val auth: FirebaseAuth, private val ref: CollectionRef
 
     fun deAuthenticate() {
         auth.signOut()
+    }
+
+    fun getUid(): String? {
+        return auth.uid
     }
 
     suspend fun getCurrentUser(): User? {

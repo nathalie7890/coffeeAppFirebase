@@ -30,16 +30,16 @@ class DrinkAdapter(private var items: MutableList<Drink>) :
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
 
-            if (item.image.isNotEmpty()) {
-                item.image.let {
-                    StorageService.getImageUri(it) { uri ->
-                        Glide.with(holder.binding.root)
-                            .load(uri)
-                            .placeholder(R.color.chocolate)
-                            .into(ivDrinkImage)
-                    }
+
+            item.image?.let {
+                StorageService.getImageUri(it) { uri ->
+                    Glide.with(holder.binding.root)
+                        .load(uri)
+                        .placeholder(R.color.chocolate)
+                        .into(ivDrinkImage)
                 }
             }
+
 
             cvDrinkItem.setOnClickListener {
                 listener?.onClick(item)

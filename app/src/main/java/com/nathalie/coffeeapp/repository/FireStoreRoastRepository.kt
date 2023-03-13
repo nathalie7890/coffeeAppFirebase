@@ -23,12 +23,12 @@ class FireStoreRoastRepository(private val ref: CollectionReference) : RoastRepo
     }
 
     override suspend fun addRoast(roast: Roast) {
-        ref.add(roast.toHashMap()).await()
+        ref.add(roast).await()
     }
 
     override suspend fun updateRoast(id: String, roast: Roast): Roast? {
         val update = roast.copy(id = id)
-        ref.document(id).set(update.toHashMap()).await()
+        ref.document(id).set(update).await()
         return update
     }
 

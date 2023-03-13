@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
+import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.repository.fireStoreRepo.DrinkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,10 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class AddDrinkViewModel @Inject constructor(repo: DrinkRepository) : BaseDrinkViewModel(repo) {
+class AddDrinkViewModel @Inject constructor(
+    repo: DrinkRepository,
+    private val authRepo: AuthService
+) : BaseDrinkViewModel(repo) {
     fun addDrink(
         drink: Drink,
         imageUri: Uri?
@@ -41,8 +45,11 @@ class AddDrinkViewModel @Inject constructor(repo: DrinkRepository) : BaseDrinkVi
                 }
             }
             if (validationStatus) {
-                safeApiCall { repo.addDrink(drink.copy(image = imageName)) }
-                finish.emit(Unit)
+                val uid = authRepo.getUid()
+                if (uid != null) {
+                    safeApiCall { repo.addDrink(drink.copy(image = imageName, uid = uid)) }
+                    finish.emit(Unit)
+                }
             } else {
                 error.emit("Kindly provide all information")
             }
