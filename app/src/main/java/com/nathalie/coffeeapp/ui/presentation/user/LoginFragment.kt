@@ -60,7 +60,6 @@ class LoginFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("finish_login", bundle)
-
             }
         }
     }
