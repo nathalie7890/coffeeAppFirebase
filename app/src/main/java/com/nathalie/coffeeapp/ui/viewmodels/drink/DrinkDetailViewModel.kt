@@ -3,13 +3,15 @@ package com.nathalie.coffeeapp.ui.viewmodels.drink
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
+import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.repository.fireStoreRepo.DrinkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository) : BaseDrinkViewModel(repo) {
+class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository, authRepo: AuthService) :
+    BaseDrinkViewModel(repo) {
 
     val drink = MutableLiveData<Drink>()
 

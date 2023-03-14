@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         // if not logged in, navigate to login fragment
         if (!authRepo.isAuthenticate()) {
             findNavController(R.id.navHostFragment).navigate(R.id.to_login_fragment)
-        }
+        } else drawerUsername()
     }
 
     // function to set the logged in users name in the drawer

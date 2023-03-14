@@ -99,9 +99,9 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
                 Utils.updateColors(requireContext(), btnCraft, btnAll, btnClassic, btnFav)
             }
 
-            // refetches drinks where fav = 1
+            // refetches drinks where fav = 2
             btnFav.setOnClickListener {
-                refresh("", 0, 1)
+                refresh("", 0, 2)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnCraft)
             }

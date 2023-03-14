@@ -43,7 +43,7 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                 tvDetails.text = it.details
                 tvIngredients.text = it.ingredients
                 // set the favorite image depending on the items' favorite state
-                if (it.favorite == 2) {
+                if (it.favorite == 1) {
                     btnFav.setImageResource(R.drawable.ic_favorite_border)
                 } else {
                     btnFav.setImageResource(R.drawable.ic_favorite)
@@ -86,10 +86,10 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                     var msg: String
                     msg = if (viewModel.isFav() == 2) {
                         viewModel.favDrink(navArgs.id, 1)
-                        "Added drink to favorite!"
+                        "Removed drink from favorite!"
                     } else {
                         viewModel.favDrink(navArgs.id, 2)
-                        "Removed drink from favorite!"
+                        "Added drink to favorite!"
                     }
 
                     Utils.showSnackbar(

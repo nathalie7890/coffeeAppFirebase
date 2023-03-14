@@ -3,6 +3,8 @@ package com.nathalie.coffeeapp.repository
 import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.rpc.context.AttributeContext.Auth
+import com.nathalie.coffeeapp.data.model.User
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
 import com.nathalie.coffeeapp.data.service.AuthService
 
@@ -23,7 +25,7 @@ class FireStoreDrinkRepository(
     ): List<Drink> {
         val drinks = mutableListOf<Drink>()
         val res: QuerySnapshot
-        if (fav == 1) {
+        if (fav == 2) {
             res = ref.whereEqualTo("uid", uid).whereEqualTo("favorite", fav).get()
                 .await()
         } else if (cat == 1) {
@@ -39,12 +41,6 @@ class FireStoreDrinkRepository(
         for (document in res) {
             drinks.add(document.toObject(Drink::class.java).copy(id = document.id))
         }
-
-        val defaultDrinks = ref.whereEqualTo("uid", "default").get().await()
-        for (document in defaultDrinks) {
-            drinks.add(document.toObject(Drink::class.java).copy(id = document.id))
-        }
-
         return drinks.filter {
             Regex(
                 search,

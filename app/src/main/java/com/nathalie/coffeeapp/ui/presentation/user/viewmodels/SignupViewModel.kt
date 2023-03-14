@@ -79,6 +79,7 @@ class SignupViewModel @Inject constructor(
     }
 
     suspend fun fillWithStartingDrinks(context: Context) {
+        val uid = authRepo.getUid()
         try {
             val drinks = loadJSONArray(context, R.raw.drinks)
             for (i in 0 until drinks.length()) {
@@ -92,19 +93,23 @@ class SignupViewModel @Inject constructor(
                 val favorite = item.getInt("favorite")
                 val image = item.getString("image")
 
-                val drink = Drink(
-                    id,
-                    title,
-                    subtitle,
-                    details,
-                    ingredients,
-                    category,
-                    favorite,
-                    image,
-                    "default"
-                )
+                val drink = uid?.let {
+                    Drink(
+                        id,
+                        title,
+                        subtitle,
+                        details,
+                        ingredients,
+                        category,
+                        favorite,
+                        image,
+                        it
+                    )
+                }
 
-                addDrink(drink)
+                if (drink != null) {
+                    addDrink(drink)
+                }
             }
         } catch (e: JSONException) {
             viewModelScope.launch {
@@ -114,6 +119,7 @@ class SignupViewModel @Inject constructor(
     }
 
     suspend fun fillWithStartingBeans(context: Context) {
+        val uid = authRepo.getUid()
         try {
             val beans = loadJSONArray(context, R.raw.bean)
             for (i in 0 until beans.length()) {
@@ -128,20 +134,24 @@ class SignupViewModel @Inject constructor(
                 val caffeine = item.getInt("caffeine")
                 val image = item.getString("image")
 
-                val bean = Bean(
-                    id,
-                    title,
-                    subtitle,
-                    taste,
-                    details,
-                    body,
-                    aroma,
-                    caffeine,
-                    image,
-                    "default"
-                )
+                val bean = uid?.let {
+                    Bean(
+                        id,
+                        title,
+                        subtitle,
+                        taste,
+                        details,
+                        body,
+                        aroma,
+                        caffeine,
+                        image,
+                        it
+                    )
+                }
 
-                addBean(bean)
+                if (bean != null) {
+                    addBean(bean)
+                }
             }
         } catch (e: JSONException) {
             viewModelScope.launch {
@@ -151,6 +161,7 @@ class SignupViewModel @Inject constructor(
     }
 
     suspend fun fillWithStartingRoasts(context: Context) {
+        val uid = authRepo.getUid()
         try {
             val roasts = loadJSONArray(context, R.raw.roasts)
             for (i in 0 until roasts.length()) {
@@ -160,15 +171,19 @@ class SignupViewModel @Inject constructor(
                 val details = item.getString("details")
                 val image = item.getString("image")
 
-                val roast = Roast(
-                    id,
-                    title,
-                    details,
-                    image,
-                    "default"
-                )
+                val roast = uid?.let {
+                    Roast(
+                        id,
+                        title,
+                        details,
+                        image,
+                        it
+                    )
+                }
 
-                addRoast(roast)
+                if (roast != null) {
+                    addRoast(roast)
+                }
             }
         } catch (e: JSONException) {
             viewModelScope.launch {

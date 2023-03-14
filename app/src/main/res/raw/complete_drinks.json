@@ -1,0 +1,123 @@
+[
+  {
+    "id": null,
+    "title": "Espresso",
+    "subtitle": "Concentrated, syrup-like coffee drink",
+    "details": "The espresso, also known as a short black, is approximately 1 oz. of highly concentrated coffee. Although simple in appearance, it can be difficult to master.",
+    "ingredients": "1/2 cup of ground coffee(French or other dark roast, 1/2 cup of cold water, Lemon twist(optional)",
+    "category": 1,
+    "favorite": 1,
+    "image": "espresso.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Cappuccino",
+    "subtitle": "Classic Italian coffee drink",
+    "details": "This creamy coffee drink is usually consumed at breakfast time in Italy and is loved in the United States as well. It is usually associated with indulgence and comfort because of its thick foam layer and additional flavorings that can be added to it.",
+    "ingredients": "1-2 shots of espresso, 2 oz. of steamed milk, 2 oz. of foamed milk, sprinkling of chocolate powder (optional)",
+    "category": 1,
+    "favorite": 1,
+    "image": "cappuccino.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Americano",
+    "subtitle": "Hot water and espresso",
+    "details": "An americano is quite simply just hot water and espresso. Americanos are popular breakfast drinks and thought to have originated during World War II. Soldiers would add water to their coffee to extend their rations farther. The water dilutes the espresso while still maintaining a high level of caffeine.",
+    "ingredients": "1 doubleshot espresso, 1/2 cup ice and cold water, Use hot water and omit ice for hot Americano",
+    "category": 1,
+    "favorite": 1,
+    "image": "americano.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Cold Brew",
+    "subtitle": "Steeped in cold water for 12 hours",
+    "details": "Cold brew coffee is created by steeping coarsely ground coffee in cool or room temperature water for an extended period, often 12 hours or more. The final product is a type of coffee drink with a smooth concentrate that can be diluted with water or milk depending on your preference.",
+    "ingredients": "1 cup whole coffee beans, 4 cups water",
+    "category": 1,
+    "favorite": 1,
+    "image": "cold_brew.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Cafe Latte",
+    "subtitle": "Dark roast coffee and steamed milk",
+    "details": "Cafe au lait is a coffee beverage that is made with dark roast coffee and steamed milk. The milk is generally warmed up and frothed before it is added to the coffee. Cafe au lait is a popular type of coffee drink in France, where it is often served at breakfast.",
+    "ingredients": "1 shot of espresso, 8-10 oz. of steamed milk, 1 cm of foam",
+    "category": 1,
+    "favorite": 1,
+    "image": "cafe_latte.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Affogato",
+    "subtitle": "More of a dessert than coffee",
+    "details": "Rather than having ice cream or gelato with hot espresso poured over it, the hot espresso slightly melts the ice cream and the corresponding ice cream cools down the beverage. They complement each other perfectly.",
+    "ingredients": "2 scoops vanilla ice cream, (or vanilla gelato), 2 oz espresso, (2 shots), or strong brewed coffee",
+    "category": 1,
+    "favorite": 1,
+    "image": "affogato.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Macchiato",
+    "subtitle": "Espresso with a splash of milk",
+    "details": "The word macchiato means spotted, so a macchiato espresso is an espresso with a splash of milk. Most coffee shops will top off this type of coffee drink with some foamed milk instead of just steamed milk for what's known as a traditional macchiato.",
+    "ingredients": "2 espresso shots (2 ounces), 2 ounces (1/4 cup) whole milk foam",
+    "category": 1,
+    "favorite": 1,
+    "image": "macchiato.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Dalgona Coffee",
+    "subtitle": "Whipped coffee on top of milk",
+    "details": "Dalgona coffee is a whipped, frothy iced coffee drink made with instant coffee, sugar, water, and milk. Also known as whipped coffee, frothy coffee, or fluffy coffee.",
+    "ingredients": "1 Tbsp instant coffee, 1 Tbsp sugar, 1 Tbsp hot water, 3/4 cup to 1 cup milk (your choice), chilled or heated",
+    "category": 2,
+    "favorite": 1,
+    "image": "dalgona.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Coffee Jelly",
+    "subtitle": "Cubes of coffee jelly served with cream or milk",
+    "details": "Coffee jelly is a popular Japanese dessert that originated in the 60s. Although, the recipe itself actually originated in Boston, America long before it started to spread throughout Japan.",
+    "ingredients": "2 cups water (500ml), 1 tbsp high quality instant coffee granules, 2 tsp Japanese agar* (8g), 3 tsp sugar (15g), 1/2 cup coconut evaporated milk (125g), 3 tbsp coconut condensed milk (45g)",
+    "category": 2,
+    "favorite": 1,
+    "image": "coffee_jelly.jpg",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Salted Caramel Mocha",
+    "subtitle": "Mocha with salted caramel sauce",
+    "details": "If you have an espresso machine, this copycat recipe is super simple. It’s basically just making your latte as normal, using two shots of espresso and milk of choice. Before you add in the milk, mix in the caramel sauce and the cocoa powder to the espresso shots.",
+    "ingredients": "2 shots espresso, 1 Tbsp salted caramel sauce, 1 tsp unsweetened cocoa powder, 1 cup milk of choice, whipped cream(topping), 1 Tbsp salted caramel sauce (topping), 1 tsp chocolate shavings(topping)",
+    "category": 2,
+    "favorite": 1,
+    "image": "salted_caramel_mocha",
+    "uid": "default"
+  },
+  {
+    "id": null,
+    "title": "Chai Latte",
+    "subtitle": "Dairy-free and naturally sweetened",
+    "details": "Similar to a latte made with coffee, a chai latte is typically made with a tea concentrate and steamed milk. Chai lattes that are made with black tea do have some caffeine. In this particular recipe, you can make it with or without the tea– either way it will taste great!",
+    "ingredients": "2 cups almond milk, 2 black tea bags, 3/4 teaspoon ground cinnamon, 1/4 teaspoon ground ginger, 1/8 teaspoon ground cloves, 3 tablespoons maple syrup",
+    "category": 2,
+    "favorite": 1,
+    "image": "chai_latte.jpg",
+    "uid": "default"
+  }
+]
