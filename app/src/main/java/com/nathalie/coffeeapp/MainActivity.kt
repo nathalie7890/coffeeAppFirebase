@@ -50,20 +50,10 @@ class MainActivity : AppCompatActivity() {
         navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        lifecycleScope.launch {
-            viewModel.getCurrentUser()
-            viewModel.user.observe(this@MainActivity) {
-                val username = findViewById<TextView>(R.id.tvUserName)
-                username.text = it.name
-            }
-        }
-
-
         val btnLogout = findViewById<MaterialButton>(R.id.btnLogout)
         btnLogout.setOnClickListener {
             authRepo.deAuthenticate()
             findNavController(R.id.navHostFragment).navigate(R.id.to_login_fragment)
-
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 

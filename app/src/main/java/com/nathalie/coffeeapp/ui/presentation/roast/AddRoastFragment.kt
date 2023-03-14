@@ -46,22 +46,6 @@ class AddRoastFragment : BaseRoastFragment() {
                 roast?.let {
                     viewModel.addRoast(it, fileUri)
                 }
-
-//                if (title.isNotEmpty() && details.isNotEmpty()) {
-//                    val roast = Roast(null, title, details, "", "")
-//                    viewModel.addRoast(roast, fileUri)
-//                    val bundle = Bundle()
-//                    bundle.putBoolean("refresh", true)
-//                    setFragmentResult("from_add_roast", bundle)
-//                    navController.popBackStack()
-//                    showSnackbar(requireView(), requireContext(), "$title added to Roast Levels")
-//                } else {
-//                    showSnackbar(
-//                        requireView(),
-//                        requireContext(),
-//                        "Make sure you fill in everything!"
-//                    )
-//                }
             }
         }
     }

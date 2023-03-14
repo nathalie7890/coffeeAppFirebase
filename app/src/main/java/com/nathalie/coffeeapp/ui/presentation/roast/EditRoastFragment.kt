@@ -48,7 +48,8 @@ class EditRoastFragment : BaseRoastFragment() {
                 }
 
                 btnAdd.setOnClickListener {
-                    val newRoast = getRoast()?.copy(image = roast.image, uid = roast.uid)
+                    val newRoast =
+                        getRoast()?.copy(image = roast.image, uid = roast.uid)
                     newRoast?.let {
                         viewModel.editRoast(navArgs.id, it, fileUri)
                     }
@@ -64,10 +65,10 @@ class EditRoastFragment : BaseRoastFragment() {
                         R.style.CoffeeApp_AlertDialog
                     ).setTitle("Delete $title?")
                         .setCancelable(true)
-                        .setPositiveButton("Delete") { _, it ->
+                        .setPositiveButton("Delete") { _, _ ->
                             viewModel.deleteRoast(navArgs.id)
                             Utils.showSnackbar(requireView(), requireContext(), "$title deleted!")
-                        }.setNegativeButton("Cancel") { _, it ->
+                        }.setNegativeButton("Cancel") { _, _ ->
                         }.show()
                 }
             }

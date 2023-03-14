@@ -71,6 +71,7 @@
                 android:text="Details"
                 android:textColor="@color/grey"
                 android:textSize="18sp"
+                android:layout_marginBottom="16dp"
                 android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton

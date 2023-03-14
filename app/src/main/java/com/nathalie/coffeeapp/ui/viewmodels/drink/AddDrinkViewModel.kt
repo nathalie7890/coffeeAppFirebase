@@ -50,9 +50,7 @@ class AddDrinkViewModel @Inject constructor(
                     safeApiCall {
                         repo.addDrink(
                             drink.copy(
-                                image = imageName,
-                                editable = true,
-                                uid = uid
+                                image = imageName, uid = uid
                             )
                         )
                     }

@@ -65,7 +65,8 @@ class EditBeanFragment : BaseBeanFragment() {
 
                 btnAdd.text = "Save"
                 btnAdd.setOnClickListener {
-                    val newBean = getBean()?.copy(image = bean.image, uid = bean.uid)
+                    val newBean =
+                        getBean()?.copy(image = bean.image, uid = bean.uid)
                     newBean?.let {
                         viewModel.editBean(navArgs.id, it, fileUri)
                     }

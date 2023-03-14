@@ -31,6 +31,9 @@ class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
 
         viewModel.bean.observe(viewLifecycleOwner) {
             binding?.run {
+                //if coffee bean's editable == false, hide edit button
+                if (it.uid == "default") btnEdit.visibility = View.INVISIBLE
+
                 // setting text values of title, subtitle, taste and details
                 tvTitle.text = it.title
                 tvSubtitle.text = it.subtitle
@@ -47,6 +50,7 @@ class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
                 sliderAroma.isEnabled = false
                 sliderCaffeine.isEnabled = false
 
+                //display image
                 it.image?.let {
                     StorageService.getImageUri(it) { uri ->
                         Glide.with(this@BeanDetailFragment)
@@ -56,11 +60,13 @@ class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
                     }
                 }
 
+                //when edit button is clicked go to EditBeanFragment
                 btnEdit.setOnClickListener {
                     val action = BeanDetailFragmentDirections.actionBeanDetailToEditBean(navArgs.id)
                     navController.navigate(action)
                 }
 
+                //when delete btn is clicked opens a confirmation modal, if confirmed, delete this coffee bean
                 btnDelete.setOnClickListener { _ ->
                     MaterialAlertDialogBuilder(requireContext(), R.style.CoffeeApp_AlertDialog)
                         .setTitle("Delete ${binding!!.tvTitle.text}?")
@@ -79,6 +85,7 @@ class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
     override fun onBindData(view: View) {
         super.onBindData(view)
 
+        //after delete bean goes back to previous screen
         lifecycleScope.launch {
             viewModel.finish.collect {
                 val bundle = Bundle()

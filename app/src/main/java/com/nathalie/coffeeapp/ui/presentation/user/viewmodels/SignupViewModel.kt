@@ -77,7 +77,6 @@ class SignupViewModel @Inject constructor(
     }
 
     suspend fun fillWithStartingDrinks(context: Context) {
-        val uid = authRepo.getUid()
         try {
             val drinks = loadJSONArray(context, R.raw.drinks)
             for (i in 0 until drinks.length()) {
@@ -90,26 +89,20 @@ class SignupViewModel @Inject constructor(
                 val category = item.getInt("category")
                 val favorite = item.getInt("favorite")
                 val image = item.getString("image")
-                val editable = item.getBoolean("editable")
 
-                val drink = uid?.let {
-                    Drink(
-                        id,
-                        title,
-                        subtitle,
-                        details,
-                        ingredients,
-                        category,
-                        favorite,
-                        image,
-                        editable,
-                        it
-                    )
-                }
+                val drink = Drink(
+                    id,
+                    title,
+                    subtitle,
+                    details,
+                    ingredients,
+                    category,
+                    favorite,
+                    image,
+                    "default"
+                )
 
-                if (drink != null) {
-                    addDrink(drink)
-                }
+                addDrink(drink)
             }
         } catch (e: JSONException) {
             viewModelScope.launch {
@@ -119,7 +112,6 @@ class SignupViewModel @Inject constructor(
     }
 
     suspend fun fillWithStartingBeans(context: Context) {
-        val uid = authRepo.getUid()
         try {
             val beans = loadJSONArray(context, R.raw.bean)
             for (i in 0 until beans.length()) {
@@ -134,24 +126,20 @@ class SignupViewModel @Inject constructor(
                 val caffeine = item.getInt("caffeine")
                 val image = item.getString("image")
 
-                val bean = uid?.let {
-                    Bean(
-                        id,
-                        title,
-                        subtitle,
-                        taste,
-                        details,
-                        body,
-                        aroma,
-                        caffeine,
-                        image,
-                        it
-                    )
-                }
+                val bean = Bean(
+                    id,
+                    title,
+                    subtitle,
+                    taste,
+                    details,
+                    body,
+                    aroma,
+                    caffeine,
+                    image,
+                    "default"
+                )
 
-                if (bean != null) {
-                    addBean(bean)
-                }
+                addBean(bean)
             }
         } catch (e: JSONException) {
             viewModelScope.launch {
@@ -161,7 +149,6 @@ class SignupViewModel @Inject constructor(
     }
 
     suspend fun fillWithStartingRoasts(context: Context) {
-        val uid = authRepo.getUid()
         try {
             val roasts = loadJSONArray(context, R.raw.roasts)
             for (i in 0 until roasts.length()) {
@@ -171,19 +158,16 @@ class SignupViewModel @Inject constructor(
                 val details = item.getString("details")
                 val image = item.getString("image")
 
-                val roast = uid?.let {
-                    Roast(
-                        id,
-                        title,
-                        details,
-                        image,
-                        it
-                    )
-                }
+                val roast = Roast(
+                    id,
+                    title,
+                    details,
+                    image,
+                    "default"
+                )
 
-                if (roast != null) {
-                    addRoast(roast)
-                }
+
+                addRoast(roast)
             }
         } catch (e: JSONException) {
             viewModelScope.launch {

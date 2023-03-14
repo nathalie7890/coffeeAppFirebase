@@ -30,7 +30,6 @@ class StartingBeans(private val context: Context) : RoomDatabase.Callback() {
         }
     }
 
-
     private suspend fun fillWithStartingBeans(context: Context) {
         val coffeeDao = CoffeeDatabase.getInstance(context).coffeeDao
 

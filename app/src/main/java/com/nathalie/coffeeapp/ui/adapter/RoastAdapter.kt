@@ -42,12 +42,14 @@ class RoastAdapter(private var items: MutableList<Roast>) :
                 }
             }
 
-            val components = arrayOf(ivDarkOverlay, tvTitle, tvTitle2, tvDetails, btnEdit)
+            val components = arrayOf(ivDarkOverlay, tvTitle, tvTitle2, tvDetails)
             cvRoast.setOnClickListener {
                 components.forEach {
                     if (it.visibility == View.GONE) it.visibility = View.VISIBLE
                     else it.visibility = View.GONE
                 }
+
+                if (item.uid != "default") btnEdit.visibility = View.VISIBLE
             }
 
             btnEdit.setOnClickListener {

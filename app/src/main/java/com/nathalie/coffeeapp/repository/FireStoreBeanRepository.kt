@@ -13,12 +13,19 @@ class FireStoreBeanRepository(
     private val ref: CollectionReference,
 ) : BeanRepository {
 
-    override suspend fun getAllBeans(uid:String): List<Bean> {
+    override suspend fun getAllBeans(uid: String): List<Bean> {
         val beans = mutableListOf<Bean>()
         val res = ref.whereEqualTo("uid", uid).get().await()
+        val defaultBeans = ref.whereEqualTo("uid", "default").get().await()
+
         for (document in res) {
             beans.add(document.toObject(Bean::class.java).copy(id = document.id))
         }
+
+        for (document in defaultBeans) {
+            beans.add(document.toObject(Bean::class.java).copy(id = document.id))
+        }
+
         return beans
     }
 

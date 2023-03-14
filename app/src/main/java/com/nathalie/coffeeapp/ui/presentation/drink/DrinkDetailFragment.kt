@@ -46,9 +46,9 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                     btnFav.setImageResource(R.drawable.ic_favorite)
                 }
 
-                if (!it.editable) {
-                    btnEdit.visibility = View.INVISIBLE
-                }
+                //if drink's uid is default, hide the edit btn
+                if (it.uid == "default") btnEdit.visibility = View.INVISIBLE
+
 
                 it.image?.let {
                     StorageService.getImageUri(it) { uri ->

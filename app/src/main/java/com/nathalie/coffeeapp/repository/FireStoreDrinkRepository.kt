@@ -37,6 +37,10 @@ class FireStoreDrinkRepository(
             drinks.add(document.toObject(Drink::class.java).copy(id = document.id))
         }
 
+        val defaultDrinks = ref.whereEqualTo("uid", "default").get().await()
+        for (document in defaultDrinks) {
+            drinks.add(document.toObject(Drink::class.java).copy(id = document.id))
+        }
 
         return drinks.filter {
             Regex(

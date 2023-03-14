@@ -19,7 +19,7 @@ abstract class BaseBeanFragment : BaseFragment<FragmentAddBeanBinding>() {
             val caffeine = sliderCaffeine.value.toInt()
 
             Bean(
-                null, title, subtitle, taste, details, body, aroma, caffeine, "", ""
+                null, title, subtitle, taste, details, body, aroma, caffeine, ""
             )
         }
     }

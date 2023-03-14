@@ -44,8 +44,14 @@ class AddBeanViewModel @Inject constructor(
             }
             if (validationStatus) {
                 val uid = authRepo.getUid()
-                if(uid != null) {
-                    safeApiCall { repo.addBean(bean.copy(image = imageName, uid = uid)) }
+                if (uid != null) {
+                    safeApiCall {
+                        repo.addBean(
+                            bean.copy(
+                                image = imageName, uid = uid
+                            )
+                        )
+                    }
                     finish.emit(Unit)
                 }
             } else {

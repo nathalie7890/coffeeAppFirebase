@@ -38,7 +38,11 @@ class AddRoastViewModel @Inject constructor(
             if (validationStatus) {
                 val uid = authRepo.getUid()
                 if (uid != null) {
-                    safeApiCall { repo.addRoast(roast.copy(image = imageName, uid = uid)) }
+                    safeApiCall {
+                        repo.addRoast(
+                            roast.copy(image = imageName, uid = uid)
+                        )
+                    }
                     finish.emit(Unit)
                 }
             } else {

@@ -9,11 +9,17 @@ import kotlinx.coroutines.tasks.await
 class FireStoreRoastRepository(private val ref: CollectionReference) : RoastRepository {
     override suspend fun getAllRoasts(uid: String): List<Roast> {
         val roasts = mutableListOf<Roast>()
-        val res: QuerySnapshot = ref.whereEqualTo("uid", uid).get ().await()
+        val res: QuerySnapshot = ref.whereEqualTo("uid", uid).get().await()
+        val defaultRoasts = ref.whereEqualTo("uid", "default").get().await()
+
         for (document in res) {
             roasts.add(document.toObject(Roast::class.java).copy(id = document.id))
-
         }
+
+        for (document in defaultRoasts) {
+            roasts.add(document.toObject(Roast::class.java).copy(id = document.id))
+        }
+
         return roasts
     }
 
