@@ -12,6 +12,7 @@ import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.ItemLayoutDrinkBinding
 import com.nathalie.coffeeapp.ui.utils.Utils.update
 
+// To attach data to the RecyclerView
 class DrinkAdapter(private var items: MutableList<Drink>) :
     RecyclerView.Adapter<DrinkAdapter.ItemDrinkHolder>() {
 
@@ -26,11 +27,12 @@ class DrinkAdapter(private var items: MutableList<Drink>) :
     override fun onBindViewHolder(holder: ItemDrinkHolder, position: Int) {
         val item = items[position]
 
+        // Attach data to the single item layout
         holder.binding.run {
             tvTitle.text = item.title
             tvSubtitle.text = item.subtitle
 
-
+            // attach image for the item
             item.image?.let {
                 StorageService.getImageUri(it) { uri ->
                     Glide.with(holder.binding.root)
@@ -40,7 +42,7 @@ class DrinkAdapter(private var items: MutableList<Drink>) :
                 }
             }
 
-
+            // listener function, if click on item
             cvDrinkItem.setOnClickListener {
                 listener?.onClick(item)
             }
@@ -52,6 +54,7 @@ class DrinkAdapter(private var items: MutableList<Drink>) :
 
     }
 
+    // fetches and updates the items
     fun setDrinks(items: MutableList<Drink>) {
         val oldItems = this.items
         this.items = items.toMutableList()
@@ -64,6 +67,7 @@ class DrinkAdapter(private var items: MutableList<Drink>) :
     class ItemDrinkHolder(val binding: ItemLayoutDrinkBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+    // same listener used in code above
     interface Listener {
         fun onClick(item: Drink)
     }

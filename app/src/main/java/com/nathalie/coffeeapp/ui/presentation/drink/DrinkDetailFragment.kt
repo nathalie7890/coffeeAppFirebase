@@ -24,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment/View bound to the DrinkDetail UI
 class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
     override val viewModel: DrinkDetailViewModel by viewModels()
     override fun getLayoutResource() = R.layout.fragment_drink_detail
@@ -36,10 +37,12 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
 
         viewModel.drink.observe(viewLifecycleOwner) {
             binding?.run {
+                // set the data displayed in the details
                 tvTitle.text = it.title
                 tvSubtitle.text = it.subtitle
                 tvDetails.text = it.details
                 tvIngredients.text = it.ingredients
+                // set the favorite image depending on the items' favorite state
                 if (it.favorite == 2) {
                     btnFav.setImageResource(R.drawable.ic_favorite_border)
                 } else {
@@ -49,7 +52,7 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                 //if drink's uid is default, hide the edit btn
                 if (it.uid == "default") btnEdit.visibility = View.INVISIBLE
 
-
+                //display image
                 it.image?.let {
                     StorageService.getImageUri(it) { uri ->
                         Glide.with(this@DrinkDetailFragment)

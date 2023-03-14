@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// fragment bound to the Edit Bean UI
 class EditBeanFragment : BaseBeanFragment() {
     override val viewModel: EditBeanViewModel by viewModels()
 
@@ -38,10 +39,12 @@ class EditBeanFragment : BaseBeanFragment() {
         }
 
 
+        // Fetch single bean
         viewModel.getBeanById(navArgs.id)
 
         viewModel.bean.observe(viewLifecycleOwner) { bean ->
             binding?.run {
+                // binds the item data to display
                 etTitle.setText(bean.title)
                 etSubtitle.setText(bean.subtitle)
                 etTaste.setText(bean.taste)
@@ -50,6 +53,7 @@ class EditBeanFragment : BaseBeanFragment() {
                 sliderAroma.value = bean.aroma.toFloat()
                 sliderCaffeine.value = bean.caffeine.toFloat()
 
+                // displays image
                 bean.image?.let {
                     StorageService.getImageUri(it) { uri ->
                         Glide.with(this@EditBeanFragment)
@@ -59,11 +63,14 @@ class EditBeanFragment : BaseBeanFragment() {
                     }
                 }
 
+                // opens image gallery
                 ivBeanImage.setOnClickListener {
                     imagePickerLauncher.launch("image/*")
                 }
 
                 btnAdd.text = "Save"
+
+                // edit the Bean
                 btnAdd.setOnClickListener {
                     val newBean =
                         getBean()?.copy(image = bean.image, uid = bean.uid)
@@ -78,6 +85,7 @@ class EditBeanFragment : BaseBeanFragment() {
     override fun onBindData(view: View) {
         super.onBindData(view)
         lifecycleScope.launch {
+            // when successfully edited, run the code below
             viewModel.finish.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)

@@ -14,6 +14,7 @@ class FireStoreBeanRepository(
     private val ref: CollectionReference,
 ) : BeanRepository {
 
+    // Firebase query to get all documents in beans collection
     override suspend fun getAllBeans(uid: String): List<Bean> {
         val beans = mutableListOf<Bean>()
         val res = ref.whereEqualTo("uid", uid).get().await()
@@ -30,21 +31,25 @@ class FireStoreBeanRepository(
         return beans
     }
 
+    // Firebase query to get one document in beans collection
     override suspend fun getBeanById(id: String): Bean? {
         val res = ref.document(id).get().await()
         return res.toObject(Bean::class.java)?.copy(id = id)
     }
 
+    // Firebase query to add one document in beans collection
     override suspend fun addBean(bean: Bean) {
         ref.add(bean).await()
     }
 
+    // Firebase query to edit one document in beans collection
     override suspend fun updateBean(id: String, bean: Bean): Bean? {
         val update = bean.copy(id = id)
         ref.document(id).set(update).await()
         return update
     }
 
+    // Firebase query to delete one document in beans collection
     override suspend fun deleteBean(id: String) {
         ref.document(id).delete().await()
     }

@@ -21,6 +21,7 @@ import com.nathalie.coffeeapp.ui.viewmodels.drink.EditDrinkViewModel
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// fragment bound to the Edit Drink UI
 class EditDrinkFragment : BaseDrinkFragment() {
     override val viewModel: EditDrinkViewModel by viewModels()
 
@@ -31,6 +32,8 @@ class EditDrinkFragment : BaseDrinkFragment() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
         val navArgs: EditDrinkFragmentArgs by navArgs()
+
+        // fetch single drink
         viewModel.getDrinkById(navArgs.id)
         var category = 0
 
@@ -44,6 +47,7 @@ class EditDrinkFragment : BaseDrinkFragment() {
 
         viewModel.drink.observe(viewLifecycleOwner) { drink ->
             binding?.run {
+                // binds the item data to display
                 etTitle.setText(drink.title)
                 etSubtitle.setText(drink.subtitle)
                 etDetails.setText(drink.details)
@@ -54,6 +58,7 @@ class EditDrinkFragment : BaseDrinkFragment() {
                 if (category == 1) btnClassic.isChecked = true
                 else btnCraft.isChecked = true
 
+                // displays image
                 drink.image?.let {
                     StorageService.getImageUri(it) { uri ->
                         Glide.with(this@EditDrinkFragment)
@@ -65,6 +70,7 @@ class EditDrinkFragment : BaseDrinkFragment() {
 
                 btnAdd.text = "Save"
 
+                // changes the value when clicked
                 drinkRadioGroup.setOnCheckedChangeListener { _, id ->
                     category = if (id == R.id.btnClassic) 1
                     else 2
@@ -75,6 +81,7 @@ class EditDrinkFragment : BaseDrinkFragment() {
                     imagePickerLauncher.launch("image/*")
                 }
 
+                // edits the drink
                 btnAdd.setOnClickListener {
                     val newDrink = getDrink(category)?.copy(
                         image = drink.image, uid = drink.uid
@@ -91,6 +98,7 @@ class EditDrinkFragment : BaseDrinkFragment() {
         super.onBindData(view)
 
         lifecycleScope.launch {
+            // when successfully edited, run the code below
             viewModel.finish.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)

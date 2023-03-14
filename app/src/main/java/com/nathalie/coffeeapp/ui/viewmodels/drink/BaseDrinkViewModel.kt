@@ -11,6 +11,7 @@ abstract class BaseDrinkViewModel(val repo: DrinkRepository) : BaseViewModel() {
     val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
     val btnFavClicked: MutableSharedFlow<Unit> = MutableSharedFlow()
 
+    // check if edit text fields are empty
     fun validate(
         title: String,
         subtitle: String,

@@ -43,6 +43,7 @@ object Utils {
         diff.dispatchUpdatesTo(this)
     }
 
+    // Checks if the edit text is empty
     fun validate(vararg fields: String): Boolean {
         fields.forEach { field ->
             if (field.isBlank()) {
@@ -80,6 +81,7 @@ object Utils {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    // for other files to use this custom build snackbar
     fun showSnackbar(view: View, context: Context, msg: String): Snackbar {
         val snackbar = Snackbar.make(
             view,

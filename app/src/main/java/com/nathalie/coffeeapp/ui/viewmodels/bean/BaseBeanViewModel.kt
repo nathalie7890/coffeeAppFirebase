@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 abstract class BaseBeanViewModel(val repo: BeanRepository) : BaseViewModel() {
     val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
+    // check if edit text fields are empty
     fun validate(
         title: String,
         subtitle: String,

@@ -11,6 +11,7 @@ import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.ItemLayoutRoastBinding
 import com.nathalie.coffeeapp.ui.utils.Utils.update
 
+// To attach data to the RecyclerView
 class RoastAdapter(private var items: MutableList<Roast>) :
     RecyclerView.Adapter<RoastAdapter.ItemRoastHolder>() {
 
@@ -28,11 +29,13 @@ class RoastAdapter(private var items: MutableList<Roast>) :
     override fun onBindViewHolder(holder: ItemRoastHolder, position: Int) {
         val item = items[position]
 
+        // Attach data to the single item layout
         holder.binding.run {
             tvTitle.text = item.title
             tvTitle2.text = item.title
             tvDetails.text = item.details
 
+            // attach image for the item
             item.image?.let {
                 StorageService.getImageUri(it) { uri ->
                     Glide.with(holder.binding.root)
@@ -42,16 +45,18 @@ class RoastAdapter(private var items: MutableList<Roast>) :
                 }
             }
 
+            // listener to show or hide the roast item details
             val components = arrayOf(ivDarkOverlay, tvTitle, tvTitle2, tvDetails)
             cvRoast.setOnClickListener {
                 components.forEach {
                     if (it.visibility == View.GONE) it.visibility = View.VISIBLE
                     else it.visibility = View.GONE
                 }
-
+                // show or hide the edit button
                 if (item.uid != "default") btnEdit.visibility = View.VISIBLE
             }
 
+            // listener function, if click on item
             btnEdit.setOnClickListener {
                 item.id?.let { it1 -> listener?.onClick(it1) }
             }
@@ -60,6 +65,7 @@ class RoastAdapter(private var items: MutableList<Roast>) :
 
     override fun getItemCount() = items.size
 
+    // fetches and updates the items
     fun setRoasts(items: MutableList<Roast>) {
         val oldItems = this.items
         this.items = items.toMutableList()
@@ -71,6 +77,7 @@ class RoastAdapter(private var items: MutableList<Roast>) :
     class ItemRoastHolder(val binding: ItemLayoutRoastBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+    // same listener used in code above
     interface Listener {
         fun onClick(id: String)
     }

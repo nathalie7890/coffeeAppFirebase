@@ -13,6 +13,7 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository) : BaseDrin
 
     val drink = MutableLiveData<Drink>()
 
+    // fetches a single drink
     fun getDrinkById(id: String) {
         viewModelScope.launch {
             val res = safeApiCall { repo.getDrinkById(id) }
@@ -22,6 +23,7 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository) : BaseDrin
         }
     }
 
+    // deletes a drink
     fun deleteDrink(id: String) {
         viewModelScope.launch {
             safeApiCall { repo.deleteDrink(id) }
@@ -29,6 +31,7 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository) : BaseDrin
         }
     }
 
+    // updates the drink, favorite field
     fun favDrink(id: String, fav: Int) {
         viewModelScope.launch {
             safeApiCall { repo.favDrink(id, fav) }
@@ -36,10 +39,12 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository) : BaseDrin
         }
     }
 
+    // returns the drink favourite field
     fun isFav(): Int? {
         return drink.value?.favorite
     }
 
+    // refetches the drink
     fun onRefresh(id: String) {
         getDrinkById(id)
     }

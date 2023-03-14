@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// fragment bound to the Edit Roast UI
 class EditRoastFragment : BaseRoastFragment() {
     override val viewModel: EditRoastViewModel by viewModels()
 
@@ -35,18 +36,23 @@ class EditRoastFragment : BaseRoastFragment() {
                 binding?.ivRoastImage?.setImageURI(uri)
             }
         }
+
+        // fetch single roast
         viewModel.getRoastById(navArgs.id)
 
         viewModel.roast.observe(viewLifecycleOwner) { roast ->
             binding?.run {
+                // binds the item data to display
                 etTitle.setText(roast.title)
                 etDetails.setText(roast.details)
                 btnAdd.text = "Save"
 
+                //select image from gallery
                 ivRoastImage.setOnClickListener {
                     imagePickerLauncher.launch("image/*")
                 }
 
+                // edits the roast
                 btnAdd.setOnClickListener {
                     val newRoast =
                         getRoast()?.copy(image = roast.image, uid = roast.uid)
@@ -55,6 +61,7 @@ class EditRoastFragment : BaseRoastFragment() {
                     }
                 }
 
+                // deletes the roast
                 btnDelete.setOnClickListener {
                     val title = etTitle.text.toString()
                     val bundle = Bundle()
@@ -79,6 +86,7 @@ class EditRoastFragment : BaseRoastFragment() {
         super.onBindData(view)
 
         lifecycleScope.launch {
+            // when successfully edited, run the code below
             viewModel.finish.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)

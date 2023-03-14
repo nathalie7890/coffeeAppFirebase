@@ -37,6 +37,7 @@ class AddBeanFragment : BaseBeanFragment() {
         }
 
         binding?.run {
+            // add a bean
             btnAdd.setOnClickListener {
                 val bean = getBean()
                 bean?.let {
@@ -44,6 +45,7 @@ class AddBeanFragment : BaseBeanFragment() {
                 }
             }
 
+            // launch the file explorer to pick an image
             ivBeanImage.setOnClickListener {
                 imagePickerLauncher.launch("image/*")
             }
@@ -54,6 +56,7 @@ class AddBeanFragment : BaseBeanFragment() {
         super.onBindData(view)
 
         lifecycleScope.launch {
+            // if finish is emitted from the viewmodel function, it will run the code below
             viewModel.finish.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)

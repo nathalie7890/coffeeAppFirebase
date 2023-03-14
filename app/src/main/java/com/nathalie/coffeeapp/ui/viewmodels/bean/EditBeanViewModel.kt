@@ -17,6 +17,7 @@ import javax.inject.Inject
 class EditBeanViewModel @Inject constructor(repo: BeanRepository) : BaseBeanViewModel(repo) {
     val bean = MutableLiveData<Bean>()
 
+    // fetches one bean
     fun getBeanById(id: String) {
         viewModelScope.launch {
             val res = safeApiCall { repo.getBeanById(id) }
@@ -26,6 +27,7 @@ class EditBeanViewModel @Inject constructor(repo: BeanRepository) : BaseBeanView
         }
     }
 
+    // edits a single bean
     fun editBean(id: String, bean: Bean, imageUri: Uri?) {
         val validationStatus = Utils.validate(
             bean.title,

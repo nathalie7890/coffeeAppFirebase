@@ -18,6 +18,7 @@ class AddRoastViewModel @Inject constructor(
     private val authRepo: AuthService
 ) : BaseRoastViewModel(repo) {
 
+    // Function to check input values, create image name, store image into firebase storage, create and add drink object to firestore.
     fun addRoast(roast: Roast, imageUri: Uri?) {
         val validationStatus = validate(roast.title, roast.details)
 

@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment bound to the Roast UI
 class RoastFragment : BaseFragment<FragmentRoastBinding>() {
     private lateinit var adapter: RoastAdapter
 
@@ -35,14 +36,18 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
 
         lifecycleScope.launch {
             viewModel.swipeRefreshLayoutFinished.collect {
+                // refreshes and refetches when screen is swiped down
                 binding?.srlRefresh?.isRefreshing = false
             }
         }
 
         binding?.run {
+            // refreshes and refetches when screen is swiped down
             srlRefresh.setOnRefreshListener {
                 viewModel.onRefresh()
             }
+
+            // navigate to add roast fragment
             btnAddRoast.setOnClickListener {
                 val action = MainFragmentDirections.actionMainToAddRoast()
                 navController.navigate(action)
@@ -53,11 +58,13 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
     override fun onBindData(view: View) {
         super.onBindData(view)
         viewModel.roasts.observe(viewLifecycleOwner) {
+            // adds the fetched list of roasts to the roast adapter
             adapter.setRoasts(it.toMutableList())
             //if no item, display this
             binding?.emptyRoast?.isVisible = adapter.itemCount <= 0
         }
 
+        // refresh function to refetch the roasts
         parentViewModel.refreshRoast.observe(viewLifecycleOwner) {
             if (it) {
                 refresh()
@@ -69,37 +76,9 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
+            // fetches all the roasts
             viewModel.getRoasts()
         }
-//        setupAdapter()
-
-//        (requireParentFragment() as MainFragment).sayHello()
-
-
-        //when refresh is done, hide the refresh icon
-//        viewModel.swipeRefreshLayoutFinished.asLiveData()
-//            .observe(viewLifecycleOwner) {
-//                binding.srlRefresh.isRefreshing = false
-//            }
-
-//        parentViewModel.refreshRoast.observe(viewLifecycleOwner) {
-//            if (it) {
-//                refresh()
-//                parentViewModel.shouldRefreshRoast(false)
-//            }
-//        }
-
-//        binding.run {
-//            //when swipe down to refresh, refresh this fragment
-//            srlRefresh.setOnRefreshListener {
-//                viewModel.onRefresh()
-//            }
-
-        //when add roast level btn is clicked, take user to add roast fragment
-//        binding.btnAddRoast.setOnClickListener {
-//            val action = MainFragmentDirections.actionMainToAddRoast()
-//            NavHostFragment.findNavController(this@RoastFragment).navigate(action)
-//        }
     }
 
     //fetch roasts
@@ -107,6 +86,7 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
         viewModel.onRefresh()
     }
 
+    // Binds the recycler view and the data, sets the click listener to navigate to edit
     fun setupAdapter() {
         val orientation = resources.configuration.orientation
         val layoutManager: LinearLayoutManager =

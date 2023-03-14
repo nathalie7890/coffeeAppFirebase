@@ -24,10 +24,12 @@ class DrinkViewModel @Inject constructor(
     override fun onViewCreated() {
         super.onViewCreated()
         viewModelScope.launch {
+            // fetches all drinks
             getDrinks("", 0, 0)
         }
     }
 
+    // refetch drinks
     fun onRefresh(search: String, cat: Int, fav: Int) {
         viewModelScope.launch {
 //            delay(1000)
@@ -37,6 +39,7 @@ class DrinkViewModel @Inject constructor(
     }
 
 
+    // fetches all drinks
     suspend fun getDrinks(search: String, cat: Int, fav: Int) {
         val uid = authRepo.getUid()
         if (uid != null) {

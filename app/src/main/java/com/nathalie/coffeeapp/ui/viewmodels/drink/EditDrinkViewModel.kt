@@ -17,6 +17,7 @@ import javax.inject.Inject
 class EditDrinkViewModel @Inject constructor(repo: DrinkRepository) : BaseDrinkViewModel(repo) {
     val drink = MutableLiveData<Drink>()
 
+    // fetches a single drink
     fun getDrinkById(id: String) {
         viewModelScope.launch {
             val res = safeApiCall { repo.getDrinkById(id) }
@@ -26,6 +27,7 @@ class EditDrinkViewModel @Inject constructor(repo: DrinkRepository) : BaseDrinkV
         }
     }
 
+    // edits a single drink
     fun editDrink(id: String, drink: Drink, imageUri: Uri?) {
         val validationStatus = Utils.validate(
             drink.title,

@@ -24,6 +24,7 @@ import java.io.BufferedReader
 import javax.inject.Inject
 
 @HiltViewModel
+// Holds all the functions for login
 class SignupViewModel @Inject constructor(
     private val authRepo: AuthService,
     private val drinkRepo: DrinkRepository,
@@ -32,6 +33,7 @@ class SignupViewModel @Inject constructor(
 ) : BaseViewModel() {
     val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
+    // Receive the name, email, pass and confirm pass to register an account
     fun signUp(name: String, email: String, pass: String, confirmPass: String) {
         if (Utils.validate(name, email, pass, confirmPass) && pass == confirmPass) {
             viewModelScope.launch {

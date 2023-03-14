@@ -25,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
+// Main fragment holding all the other fragments in a Tab Layout
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val drinksFragment = DrinksFragment.getInstance()

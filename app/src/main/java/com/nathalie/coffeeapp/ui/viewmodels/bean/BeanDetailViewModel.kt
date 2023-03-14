@@ -13,6 +13,7 @@ import javax.inject.Inject
 class BeanDetailViewModel @Inject constructor(repo: BeanRepository) : BaseBeanViewModel(repo) {
     val bean: MutableLiveData<Bean> = MutableLiveData()
 
+    // fetches a single bean
     fun getBeanById(id: String) {
         viewModelScope.launch {
             val res = safeApiCall { repo.getBeanById(id) }
@@ -22,6 +23,7 @@ class BeanDetailViewModel @Inject constructor(repo: BeanRepository) : BaseBeanVi
         }
     }
 
+    // deletes a bean
     fun deleteBean(id: String) {
         viewModelScope.launch {
             safeApiCall { repo.deleteBean(id) }

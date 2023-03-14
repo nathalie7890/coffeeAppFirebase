@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
+// Fragment bound to the Login UI
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     val viewModel: LoginViewModel by viewModels()
@@ -38,6 +39,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.run {
+            // login the user
             btnLogin.setOnClickListener {
                 val email = etEmail.text.toString()
                 val pass = etPassword.text.toString()
@@ -45,6 +47,7 @@ class LoginFragment : Fragment() {
             }
         }
 
+        // Navigates to the SignUp fragment
         binding.btnSignup.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginToSignup()
             NavHostFragment.findNavController(this).navigate(action)

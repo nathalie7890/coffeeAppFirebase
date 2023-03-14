@@ -20,6 +20,7 @@ class RoastViewModel @Inject constructor(
     val roasts: MutableLiveData<List<Roast>> = MutableLiveData()
     val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
 
+    // refetch roasts
     fun onRefresh() {
         viewModelScope.launch {
             getRoasts()
@@ -27,6 +28,7 @@ class RoastViewModel @Inject constructor(
         }
     }
 
+    // fetches all roasts
     suspend fun getRoasts() {
         val uid = authRepo.getUid()
         if (uid != null) {

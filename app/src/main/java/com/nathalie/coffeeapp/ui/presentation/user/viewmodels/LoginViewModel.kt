@@ -11,9 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
+// Holds all the functions for login
 class LoginViewModel @Inject constructor(private val auth: AuthService) : BaseViewModel() {
     val loginFinish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
+    // Receive the email and password to login
     fun login(email: String, pass: String) {
         if (Utils.validate(email, pass)) {
             viewModelScope.launch {
@@ -29,6 +31,7 @@ class LoginViewModel @Inject constructor(private val auth: AuthService) : BaseVi
         }
     }
 
+    // Fetches the current logged in user object
     suspend fun getCurrentUser(): User? {
         return safeApiCall { auth.getCurrentUser() }
     }

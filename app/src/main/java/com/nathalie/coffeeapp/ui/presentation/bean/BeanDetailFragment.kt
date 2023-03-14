@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment/View bound to the BeanDetail UI
 class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
     override val viewModel: BeanDetailViewModel by viewModels()
     override fun getLayoutResource() = R.layout.fragment_bean_detail

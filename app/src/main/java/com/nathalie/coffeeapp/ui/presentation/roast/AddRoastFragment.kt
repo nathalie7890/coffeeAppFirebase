@@ -15,6 +15,7 @@ import com.nathalie.coffeeapp.ui.utils.Utils
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment/View bound to the AddDrink UI
 class AddRoastFragment : BaseRoastFragment() {
     override val viewModel: AddRoastViewModel by viewModels()
     override fun getLayoutResource() = R.layout.fragment_add_roast
@@ -35,12 +36,12 @@ class AddRoastFragment : BaseRoastFragment() {
         }
 
         binding?.run {
+            // launch the file explorer to pick an image
             ivRoastImage.setOnClickListener {
                 imagePickerLauncher.launch("image/*")
             }
-        }
 
-        binding?.run {
+            // add roast
             btnAdd.setOnClickListener {
                 val roast = getRoast()
                 roast?.let {
@@ -53,6 +54,7 @@ class AddRoastFragment : BaseRoastFragment() {
     override fun onBindData(view: View) {
         super.onBindData(view)
         lifecycleScope.launch {
+            // if finish is emitted from the viewmodel function, it will run the code below
             viewModel.finish.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)

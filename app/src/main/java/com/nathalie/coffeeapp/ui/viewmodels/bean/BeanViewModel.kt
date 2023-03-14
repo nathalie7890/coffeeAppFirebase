@@ -17,6 +17,7 @@ class BeanViewModel @Inject constructor(
 ) : BaseViewModel() {
     val beans: MutableLiveData<List<Bean>> = MutableLiveData()
 
+    // gets all beans
     suspend fun getBeans() {
         val uid = authRepo.getUid()
         if (uid != null) {

@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment/View bound to the AddDrink UI
 class AddDrinkFragment : BaseDrinkFragment() {
     override val viewModel: AddDrinkViewModel by viewModels()
     override fun getLayoutResource() = R.layout.fragment_add_drink
@@ -66,6 +67,7 @@ class AddDrinkFragment : BaseDrinkFragment() {
         super.onBindData(view)
 
         lifecycleScope.launch {
+            // if finish is emitted from the viewmodel function, it will run the code below
             viewModel.finish.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)

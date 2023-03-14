@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.navHostFragment)
 
+        // create the drawer app
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        // attach the logout button into the drawer
         val btnLogout = findViewById<MaterialButton>(R.id.btnLogout)
         btnLogout.setOnClickListener {
             authRepo.deAuthenticate()
@@ -57,11 +59,13 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
+        // if not logged in, navigate to login fragment
         if (!authRepo.isAuthenticate()) {
             findNavController(R.id.navHostFragment).navigate(R.id.to_login_fragment)
         }
     }
 
+    // function to set the logged in users name in the drawer
     fun drawerUsername() {
         lifecycleScope.launch {
             viewModel.getCurrentUser()

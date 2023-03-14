@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment bound to the Beans UI
 class BeansFragment : BaseFragment<FragmentBeansBinding>() {
     private lateinit var adapter: BeanAdapter
     private val parentViewModel: MainViewModel by viewModels(ownerProducer = { requireParentFragment() })
@@ -28,6 +29,7 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
+            // fetches all the beans
             viewModel.getBeans()
         }
     }
@@ -37,6 +39,7 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
         setupAdapter()
 
         binding?.run {
+            // Goes to the add bean fragment
             btnAddBean.setOnClickListener {
                 val action = MainFragmentDirections.actionMainToAddBean()
                 navController.navigate(action)
@@ -48,6 +51,7 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
         super.onBindData(view)
 
         viewModel.beans.observe(viewLifecycleOwner) {
+            // adds the fetched list of beans to the beans adapter
             adapter.setBeans(it.toMutableList())
         }
 
@@ -59,6 +63,7 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
 //        }
     }
 
+    // Binds the recycler view and the data, sets the click listener to navigate to details
     fun setupAdapter() {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

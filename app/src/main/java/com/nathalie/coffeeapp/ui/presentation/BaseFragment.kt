@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nathalie.coffeeapp.ui.viewmodels.BaseViewModel
 import kotlinx.coroutines.launch
 
+// for other fragments to extend
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     lateinit var navController: NavController
     abstract val viewModel: BaseViewModel
@@ -35,7 +36,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED){
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.onViewCreated()
             }
         }

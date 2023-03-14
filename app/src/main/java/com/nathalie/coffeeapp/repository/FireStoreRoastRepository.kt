@@ -6,7 +6,10 @@ import com.nathalie.coffeeapp.data.model.fireStoreModel.Roast
 import com.nathalie.coffeeapp.repository.fireStoreRepo.RoastRepository
 import kotlinx.coroutines.tasks.await
 
+// Functions to be used in ViewModels
 class FireStoreRoastRepository(private val ref: CollectionReference) : RoastRepository {
+
+    // Firebase query to get all documents in roasts collection
     override suspend fun getAllRoasts(uid: String): List<Roast> {
         val roasts = mutableListOf<Roast>()
         val res: QuerySnapshot = ref.whereEqualTo("uid", uid).get().await()
@@ -23,21 +26,25 @@ class FireStoreRoastRepository(private val ref: CollectionReference) : RoastRepo
         return roasts
     }
 
+    // Firebase query to get one document in roasts collection
     override suspend fun getRoastById(id: String): Roast? {
         val res = ref.document(id).get().await()
         return res.toObject(Roast::class.java)?.copy(id = id)
     }
 
+    // Firebase query to add one document to roasts collection
     override suspend fun addRoast(roast: Roast) {
         ref.add(roast).await()
     }
 
+    // Firebase query to edit one document in roasts collection
     override suspend fun updateRoast(id: String, roast: Roast): Roast? {
         val update = roast.copy(id = id)
         ref.document(id).set(update).await()
         return update
     }
 
+    // Firebase query to delete one document in roasts collection
     override suspend fun deleteRoast(id: String) {
         ref.document(id).delete().await()
     }

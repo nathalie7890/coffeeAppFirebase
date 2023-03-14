@@ -18,6 +18,8 @@ class AddDrinkViewModel @Inject constructor(
     repo: DrinkRepository,
     private val authRepo: AuthService
 ) : BaseDrinkViewModel(repo) {
+
+    // Function to check input values, create image name, store image into firebase storage, create and add drink object to firestore.
     fun addDrink(
         drink: Drink,
         imageUri: Uri?

@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment bound to the SignUp UI
 class SignupFragment : Fragment() {
     private lateinit var binding: FragmentSignupBinding
     private val viewModel: SignupViewModel by viewModels()
@@ -37,6 +38,7 @@ class SignupFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.run {
+            // registers the user
             btnSignup.setOnClickListener {
                 val name = etUsername.text.toString()
                 email = etEmail.text.toString()

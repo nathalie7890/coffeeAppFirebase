@@ -5,9 +5,11 @@ import com.nathalie.coffeeapp.data.model.fireStoreModel.Bean
 import com.nathalie.coffeeapp.databinding.FragmentAddBeanBinding
 import com.nathalie.coffeeapp.ui.presentation.BaseFragment
 
+// Base fragment for Beans to extend from
 abstract class BaseBeanFragment : BaseFragment<FragmentAddBeanBinding>() {
     override fun getLayoutResource() = R.layout.fragment_add_bean
 
+    // gets data from the EditText boxes and creates a Bean model
     fun getBean(): Bean? {
         return binding?.run {
             val title = etTitle.text.toString()

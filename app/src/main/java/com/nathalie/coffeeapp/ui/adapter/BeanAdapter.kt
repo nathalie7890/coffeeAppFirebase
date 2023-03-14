@@ -11,6 +11,7 @@ import com.nathalie.coffeeapp.data.service.StorageService
 import com.nathalie.coffeeapp.databinding.ItemLayoutBeanBinding
 import com.nathalie.coffeeapp.ui.utils.Utils.update
 
+// To attach data to the RecyclerView
 class BeanAdapter(private var items: MutableList<Bean>) :
     RecyclerView.Adapter<BeanAdapter.ItemBeanHolder>() {
 
@@ -26,6 +27,7 @@ class BeanAdapter(private var items: MutableList<Bean>) :
     override fun onBindViewHolder(holder: ItemBeanHolder, position: Int) {
         val item = items[position]
 
+        // Attach data to the single item layout
         holder.binding.run {
             sliderBody.value = item.body.toFloat()
             sliderAroma.value = item.aroma.toFloat()
@@ -40,6 +42,7 @@ class BeanAdapter(private var items: MutableList<Bean>) :
             tvTaste.text = item.taste
 
 
+            // attach image for the item
             item.image?.let {
                 StorageService.getImageUri(it) { uri ->
                     Glide.with(holder.binding.root)
@@ -49,7 +52,7 @@ class BeanAdapter(private var items: MutableList<Bean>) :
                 }
             }
 
-
+            // listener function, if click on item
             beanDetail.setOnClickListener {
                 listener?.onClick(item)
             }
@@ -60,6 +63,7 @@ class BeanAdapter(private var items: MutableList<Bean>) :
         return items.size
     }
 
+    // fetches and updates the items
     fun setBeans(items: MutableList<Bean>) {
         val oldItems = this.items
         this.items = items.toMutableList()
@@ -70,6 +74,7 @@ class BeanAdapter(private var items: MutableList<Bean>) :
 
     class ItemBeanHolder(val binding: ItemLayoutBeanBinding) : RecyclerView.ViewHolder(binding.root)
 
+    // same listener used in code above
     interface Listener {
         fun onClick(item: Bean)
     }

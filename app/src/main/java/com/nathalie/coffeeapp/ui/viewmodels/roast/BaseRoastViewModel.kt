@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 abstract class BaseRoastViewModel(val repo: RoastRepository) : BaseViewModel() {
     val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
+    // check if edit text fields are empty
     fun validate(
         title: String,
         details: String,

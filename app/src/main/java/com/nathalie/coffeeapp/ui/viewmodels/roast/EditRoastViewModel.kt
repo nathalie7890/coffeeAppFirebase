@@ -17,6 +17,7 @@ import javax.inject.Inject
 class EditRoastViewModel @Inject constructor(repo: RoastRepository) : BaseRoastViewModel(repo) {
     val roast = MutableLiveData<Roast>()
 
+    // fetches a single roast
     fun getRoastById(id: String) {
         viewModelScope.launch {
             val res = safeApiCall { repo.getRoastById(id) }
@@ -26,6 +27,7 @@ class EditRoastViewModel @Inject constructor(repo: RoastRepository) : BaseRoastV
         }
     }
 
+    // edits a single roast
     fun editRoast(id: String, roast: Roast, imageUri: Uri?) {
         val validationStatus = Utils.validate(
             roast.title, roast.details
@@ -62,6 +64,7 @@ class EditRoastViewModel @Inject constructor(repo: RoastRepository) : BaseRoastV
         }
     }
 
+    // delete a single roast
     fun deleteRoast(id: String) {
         viewModelScope.launch {
             safeApiCall { repo.deleteRoast(id) }

@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+// Fragment bound to the Drinks UI
 class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
     private lateinit var adapter: DrinkAdapter
     private val parentViewModel: MainViewModel by viewModels(ownerProducer = { requireParentFragment() })
@@ -36,6 +37,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
+            // fetches all the beans
             viewModel.getDrinks("", 0, 0)
         }
     }
@@ -45,6 +47,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         setupAdapter()
 
         lifecycleScope.launch {
+            // refreshes and refetches when screen is swiped down
             viewModel.swipeRefreshLayoutFinished.collect {
                 binding?.srlRefresh?.isRefreshing = false
             }
@@ -52,11 +55,13 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
 
         binding?.run {
             srlRefresh.setOnRefreshListener {
+                // refreshes and refetches when screen is swiped down
                 viewModel.onRefresh("", 0, 0)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
 
+            // Refetches drinks according to text in search field
             search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     val search = search.etSearch.text.toString()
@@ -67,29 +72,34 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
                 false
             }
 
+            // navigates to add drink fragment
             btnAdd.setOnClickListener {
                 val action = MainFragmentDirections.actionMainToAddDrink()
                 navController.navigate(action)
             }
 
+            // refetches drinks where cat = 0
             btnAll.setOnClickListener {
                 refresh("", 0, 0)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
 
+            // refetches drinks where cat = 1
             btnClassic.setOnClickListener {
                 refresh("", 1, 0)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnClassic, btnAll, btnCraft, btnFav)
             }
 
+            // refetches drinks where cat = 2
             btnCraft.setOnClickListener {
                 refresh("", 2, 0)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnCraft, btnAll, btnClassic, btnFav)
             }
 
+            // refetches drinks where fav = 1
             btnFav.setOnClickListener {
                 refresh("", 0, 1)
                 search.etSearch.setText("")
@@ -102,9 +112,11 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
     override fun onBindData(view: View) {
         super.onBindData(view)
         viewModel.drinks.observe(viewLifecycleOwner) {
+            // adds the fetched list of drinks to the drinks adapter
             adapter.setDrinks(it.toMutableList())
         }
 
+        // refresh function to refetch the drinks
         parentViewModel.refreshDrinks.observe(viewLifecycleOwner) {
             if (it.first) {
                 refresh("", 0, 0)
@@ -113,10 +125,12 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         }
     }
 
+    // refresh function to refetch the drinks
     fun refresh(search: String, cat: Int, fav: Int) {
         viewModel.onRefresh(search, cat, fav)
     }
 
+    // Binds the recycler view and the data, sets the click listener to navigate to details
     fun setupAdapter() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = DrinkAdapter(mutableListOf())
