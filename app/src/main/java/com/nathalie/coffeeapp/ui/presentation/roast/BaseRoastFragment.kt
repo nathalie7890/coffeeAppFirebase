@@ -13,7 +13,7 @@ abstract class BaseRoastFragment : BaseFragment<FragmentAddRoastBinding>() {
             val title = etTitle.text.toString()
             val details = etDetails.text.toString()
 
-            Roast(null, title, details, "", "")
+            Roast(null, title, details, "")
         }
     }
 }

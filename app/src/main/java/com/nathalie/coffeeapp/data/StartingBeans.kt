@@ -17,7 +17,6 @@ import java.io.BufferedReader
 class StartingBeans(private val context: Context) : RoomDatabase.Callback() {
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
-        Log.d("debug", "hello")
         CoroutineScope(Dispatchers.IO).launch {
             fillWithStartingBeans(context)
         }

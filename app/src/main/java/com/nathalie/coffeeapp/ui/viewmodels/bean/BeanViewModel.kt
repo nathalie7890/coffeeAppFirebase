@@ -17,20 +17,13 @@ class BeanViewModel @Inject constructor(
 ) : BaseViewModel() {
     val beans: MutableLiveData<List<Bean>> = MutableLiveData()
 
-    fun getBeans() {
-        viewModelScope.launch {
-            val uid = authRepo.getUid()
-            if(uid != null) {
-                val res = safeApiCall { repo.getAllBeans(uid) }
-                res?.let {
-                    beans.value = it
-                }
+    suspend fun getBeans() {
+        val uid = authRepo.getUid()
+        if (uid != null) {
+            val res = safeApiCall { repo.getAllBeans(uid) }
+            res?.let {
+                beans.value = it
             }
         }
     }
-
-    fun onRefresh() {
-        getBeans()
-    }
-
 }

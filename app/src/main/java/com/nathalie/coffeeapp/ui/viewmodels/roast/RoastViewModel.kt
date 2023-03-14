@@ -22,19 +22,15 @@ class RoastViewModel @Inject constructor(
 
     fun onRefresh() {
         viewModelScope.launch {
-            delay(1000)
             getRoasts()
             swipeRefreshLayoutFinished.emit(Unit)
         }
     }
 
-    fun logout() {
-        authRepo.deAuthenticate()
-    }
-
-    fun getRoasts() {
-        viewModelScope.launch {
-            val res = safeApiCall { repo.getAllRoasts() }
+    suspend fun getRoasts() {
+        val uid = authRepo.getUid()
+        if (uid != null) {
+            val res = safeApiCall { repo.getAllRoasts(uid) }
             res?.let {
                 roasts.value = it
             }

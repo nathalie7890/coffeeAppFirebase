@@ -1,37 +1,54 @@
 [
-  {
-    "id": 1,
-    "title": "Raw/Unroasted",
-    "details": "Coffee beans are actually a seed, not a vegetable. When the seeds or beans are removed from the fruit of the coffee plant, they are green. Later, after they have been roasted, they take on their characteristic, dark brown color. Green coffee beans are dried and cleaned in preparation for roasting.",
-    "image": null,
-    "defaultImage": "raw"
-  },
-  {
-    "id": 2,
-    "title": "Light Roast",
-    "details": "Light roasts are roasted for the least amount of time. These beans tend to not have the oils on them because they haven’t been roasted at a high enough temperature. The longer a bean is roasted the more the heat pulls out the caffeine and the acidity. This means light roasts have the most caffeine and the most acidity.\n\nLight roasts can have a different taste profile because the shortened roasting process prevents some chemical changes from occurring inside the bean. The acidity in light roasts is often accompanied by a citrus or lemon tone which some people find pleasing to the palate.",
-    "image": null,
-    "defaultImage": "light_roast"
-  },
-  {
-    "id": 3,
-    "title": "Medium Roast",
-    "details": "Medium roasted coffee have a little bit more body than a light roast and less acidity. Medium roasts are what the average American coffee drinker is used to. These roasts are considered to have balanced flavors.\n\nThe acidity and body of a medium roast can vary but are usually somewhere in the middle. Some examples of medium roasts are House blend, Breakfast roast, and American Roast.",
-    "image": null,
-    "defaultImage": "medium_roast"
-  },
-  {
-    "id": 4,
-    "title": "Medium to Dark Roast",
-    "details": "Medium-Dark Roasts are roasted several minutes longer than a Medium Roast. With the roast flavor very evident, a Medium-Dark Roast usually has a heavy body, and the flavor may be spicy, perhaps with a bittersweet tang, subtle chocolate and caramel flavors, and hints of smokiness.\n\nThe acidity is lower than a Light Roast or Medium Roast. In a Medium-Dark Roast the coffee beans become slightly shiny as oils begin to rise to the surface of the coffee beans, which take on a darker brown, somewhat satiny appearance.",
-    "image": null,
-    "defaultImage": "dark_medium_roast"
-  },
-  {
-    "id": 5,
-    "title": "Dark Roast",
-    "details": "There are visible oils on dark roast beans. Dark roasts have sweeter flavors because the sugars in the coffee beans have time to caramelize. The longer roasting process helps it to develop a richer flavor and full body, which often leads to it having a buttery finish. They also have the least acidity of all coffee roasts.\n\nDark roasts have the least amount of caffeine because they’re roasted the longest. French roast is considered the darkest roast and has a pronounced smoky flavor.",
-    "image": null,
-    "defaultImage": "dark_roast"
-  }
+    {
+      "id": null,
+      "title": "Raw/Unroasted",
+      "details": "Coffee beans are actually a seed, not a vegetable. When the seeds or beans are removed from the fruit of the coffee plant, they are green. Later, after they have been roasted, they take on their characteristic, dark brown color. Green coffee beans are dried and cleaned in preparation for roasting.",
+      "image": "raw.jpg",
+      "defaultImage": "raw"
+    },
+    {
+      "id": null,
+      "title": "Light Roast",
+      "details": "Light roasts are roasted for the least amount of time. These beans tend to not have the oils on them because they haven’t been roasted at a high enough temperature. The longer a bean is roasted the more the heat pulls out the caffeine and the acidity. This means light roasts have the most caffeine and the most acidity.\n\nLight roasts can have a different taste profile because the shortened roasting process prevents some chemical changes from occurring inside the bean. The acidity in light roasts is often accompanied by a citrus or lemon tone which some people find pleasing to the palate.",
+      "image": "light_roast.jpg",
+      "defaultImage": "light_roast"
+    }
 ]
+
+//[
+//  {
+//    "id": 1,
+//    "title": "Raw/Unroasted",
+//    "details": "Coffee beans are actually a seed, not a vegetable. When the seeds or beans are removed from the fruit of the coffee plant, they are green. Later, after they have been roasted, they take on their characteristic, dark brown color. Green coffee beans are dried and cleaned in preparation for roasting.",
+//    "image": null,
+//    "defaultImage": "raw"
+//  },
+//  {
+//    "id": 2,
+//    "title": "Light Roast",
+//    "details": "Light roasts are roasted for the least amount of time. These beans tend to not have the oils on them because they haven’t been roasted at a high enough temperature. The longer a bean is roasted the more the heat pulls out the caffeine and the acidity. This means light roasts have the most caffeine and the most acidity.\n\nLight roasts can have a different taste profile because the shortened roasting process prevents some chemical changes from occurring inside the bean. The acidity in light roasts is often accompanied by a citrus or lemon tone which some people find pleasing to the palate.",
+//    "image": null,
+//    "defaultImage": "light_roast"
+//  },
+//  {
+//    "id": 3,
+//    "title": "Medium Roast",
+//    "details": "Medium roasted coffee have a little bit more body than a light roast and less acidity. Medium roasts are what the average American coffee drinker is used to. These roasts are considered to have balanced flavors.\n\nThe acidity and body of a medium roast can vary but are usually somewhere in the middle. Some examples of medium roasts are House blend, Breakfast roast, and American Roast.",
+//    "image": null,
+//    "defaultImage": "medium_roast"
+//  },
+//  {
+//    "id": 4,
+//    "title": "Medium to Dark Roast",
+//    "details": "Medium-Dark Roasts are roasted several minutes longer than a Medium Roast. With the roast flavor very evident, a Medium-Dark Roast usually has a heavy body, and the flavor may be spicy, perhaps with a bittersweet tang, subtle chocolate and caramel flavors, and hints of smokiness.\n\nThe acidity is lower than a Light Roast or Medium Roast. In a Medium-Dark Roast the coffee beans become slightly shiny as oils begin to rise to the surface of the coffee beans, which take on a darker brown, somewhat satiny appearance.",
+//    "image": null,
+//    "defaultImage": "dark_medium_roast"
+//  },
+//  {
+//    "id": 5,
+//    "title": "Dark Roast",
+//    "details": "There are visible oils on dark roast beans. Dark roasts have sweeter flavors because the sugars in the coffee beans have time to caramelize. The longer roasting process helps it to develop a richer flavor and full body, which often leads to it having a buttery finish. They also have the least acidity of all coffee roasts.\n\nDark roasts have the least amount of caffeine because they’re roasted the longest. French roast is considered the darkest roast and has a pronounced smoky flavor.",
+//    "image": null,
+//    "defaultImage": "dark_roast"
+//  }
+//]

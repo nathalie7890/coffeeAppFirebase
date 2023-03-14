@@ -61,9 +61,9 @@ class MainFragment : Fragment() {
         })
 
         setFragmentResultListener("finish_login") { _, result ->
-            Log.d("debugging", "from login")
             val refresh = result.getBoolean("refresh")
             viewModel.shouldRefreshDrinks(refresh)
+            viewModel.shouldRefreshBeans(refresh)
         }
 
         setFragmentResultListener("finish_add_drink") { _, result ->

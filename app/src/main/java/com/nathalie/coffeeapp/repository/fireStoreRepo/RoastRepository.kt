@@ -3,7 +3,7 @@ package com.nathalie.coffeeapp.repository.fireStoreRepo
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Roast
 
 interface RoastRepository {
-    suspend fun getAllRoasts(): List<Roast>
+    suspend fun getAllRoasts(uid: String): List<Roast>
 
     suspend fun getRoastById(id: String): Roast?
 

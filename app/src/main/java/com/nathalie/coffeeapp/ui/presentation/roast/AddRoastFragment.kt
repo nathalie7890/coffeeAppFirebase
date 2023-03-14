@@ -7,13 +7,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.nathalie.coffeeapp.R
-import com.nathalie.coffeeapp.ui.utils.Utils.showSnackbar
 import com.nathalie.coffeeapp.ui.viewmodels.roast.AddRoastViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import com.nathalie.coffeeapp.data.model.fireStoreModel.Roast
-import java.text.SimpleDateFormat
-import java.util.*
+import com.nathalie.coffeeapp.ui.utils.Utils
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddRoastFragment : BaseRoastFragment() {
@@ -43,25 +42,39 @@ class AddRoastFragment : BaseRoastFragment() {
 
         binding?.run {
             btnAdd.setOnClickListener {
-                val title = etTitle.text.toString()
-                val details = etDetails.text.toString()
-
-
-                if (title.isNotEmpty() && details.isNotEmpty()) {
-                    val roast = Roast(null, title, details, "", "")
-                    viewModel.addRoast(roast, fileUri)
-                    val bundle = Bundle()
-                    bundle.putBoolean("refresh", true)
-                    setFragmentResult("from_add_roast", bundle)
-                    navController.popBackStack()
-                    showSnackbar(requireView(), requireContext(), "$title added to Roast Levels")
-                } else {
-                    showSnackbar(
-                        requireView(),
-                        requireContext(),
-                        "Make sure you fill in everything!"
-                    )
+                val roast = getRoast()
+                roast?.let {
+                    viewModel.addRoast(it, fileUri)
                 }
+
+//                if (title.isNotEmpty() && details.isNotEmpty()) {
+//                    val roast = Roast(null, title, details, "", "")
+//                    viewModel.addRoast(roast, fileUri)
+//                    val bundle = Bundle()
+//                    bundle.putBoolean("refresh", true)
+//                    setFragmentResult("from_add_roast", bundle)
+//                    navController.popBackStack()
+//                    showSnackbar(requireView(), requireContext(), "$title added to Roast Levels")
+//                } else {
+//                    showSnackbar(
+//                        requireView(),
+//                        requireContext(),
+//                        "Make sure you fill in everything!"
+//                    )
+//                }
+            }
+        }
+    }
+
+    override fun onBindData(view: View) {
+        super.onBindData(view)
+        lifecycleScope.launch {
+            viewModel.finish.collect {
+                val bundle = Bundle()
+                bundle.putBoolean("refresh", true)
+                setFragmentResult("finish_add_roast", bundle)
+                navController.popBackStack()
+                Utils.showSnackbar(requireView(), requireContext(), "Coffee roast added!")
             }
         }
     }

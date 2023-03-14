@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nathalie.coffeeapp.R
@@ -15,6 +16,7 @@ import com.nathalie.coffeeapp.ui.adapter.BeanAdapter
 import com.nathalie.coffeeapp.ui.presentation.MainFragmentDirections
 import com.nathalie.coffeeapp.ui.viewmodels.bean.BeanViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BeansFragment : BaseFragment<FragmentBeansBinding>() {
@@ -25,7 +27,9 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getBeans()
+        lifecycleScope.launch {
+            viewModel.getBeans()
+        }
     }
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
@@ -46,6 +50,13 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
         viewModel.beans.observe(viewLifecycleOwner) {
             adapter.setBeans(it.toMutableList())
         }
+
+//        parentViewModel.refreshBeans.observe(viewLifecycleOwner) {
+//            lifecycleScope.launch {
+//                viewModel.getBeans()
+//            }
+//            parentViewModel.shouldRefreshDrinks(false)
+//        }
     }
 
     fun setupAdapter() {

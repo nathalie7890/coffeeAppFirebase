@@ -7,9 +7,9 @@ import com.nathalie.coffeeapp.repository.fireStoreRepo.RoastRepository
 import kotlinx.coroutines.tasks.await
 
 class FireStoreRoastRepository(private val ref: CollectionReference) : RoastRepository {
-    override suspend fun getAllRoasts(): List<Roast> {
+    override suspend fun getAllRoasts(uid: String): List<Roast> {
         val roasts = mutableListOf<Roast>()
-        val res: QuerySnapshot = ref.get().await()
+        val res: QuerySnapshot = ref.whereEqualTo("uid", uid).get ().await()
         for (document in res) {
             roasts.add(document.toObject(Roast::class.java).copy(id = document.id))
 

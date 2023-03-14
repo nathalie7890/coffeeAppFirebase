@@ -1,6 +1,7 @@
 package com.nathalie.coffeeapp.ui.presentation.user.viewmodels
 
 import androidx.lifecycle.viewModelScope
+import com.nathalie.coffeeapp.data.model.User
 import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.ui.utils.Utils
 import com.nathalie.coffeeapp.ui.viewmodels.BaseViewModel
@@ -26,5 +27,9 @@ class LoginViewModel @Inject constructor(private val auth: AuthService) : BaseVi
                 error.emit("Fail to login")
             }
         }
+    }
+
+    suspend fun getCurrentUser(): User? {
+        return safeApiCall { auth.getCurrentUser() }
     }
 }

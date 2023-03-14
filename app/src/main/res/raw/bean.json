@@ -1,6 +1,6 @@
 ﻿[
   {
-    "id": "10",
+    "id": null,
     "title": "Arabica",
     "subtitle": "Oval-shaped, flat, dark and greasy",
     "taste": "Delicate, smooth, fruity and sweet, slightly acidic",
@@ -8,43 +8,68 @@
     "body": "2",
     "aroma": "2",
     "caffeine": "4",
-    "image": null,
-    "defaultImage": "arabica"
+    "image": "arabica.jpg"
   },
   {
-    "id": "11",
-    "title": "Robusta",
-    "subtitle": "Circular-shaped, pale and dry",
-    "taste": "Bitter, earthy, grainy, acidic, with nutty and chocolaty notes",
-    "details": "Robusta can stand up to any amount of milk and sugar, ideal for making iced coffee",
-    "body": "3",
-    "aroma": "3",
-    "caffeine": "4",
-    "image": null,
-    "defaultImage": "coffee_bean"
-  },
-  {
-    "id": "12",
-    "title": "Liberica",
-    "subtitle": "Large, asymmetrical, teardrop-shaped",
-    "taste": "Bitter top notes with a hint of floral and spice, slightly smoky",
-    "details": "Brew on its own to savor its earthy and aromatic flavor. Ideal for making espresso",
+    "id": null,
+    "title": "Arabica",
+    "subtitle": "Oval-shaped, flat, dark and greasy",
+    "taste": "Delicate, smooth, fruity and sweet, slightly acidic",
+    "details": "To enjoy the delicate flavor, buy the whole roasted beans and grind them yourself",
     "body": "2",
-    "aroma": "4",
-    "caffeine": "2",
-    "image": null,
-    "defaultImage": "liberica"
-  },
-  {
-    "id": "13",
-    "title": "Excelsa",
-    "subtitle": "Teardrop-shaped, small and round",
-    "taste": "Sweet, fruity, tart quality but is strong and dark.",
-    "details": "Brew on its own to savor its earthy and aromatic flavor. Ideal for making espresso",
-    "body": "3",
-    "aroma": "4",
-    "caffeine": "2",
-    "image": null,
-    "defaultImage": "excelsa"
+    "aroma": "2",
+    "caffeine": "4",
+    "image": "arabica.jpg"
   }
 ]
+
+//[
+//  {
+//    "id": "10",
+//    "title": "Arabica",
+//    "subtitle": "Oval-shaped, flat, dark and greasy",
+//    "taste": "Delicate, smooth, fruity and sweet, slightly acidic",
+//    "details": "To enjoy the delicate flavor, buy the whole roasted beans and grind them yourself",
+//    "body": "2",
+//    "aroma": "2",
+//    "caffeine": "4",
+//    "image": null,
+//    "defaultImage": "arabica"
+//  },
+//  {
+//    "id": "11",
+//    "title": "Robusta",
+//    "subtitle": "Circular-shaped, pale and dry",
+//    "taste": "Bitter, earthy, grainy, acidic, with nutty and chocolaty notes",
+//    "details": "Robusta can stand up to any amount of milk and sugar, ideal for making iced coffee",
+//    "body": "3",
+//    "aroma": "3",
+//    "caffeine": "4",
+//    "image": null,
+//    "defaultImage": "coffee_bean"
+//  },
+//  {
+//    "id": "12",
+//    "title": "Liberica",
+//    "subtitle": "Large, asymmetrical, teardrop-shaped",
+//    "taste": "Bitter top notes with a hint of floral and spice, slightly smoky",
+//    "details": "Brew on its own to savor its earthy and aromatic flavor. Ideal for making espresso",
+//    "body": "2",
+//    "aroma": "4",
+//    "caffeine": "2",
+//    "image": null,
+//    "defaultImage": "liberica"
+//  },
+//  {
+//    "id": "13",
+//    "title": "Excelsa",
+//    "subtitle": "Teardrop-shaped, small and round",
+//    "taste": "Sweet, fruity, tart quality but is strong and dark.",
+//    "details": "Brew on its own to savor its earthy and aromatic flavor. Ideal for making espresso",
+//    "body": "3",
+//    "aroma": "4",
+//    "caffeine": "2",
+//    "image": null,
+//    "defaultImage": "excelsa"
+//  }
+//]

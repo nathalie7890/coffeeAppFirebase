@@ -9,6 +9,7 @@ data class Drink(
     val category: Int = 0,
     var favorite: Int = 2,
     val image: String? = "",
+    val editable: Boolean = true,
     val uid: String = ""
 )
 

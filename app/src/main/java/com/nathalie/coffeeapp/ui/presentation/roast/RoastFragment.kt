@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.databinding.FragmentRoastBinding
@@ -14,6 +15,7 @@ import com.nathalie.coffeeapp.ui.presentation.MainFragmentDirections
 import com.nathalie.coffeeapp.viewmodels.MainViewModel
 import com.nathalie.coffeeapp.ui.viewmodels.roast.RoastViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RoastFragment : BaseFragment<FragmentRoastBinding>() {
@@ -26,11 +28,15 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
     override val viewModel: RoastViewModel by viewModels()
     override fun getLayoutResource() = R.layout.fragment_roast
 
+
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
         setupAdapter()
-        viewModel.swipeRefreshLayoutFinished.asLiveData().observe(viewLifecycleOwner) {
-            binding?.srlRefresh?.isRefreshing = false
+
+        lifecycleScope.launch {
+            viewModel.swipeRefreshLayoutFinished.collect {
+                binding?.srlRefresh?.isRefreshing = false
+            }
         }
 
         binding?.run {
@@ -62,7 +68,9 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getRoasts()
+        lifecycleScope.launch {
+            viewModel.getRoasts()
+        }
 //        setupAdapter()
 
 //        (requireParentFragment() as MainFragment).sayHello()
@@ -96,7 +104,7 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
 
     //fetch roasts
     fun refresh() {
-        viewModel.getRoasts()
+        viewModel.onRefresh()
     }
 
     fun setupAdapter() {

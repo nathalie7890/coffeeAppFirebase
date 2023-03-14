@@ -4,8 +4,12 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,10 +20,12 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
 import com.nathalie.coffeeapp.data.StartingBeans
 import com.nathalie.coffeeapp.data.service.AuthService
+import com.nathalie.coffeeapp.viewmodels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONArray
+import org.w3c.dom.Text
 import java.io.BufferedReader
 import javax.inject.Inject
 
@@ -27,6 +33,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val viewModel: MainActivityViewModel by viewModels()
 
     @Inject
     lateinit var authRepo: AuthService
@@ -42,6 +49,15 @@ class MainActivity : AppCompatActivity() {
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        lifecycleScope.launch {
+            viewModel.getCurrentUser()
+            viewModel.user.observe(this@MainActivity) {
+                val username = findViewById<TextView>(R.id.tvUserName)
+                username.text = it.name
+            }
+        }
+
 
         val btnLogout = findViewById<MaterialButton>(R.id.btnLogout)
         btnLogout.setOnClickListener {

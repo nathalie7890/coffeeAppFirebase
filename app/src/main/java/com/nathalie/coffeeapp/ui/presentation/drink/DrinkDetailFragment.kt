@@ -4,6 +4,7 @@ package com.nathalie.coffeeapp.ui.presentation.drink
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -45,6 +46,10 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                     btnFav.setImageResource(R.drawable.ic_favorite)
                 }
 
+                if (!it.editable) {
+                    btnEdit.visibility = View.INVISIBLE
+                }
+
                 it.image?.let {
                     StorageService.getImageUri(it) { uri ->
                         Glide.with(this@DrinkDetailFragment)
@@ -75,14 +80,21 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
 
                 //update drink.favorite 1 = false, 2 = true
                 btnFav.setOnClickListener { _ ->
-                    if (viewModel.isFav() == 2) {
+                    var msg: String
+                    msg = if (viewModel.isFav() == 2) {
                         viewModel.favDrink(navArgs.id, 1)
+                        "Added drink to favorite!"
                     } else {
                         viewModel.favDrink(navArgs.id, 2)
+                        "Removed drink from favorite!"
                     }
+
+                    Utils.showSnackbar(
+                        requireView(),
+                        requireContext(),
+                        msg
+                    )
                 }
-
-
             }
         }
     }

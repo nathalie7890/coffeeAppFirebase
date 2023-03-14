@@ -47,7 +47,15 @@ class AddDrinkViewModel @Inject constructor(
             if (validationStatus) {
                 val uid = authRepo.getUid()
                 if (uid != null) {
-                    safeApiCall { repo.addDrink(drink.copy(image = imageName, uid = uid)) }
+                    safeApiCall {
+                        repo.addDrink(
+                            drink.copy(
+                                image = imageName,
+                                editable = true,
+                                uid = uid
+                            )
+                        )
+                    }
                     finish.emit(Unit)
                 }
             } else {

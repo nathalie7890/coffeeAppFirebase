@@ -110,7 +110,6 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
                 refresh("", 0, 0)
                 parentViewModel.shouldRefreshDrinks(false)
             }
-
         }
     }
 
