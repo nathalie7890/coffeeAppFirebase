@@ -9,6 +9,7 @@ import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.repository.fireStoreRepo.BeanRepository
 import kotlinx.coroutines.tasks.await
 
+// Functions to be used in ViewModels
 class FireStoreBeanRepository(
     private val ref: CollectionReference,
 ) : BeanRepository {

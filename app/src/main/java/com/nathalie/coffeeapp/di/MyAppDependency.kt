@@ -21,39 +21,47 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
+// Application Dependencies to connect to Firebase Services
 @Module
 @InstallIn(SingletonComponent::class)
 object MyAppDependency {
+
+    // Connect to Firebase Firestore Service
     @Provides
     @Singleton
     fun getFireStore(): FirebaseFirestore {
         return Firebase.firestore
     }
 
+    // Connect to Firebase Authentication Service
     @Provides
     @Singleton
     fun getFirebaseAuth(): FirebaseAuth {
         return Firebase.auth
     }
 
+    // Connect to Firebase Firestore "drinks" collection
     @Provides
     @Singleton
     fun getFireStoreDrinkRepository(db: FirebaseFirestore): DrinkRepository {
         return FireStoreDrinkRepository(db.collection("drinks"))
     }
 
+    // Connect to Firebase Firestore "beans" collection
     @Provides
     @Singleton
     fun getFireStoreBeanRepository(db: FirebaseFirestore): BeanRepository {
         return FireStoreBeanRepository(db.collection("beans"))
     }
 
+    // Connect to Firebase Firestore "users" collection
     @Provides
     @Singleton
     fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): AuthService {
         return AuthService(auth, db.collection("users"))
     }
 
+    // Connect to Firebase Firestore "roasts" collection
     @Provides
     @Singleton
     fun getFireStoreRoastRepository(db: FirebaseFirestore): RoastRepository {
