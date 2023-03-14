@@ -62,6 +62,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun drawerUsername() {
+        lifecycleScope.launch {
+            viewModel.getCurrentUser()
+        }
+        viewModel.user.observe(this) {
+            val username = findViewById<TextView>(R.id.tvUserName)
+            username.text = it.name
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onNavigateUp()
     }

@@ -12,6 +12,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import com.nathalie.coffeeapp.MainActivity
 import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.data.service.AuthService
 import com.nathalie.coffeeapp.databinding.FragmentLoginBinding
@@ -52,11 +53,14 @@ class LoginFragment : Fragment() {
         //launch after login
         lifecycleScope.launch {
             viewModel.loginFinish.collect {
+                (activity as MainActivity).drawerUsername()
+
                 val action = LoginFragmentDirections.toMainFragment()
                 NavHostFragment.findNavController(this@LoginFragment).navigate(action)
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("finish_login", bundle)
+
             }
         }
     }

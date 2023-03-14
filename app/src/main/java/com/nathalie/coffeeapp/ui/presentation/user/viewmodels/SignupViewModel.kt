@@ -166,7 +166,6 @@ class SignupViewModel @Inject constructor(
                     "default"
                 )
 
-
                 addRoast(roast)
             }
         } catch (e: JSONException) {
