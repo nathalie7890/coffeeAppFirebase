@@ -25,12 +25,12 @@ class DrinkViewModel @Inject constructor(
         super.onViewCreated()
         viewModelScope.launch {
             // fetches all drinks
-            getDrinks("", 0, 0)
+            getDrinks("", 0, false)
         }
     }
 
     // refetch drinks
-    fun onRefresh(search: String, cat: Int, fav: Int) {
+    fun onRefresh(search: String, cat: Int, fav: Boolean) {
         viewModelScope.launch {
 //            delay(1000)
             getDrinks(search, cat, fav)
@@ -40,7 +40,7 @@ class DrinkViewModel @Inject constructor(
 
 
     // fetches all drinks
-    suspend fun getDrinks(search: String, cat: Int, fav: Int) {
+    suspend fun getDrinks(search: String, cat: Int, fav: Boolean) {
         val uid = authRepo.getUid()
         if (uid != null) {
             val res = safeApiCall { repo.getAllDrinks(search, cat, fav, uid) }

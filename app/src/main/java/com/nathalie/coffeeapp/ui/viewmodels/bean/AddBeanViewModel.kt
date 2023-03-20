@@ -50,7 +50,7 @@ class AddBeanViewModel @Inject constructor(
                     safeApiCall {
                         repo.addBean(
                             bean.copy(
-                                image = imageName, uid = uid
+                                image = imageName, editable = true, uid = uid
                             )
                         )
                     }

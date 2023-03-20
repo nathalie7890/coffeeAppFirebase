@@ -1,8 +1,11 @@
 package com.nathalie.coffeeapp.repository
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.ktx.Firebase
 import com.google.rpc.context.AttributeContext.Auth
 import com.nathalie.coffeeapp.data.model.User
 import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
@@ -20,32 +23,26 @@ class FireStoreDrinkRepository(
     override suspend fun getAllDrinks(
         search: String,
         cat: Int,
-        fav: Int,
+        fav: Boolean,
         uid: String
     ): List<Drink> {
+
         val drinks = mutableListOf<Drink>()
-        val res: QuerySnapshot
-        if (fav == 2) {
-            res = ref.whereEqualTo("uid", uid).whereEqualTo("favorite", fav).get()
-                .await()
+        val res: QuerySnapshot = if (fav) {
+            ref.whereEqualTo("uid", uid).whereEqualTo("favorite", true).get().await()
         } else if (cat == 1) {
-            res =
-                ref.whereEqualTo("uid", uid).whereEqualTo("category", 1).get().await()
+            ref.whereEqualTo("uid", uid).whereEqualTo("category", 1).get().await()
         } else if (cat == 2) {
-            res =
-                ref.whereEqualTo("uid", uid).whereEqualTo("category", 2).get().await()
+            ref.whereEqualTo("uid", uid).whereEqualTo("category", 2).get().await()
         } else {
-            res = ref.whereEqualTo("uid", uid).get().await()
+            ref.whereEqualTo("uid", uid).get().await()
         }
 
         for (document in res) {
             drinks.add(document.toObject(Drink::class.java).copy(id = document.id))
         }
         return drinks.filter {
-            Regex(
-                search,
-                RegexOption.IGNORE_CASE
-            ).containsMatchIn(it.title)
+            Regex(search, RegexOption.IGNORE_CASE).containsMatchIn(it.title)
         }
     }
 
@@ -73,7 +70,7 @@ class FireStoreDrinkRepository(
     }
 
     // Firebase query to update favorite field of one document in drinks collection
-    override suspend fun favDrink(id: String, fav: Int) {
+    override suspend fun favDrink(id: String, fav: Boolean) {
         ref.document(id).update("favorite", fav).await()
     }
 }

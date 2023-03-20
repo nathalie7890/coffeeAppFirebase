@@ -10,6 +10,7 @@ data class Bean(
     val aroma: Int = 1,
     val caffeine: Int = 1,
     val image: String? = null,
+    val editable: Boolean = true,
     val uid: String = ""
 )
 //{

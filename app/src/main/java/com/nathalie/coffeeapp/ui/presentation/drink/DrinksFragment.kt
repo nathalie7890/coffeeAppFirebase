@@ -38,7 +38,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             // fetches all the beans
-            viewModel.getDrinks("", 0, 0)
+            viewModel.getDrinks("", 0, false)
         }
     }
 
@@ -56,7 +56,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         binding?.run {
             srlRefresh.setOnRefreshListener {
                 // refreshes and refetches when screen is swiped down
-                viewModel.onRefresh("", 0, 0)
+                viewModel.onRefresh("", 0, false)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
@@ -65,7 +65,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
             search.etSearch.setOnKeyListener OnKeyListener@{ _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     val search = search.etSearch.text.toString()
-                    refresh(search, 0, 0)
+                    refresh(search, 0, false)
                     hideKeyboard()
                     return@OnKeyListener true
                 }
@@ -80,28 +80,28 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
 
             // refetches drinks where cat = 0
             btnAll.setOnClickListener {
-                refresh("", 0, 0)
+                refresh("", 0, false)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnAll, btnClassic, btnCraft, btnFav)
             }
 
             // refetches drinks where cat = 1
             btnClassic.setOnClickListener {
-                refresh("", 1, 0)
+                refresh("", 1, false)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnClassic, btnAll, btnCraft, btnFav)
             }
 
             // refetches drinks where cat = 2
             btnCraft.setOnClickListener {
-                refresh("", 2, 0)
+                refresh("", 2, false)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnCraft, btnAll, btnClassic, btnFav)
             }
 
             // refetches drinks where fav = 2
             btnFav.setOnClickListener {
-                refresh("", 0, 2)
+                refresh("", 0, true)
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnCraft)
             }
@@ -119,14 +119,14 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         // refresh function to refetch the drinks
         parentViewModel.refreshDrinks.observe(viewLifecycleOwner) {
             if (it.first) {
-                refresh("", 0, 0)
+                refresh("", 0, false)
                 parentViewModel.shouldRefreshDrinks(false)
             }
         }
     }
 
     // refresh function to refetch the drinks
-    fun refresh(search: String, cat: Int, fav: Int) {
+    fun refresh(search: String, cat: Int, fav: Boolean) {
         viewModel.onRefresh(search, cat, fav)
     }
 

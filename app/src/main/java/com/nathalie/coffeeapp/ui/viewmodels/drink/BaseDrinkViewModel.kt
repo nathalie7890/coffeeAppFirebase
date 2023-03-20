@@ -17,18 +17,11 @@ abstract class BaseDrinkViewModel(val repo: DrinkRepository) : BaseViewModel() {
         subtitle: String,
         details: String,
         ingredients: String,
-        category: String,
     ): Boolean {
-        if (Utils.validate(
-                title, subtitle, details, ingredients, category
-            )
-        ) {
-            return true
-        } else {
-            viewModelScope.launch {
-                error.emit("")
-            }
-            return false
+        return if (Utils.validate(title, subtitle, details, ingredients)) true
+        else {
+            viewModelScope.launch { error.emit("") }
+            false
         }
     }
 }

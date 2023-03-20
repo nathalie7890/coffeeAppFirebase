@@ -30,7 +30,7 @@ class AddDrinkFragment : BaseDrinkFragment() {
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
-        var category = 1
+        var category = 0
 
         //select image from gallery and display in ivDrinkImage
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
@@ -54,9 +54,9 @@ class AddDrinkFragment : BaseDrinkFragment() {
 
             //add drink button
             btnAdd.setOnClickListener {
-                val drink = getDrink(category)
+                val drink = getDrink()
                 drink?.let {
-                    viewModel.addDrink(it, fileUri)
+                    viewModel.addDrink(it, category, fileUri)
                 }
             }
 

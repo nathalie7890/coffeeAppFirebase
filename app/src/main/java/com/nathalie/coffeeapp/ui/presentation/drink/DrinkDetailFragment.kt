@@ -43,14 +43,14 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                 tvDetails.text = it.details
                 tvIngredients.text = it.ingredients
                 // set the favorite image depending on the items' favorite state
-                if (it.favorite == 1) {
+                if (!it.favorite) {
                     btnFav.setImageResource(R.drawable.ic_favorite_border)
                 } else {
                     btnFav.setImageResource(R.drawable.ic_favorite)
                 }
 
-                //if drink's uid is default, hide the edit btn
-                if (it.uid == "default") btnEdit.visibility = View.INVISIBLE
+                //if drink's editable is false, hide edit btn
+                if (!it.editable) btnEdit.visibility = View.INVISIBLE
 
                 //display image
                 it.image?.let {
@@ -84,11 +84,11 @@ class DrinkDetailFragment : BaseFragment<FragmentDrinkDetailBinding>() {
                 //update drink.favorite 1 = false, 2 = true
                 btnFav.setOnClickListener { _ ->
                     var msg: String
-                    msg = if (viewModel.isFav() == 2) {
-                        viewModel.favDrink(navArgs.id, 1)
+                    msg = if (viewModel.isFav() == true) {
+                        viewModel.favDrink(navArgs.id, false)
                         "Removed drink from favorite!"
                     } else {
-                        viewModel.favDrink(navArgs.id, 2)
+                        viewModel.favDrink(navArgs.id, true)
                         "Added drink to favorite!"
                     }
 

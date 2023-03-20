@@ -84,37 +84,31 @@ class SignupViewModel @Inject constructor(
             val drinks = loadJSONArray(context, R.raw.drinks)
             for (i in 0 until drinks.length()) {
                 val item = drinks.getJSONObject(i)
-                val id = item.getString("id")
                 val title = item.getString("title")
                 val subtitle = item.getString("subtitle")
                 val details = item.getString("details")
                 val ingredients = item.getString("ingredients")
                 val category = item.getInt("category")
-                val favorite = item.getInt("favorite")
                 val image = item.getString("image")
 
                 val drink = uid?.let {
                     Drink(
-                        id,
+                        null,
                         title,
                         subtitle,
                         details,
                         ingredients,
                         category,
-                        favorite,
+                        false,
                         image,
+                        false,
                         it
                     )
                 }
-
-                if (drink != null) {
-                    addDrink(drink)
-                }
+                if (drink != null) addDrink(drink)
             }
         } catch (e: JSONException) {
-            viewModelScope.launch {
-                error.emit("Failed to add default drinks")
-            }
+            viewModelScope.launch { error.emit("Failed to add default drinks") }
         }
     }
 
@@ -145,18 +139,15 @@ class SignupViewModel @Inject constructor(
                         aroma,
                         caffeine,
                         image,
+                        false,
                         it
                     )
                 }
 
-                if (bean != null) {
-                    addBean(bean)
-                }
+                if (bean != null) addBean(bean)
             }
         } catch (e: JSONException) {
-            viewModelScope.launch {
-                error.emit("Failed to add default coffee beans")
-            }
+            viewModelScope.launch { error.emit("Failed to add default coffee beans") }
         }
     }
 
@@ -172,23 +163,13 @@ class SignupViewModel @Inject constructor(
                 val image = item.getString("image")
 
                 val roast = uid?.let {
-                    Roast(
-                        id,
-                        title,
-                        details,
-                        image,
-                        it
-                    )
+                    Roast(id, title, details, image, false, it)
                 }
 
-                if (roast != null) {
-                    addRoast(roast)
-                }
+                if (roast != null) addRoast(roast)
             }
         } catch (e: JSONException) {
-            viewModelScope.launch {
-                error.emit("Failed to add default coffee roasts")
-            }
+            viewModelScope.launch { error.emit("Failed to add default coffee roasts") }
         }
     }
 }

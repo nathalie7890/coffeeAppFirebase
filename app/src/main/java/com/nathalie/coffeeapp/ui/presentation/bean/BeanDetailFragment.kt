@@ -33,7 +33,7 @@ class BeanDetailFragment : BaseFragment<FragmentBeanDetailBinding>() {
         viewModel.bean.observe(viewLifecycleOwner) {
             binding?.run {
                 //if coffee bean's editable == false, hide edit button
-                if (it.uid == "default") btnEdit.visibility = View.INVISIBLE
+                if (!it.editable) btnEdit.visibility = View.INVISIBLE
 
                 // setting text values of title, subtitle, taste and details
                 tvTitle.text = it.title

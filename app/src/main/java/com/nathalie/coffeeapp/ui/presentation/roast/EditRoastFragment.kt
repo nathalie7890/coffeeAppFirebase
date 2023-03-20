@@ -55,7 +55,7 @@ class EditRoastFragment : BaseRoastFragment() {
                 // edits the roast
                 btnAdd.setOnClickListener {
                     val newRoast =
-                        getRoast()?.copy(image = roast.image, uid = roast.uid)
+                        getRoast()?.copy(image = roast.image, editable = true, uid = roast.uid)
                     newRoast?.let {
                         viewModel.editRoast(navArgs.id, it, fileUri)
                     }

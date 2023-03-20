@@ -52,8 +52,8 @@ class RoastAdapter(private var items: MutableList<Roast>) :
                     if (it.visibility == View.GONE) it.visibility = View.VISIBLE
                     else it.visibility = View.GONE
                 }
-                // show or hide the edit button
-                if (item.uid != "default") btnEdit.visibility = View.VISIBLE
+                // is item's editable = false, hide edit btn
+                if (!item.editable) btnEdit.visibility = View.INVISIBLE
             }
 
             // listener function, if click on item

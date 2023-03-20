@@ -41,7 +41,7 @@ class AddRoastViewModel @Inject constructor(
                 if (uid != null) {
                     safeApiCall {
                         repo.addRoast(
-                            roast.copy(image = imageName, uid = uid)
+                            roast.copy(image = imageName, editable = true, uid = uid)
                         )
                     }
                     finish.emit(Unit)

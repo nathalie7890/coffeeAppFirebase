@@ -11,7 +11,7 @@ abstract class BaseDrinkFragment : BaseFragment<FragmentAddDrinkBinding>() {
     override fun getLayoutResource() = R.layout.fragment_add_drink
 
     // gets data from the EditText boxes and creates a Drink model
-    fun getDrink(category: Int): Drink? {
+    fun getDrink(): Drink? {
         return binding?.run {
             val title = etTitle.text.toString()
             val subtitle = etSubtitle.text.toString()
@@ -19,7 +19,7 @@ abstract class BaseDrinkFragment : BaseFragment<FragmentAddDrinkBinding>() {
             val ingredients = etIngredients.text.toString()
 
             Drink(
-                null, title, subtitle, details, ingredients, category, 2, ""
+                null, title, subtitle, details, ingredients, 0, false, ""
             )
         }
     }

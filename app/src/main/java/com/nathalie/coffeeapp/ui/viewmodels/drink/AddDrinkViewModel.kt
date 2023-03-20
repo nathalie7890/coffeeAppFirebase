@@ -22,16 +22,15 @@ class AddDrinkViewModel @Inject constructor(
     // Function to check input values, create image name, store image into firebase storage, create and add drink object to firestore.
     fun addDrink(
         drink: Drink,
+        category: Int,
         imageUri: Uri?
     ) {
-        val validationStatus = validate(
+        val validationStatus = (validate(
             drink.title,
             drink.subtitle,
             drink.details,
             drink.ingredients,
-            drink.category.toString(),
-        )
-
+        ) && (category > 0))
         val formatter = SimpleDateFormat("yyyy_MM_HH_mm_ss", Locale.ENGLISH)
         val date = Date()
         val imageName = formatter.format(date)
@@ -52,7 +51,7 @@ class AddDrinkViewModel @Inject constructor(
                     safeApiCall {
                         repo.addDrink(
                             drink.copy(
-                                image = imageName, uid = uid
+                                image = imageName, category = category, editable = true, uid = uid
                             )
                         )
                     }

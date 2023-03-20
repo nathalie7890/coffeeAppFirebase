@@ -83,8 +83,9 @@ class EditDrinkFragment : BaseDrinkFragment() {
 
                 // edits the drink
                 btnAdd.setOnClickListener {
-                    val newDrink = getDrink(category)?.copy(
-                        image = drink.image, uid = drink.uid
+                    val newDrink = getDrink()?.copy(
+                        category = category,
+                        image = drink.image, editable = true, uid = drink.uid
                     )
                     newDrink?.let {
                         viewModel.editDrink(navArgs.id, it, fileUri)

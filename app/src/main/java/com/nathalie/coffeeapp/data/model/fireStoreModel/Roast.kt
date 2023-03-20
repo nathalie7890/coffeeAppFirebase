@@ -5,6 +5,7 @@ data class Roast(
     val title: String = "",
     val details: String = "",
     val image: String? = null,
+    val editable: Boolean = true,
     val uid: String = ""
 )
 //{

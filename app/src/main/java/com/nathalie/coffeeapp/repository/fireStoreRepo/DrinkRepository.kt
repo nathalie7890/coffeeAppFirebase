@@ -6,7 +6,7 @@ import com.nathalie.coffeeapp.data.model.fireStoreModel.Drink
 interface DrinkRepository {
 
     // Fetches all documents in drinks collection
-    suspend fun getAllDrinks(search: String, cat: Int, fav: Int, uid: String): List<Drink>
+    suspend fun getAllDrinks(search: String, cat: Int, fav: Boolean, uid: String): List<Drink>
 
     // Fetches one document in drinks collection
     suspend fun getDrinkById(id: String): Drink?
@@ -21,5 +21,5 @@ interface DrinkRepository {
     suspend fun deleteDrink(id: String)
 
     // Edits fav field in one document in drinks collection
-    suspend fun favDrink(id: String, fav: Int)
+    suspend fun favDrink(id: String, fav: Boolean)
 }

@@ -34,7 +34,7 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository, authRepo: 
     }
 
     // updates the drink, favorite field
-    fun favDrink(id: String, fav: Int) {
+    fun favDrink(id: String, fav: Boolean) {
         viewModelScope.launch {
             safeApiCall { repo.favDrink(id, fav) }
             btnFavClicked.emit(Unit)
@@ -42,7 +42,7 @@ class DrinkDetailViewModel @Inject constructor(repo: DrinkRepository, authRepo: 
     }
 
     // returns the drink favourite field
-    fun isFav(): Int? {
+    fun isFav(): Boolean? {
         return drink.value?.favorite
     }
 
