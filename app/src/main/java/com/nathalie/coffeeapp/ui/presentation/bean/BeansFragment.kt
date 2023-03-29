@@ -3,6 +3,7 @@ package com.nathalie.coffeeapp.ui.presentation.bean
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -53,6 +54,11 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
         viewModel.beans.observe(viewLifecycleOwner) {
             // adds the fetched list of beans to the beans adapter
             adapter.setBeans(it.toMutableList())
+
+            binding?.emptyBean?.isVisible = adapter.itemCount <= 0
+            if(it.isNotEmpty()) {
+                binding?.llLoader?.isVisible = false
+            }
         }
 
 //        parentViewModel.refreshBeans.observe(viewLifecycleOwner) {

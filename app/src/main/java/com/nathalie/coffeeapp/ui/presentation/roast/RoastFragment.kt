@@ -60,8 +60,12 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
         viewModel.roasts.observe(viewLifecycleOwner) {
             // adds the fetched list of roasts to the roast adapter
             adapter.setRoasts(it.toMutableList())
+
             //if no item, display this
             binding?.emptyRoast?.isVisible = adapter.itemCount <= 0
+            if(it.isNotEmpty()) {
+                binding?.llLoader?.isVisible = false
+            }
         }
 
         // refresh function to refetch the roasts

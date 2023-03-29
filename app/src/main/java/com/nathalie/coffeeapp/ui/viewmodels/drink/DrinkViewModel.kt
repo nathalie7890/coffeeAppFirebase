@@ -32,7 +32,6 @@ class DrinkViewModel @Inject constructor(
     // refetch drinks
     fun onRefresh(search: String, cat: Int, fav: Boolean) {
         viewModelScope.launch {
-//            delay(1000)
             getDrinks(search, cat, fav)
             swipeRefreshLayoutFinished.emit(Unit)
         }

@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -52,6 +53,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
                 binding?.srlRefresh?.isRefreshing = false
             }
         }
+
 
         binding?.run {
             srlRefresh.setOnRefreshListener {
@@ -105,7 +107,6 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
                 search.etSearch.setText("")
                 Utils.updateColors(requireContext(), btnFav, btnAll, btnClassic, btnCraft)
             }
-
         }
     }
 
@@ -113,6 +114,12 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         super.onBindData(view)
         viewModel.drinks.observe(viewLifecycleOwner) {
             // adds the fetched list of drinks to the drinks adapter
+
+            binding?.llEmpty?.isVisible = adapter.itemCount <= 0
+            if (it.isNotEmpty()) {
+                binding?.llLoader?.isVisible = false
+            }
+
             adapter.setDrinks(it.toMutableList())
         }
 

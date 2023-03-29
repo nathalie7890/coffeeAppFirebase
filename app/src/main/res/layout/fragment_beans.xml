@@ -12,6 +12,31 @@
         tools:context=".ui.presentation.bean.BeansFragment">
 
         <LinearLayout
+            android:id="@+id/emptyBean"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+            <include layout="@layout/item_layout_empty_msg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llLoader"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:indicatorSize="100dp"
+                app:trackThickness="8dp"
+                android:indeterminate="true"
+                app:indicatorColor="@color/chestnut"
+                app:trackColor="@color/almond" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

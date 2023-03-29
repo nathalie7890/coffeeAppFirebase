@@ -75,6 +75,42 @@
                     app:layout_flexBasisPercent="32%" />
             </com.google.android.flexbox.FlexboxLayout>
 
+            <LinearLayout
+                android:id="@+id/llEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/latte" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textColor="@color/almond"
+                    android:text="It's empty!" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llLoader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:indeterminate="true"
+                    app:indicatorColor="@color/chestnut"
+                    app:indicatorSize="100dp"
+                    app:trackColor="@color/almond"
+                    app:trackThickness="8dp" />
+            </LinearLayout>
+
+
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/srlRefresh"
                 android:layout_width="match_parent"
