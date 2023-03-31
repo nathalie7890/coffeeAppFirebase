@@ -60,9 +60,9 @@ class SignupFragment : Fragment() {
         lifecycleScope.launch {
             loginViewModel.loginFinish.collect {
                 //fill firestore with drinks, beans and roasts
-//                viewModel.fillWithStartingDrinks(requireContext())
-//                viewModel.fillWithStartingBeans(requireContext())
-//                viewModel.fillWithStartingRoasts(requireContext())
+                viewModel.fillWithStartingDrinks(requireContext())
+                viewModel.fillWithStartingBeans(requireContext())
+                viewModel.fillWithStartingRoasts(requireContext())
 
                 //navigate to main fragment
                 val action = SignupFragmentDirections.toMainFragment()
@@ -70,8 +70,6 @@ class SignupFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("finish_login", bundle)
-
-
             }
         }
     }
