@@ -51,14 +51,17 @@ class BeansFragment : BaseFragment<FragmentBeansBinding>() {
     override fun onBindData(view: View) {
         super.onBindData(view)
 
+        lifecycleScope.launch {
+            viewModel.isLoading.collect {
+                binding?.llLoader?.isVisible = false
+            }
+        }
+
         viewModel.beans.observe(viewLifecycleOwner) {
             // adds the fetched list of beans to the beans adapter
             adapter.setBeans(it.toMutableList())
 
             binding?.emptyBean?.isVisible = adapter.itemCount <= 0
-            if(it.isNotEmpty()) {
-                binding?.llLoader?.isVisible = false
-            }
         }
 
 //        parentViewModel.refreshBeans.observe(viewLifecycleOwner) {

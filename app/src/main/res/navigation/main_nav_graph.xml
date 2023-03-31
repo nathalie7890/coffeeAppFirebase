@@ -7,12 +7,14 @@
 
     <action
         android:id="@+id/to_login_fragment"
-        app:popUpTo="@id/mainFragment"
+        app:popUpTo="@id/main_nav_graph"
         app:popUpToInclusive="true"
         app:destination="@id/loginFragment" />
 
     <action
         android:id="@+id/to_main_fragment"
+        app:popUpTo="@id/main_nav_graph"
+        app:popUpToInclusive="true"
         app:destination="@id/mainFragment" />
 
     <fragment
@@ -119,6 +121,4 @@
         android:name="com.nathalie.coffeeapp.ui.presentation.user.SignupFragment"
         android:label="Signup"
         tools:layout="@layout/fragment_signup" />
-
-
 </navigation>

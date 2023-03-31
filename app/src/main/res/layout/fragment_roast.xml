@@ -33,37 +33,6 @@
                     android:textSize="30dp"
                     android:textStyle="bold" />
 
-                <!--            <androidx.cardview.widget.CardView-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                app:cardBackgroundColor="@color/chocolate"-->
-                <!--                app:cardCornerRadius="20dp">-->
-
-                <!--                <LinearLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:orientation="vertical"-->
-                <!--                    android:weightSum="2">-->
-
-                <!--                    <ImageView-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="200dp"-->
-                <!--                        android:layout_weight="1"-->
-                <!--                        android:scaleType="centerCrop"-->
-                <!--                        android:src="@drawable/coffee_roast_header" />-->
-
-                <!--                    <TextView-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_weight="1"-->
-                <!--                        android:padding="16dp"-->
-                <!--                        android:text="The length of the roasting process can affect many things, including the body, acidity, and flavor of your tasty beans."-->
-                <!--                        android:textColor="@color/beige"-->
-                <!--                        android:textSize="20sp" />-->
-                <!--                </LinearLayout>-->
-                <!--            </androidx.cardview.widget.CardView>-->
-
-
                 <LinearLayout
                     android:id="@+id/emptyRoast"
                     android:layout_width="match_parent"

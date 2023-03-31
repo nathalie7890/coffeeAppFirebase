@@ -1,15 +1,15 @@
 package com.nathalie.coffeeapp.ui.presentation.user
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import com.nathalie.coffeeapp.R
 import com.nathalie.coffeeapp.databinding.FragmentSignupBinding
 import com.nathalie.coffeeapp.ui.presentation.user.viewmodels.LoginViewModel
 import com.nathalie.coffeeapp.ui.presentation.user.viewmodels.SignupViewModel
@@ -60,9 +60,9 @@ class SignupFragment : Fragment() {
         lifecycleScope.launch {
             loginViewModel.loginFinish.collect {
                 //fill firestore with drinks, beans and roasts
-                viewModel.fillWithStartingDrinks(requireContext())
-                viewModel.fillWithStartingBeans(requireContext())
-                viewModel.fillWithStartingRoasts(requireContext())
+//                viewModel.fillWithStartingDrinks(requireContext())
+//                viewModel.fillWithStartingBeans(requireContext())
+//                viewModel.fillWithStartingRoasts(requireContext())
 
                 //navigate to main fragment
                 val action = SignupFragmentDirections.toMainFragment()
@@ -70,6 +70,7 @@ class SignupFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("finish_login", bundle)
+
 
             }
         }

@@ -122,7 +122,7 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
         viewModel.drinks.observe(viewLifecycleOwner) {
             // adds the fetched list of drinks to the drinks adapter
 
-            binding?.llEmpty?.isVisible = adapter.itemCount <= 0
+            binding?.emptyDrinks?.isVisible = adapter.itemCount <= 0
             adapter.setDrinks(it.toMutableList())
         }
 
