@@ -20,6 +20,7 @@ class DrinkViewModel @Inject constructor(
 ) : BaseViewModel() {
     val drinks: MutableLiveData<List<Drink>> = MutableLiveData()
     val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val isLoading: MutableSharedFlow<Boolean> = MutableSharedFlow()
 
     override fun onViewCreated() {
         super.onViewCreated()
@@ -41,12 +42,15 @@ class DrinkViewModel @Inject constructor(
     // fetches all drinks
     suspend fun getDrinks(search: String, cat: Int, fav: Boolean) {
         val uid = authRepo.getUid()
+
+        isLoading.emit(true)
+        delay(1000)
         if (uid != null) {
             val res = safeApiCall { repo.getAllDrinks(search, cat, fav, uid) }
             res?.let {
                 drinks.value = it
             }
-
+            isLoading.emit(false)
         }
     }
 }

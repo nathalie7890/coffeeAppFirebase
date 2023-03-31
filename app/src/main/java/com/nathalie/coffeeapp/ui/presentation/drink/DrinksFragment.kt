@@ -112,14 +112,17 @@ class DrinksFragment : BaseFragment<FragmentDrinksBinding>() {
 
     override fun onBindData(view: View) {
         super.onBindData(view)
+
+        lifecycleScope.launch {
+            viewModel.isLoading.collect() {
+                if (!it) binding?.llLoader?.isVisible = false
+            }
+        }
+
         viewModel.drinks.observe(viewLifecycleOwner) {
             // adds the fetched list of drinks to the drinks adapter
 
             binding?.llEmpty?.isVisible = adapter.itemCount <= 0
-            if (it.isNotEmpty()) {
-                binding?.llLoader?.isVisible = false
-            }
-
             adapter.setDrinks(it.toMutableList())
         }
 

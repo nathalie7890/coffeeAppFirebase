@@ -19,6 +19,7 @@ class RoastViewModel @Inject constructor(
 ) : BaseViewModel() {
     val roasts: MutableLiveData<List<Roast>> = MutableLiveData()
     val swipeRefreshLayoutFinished: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val isLoading: MutableSharedFlow<Boolean> = MutableSharedFlow()
 
     // refetch roasts
     fun onRefresh() {
@@ -31,11 +32,14 @@ class RoastViewModel @Inject constructor(
     // fetches all roasts
     suspend fun getRoasts() {
         val uid = authRepo.getUid()
+
+        isLoading.emit(true)
         if (uid != null) {
             val res = safeApiCall { repo.getAllRoasts(uid) }
             res?.let {
                 roasts.value = it
             }
+            isLoading.emit(false)
         }
     }
 }

@@ -57,15 +57,19 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
 
     override fun onBindData(view: View) {
         super.onBindData(view)
+
+        lifecycleScope.launch {
+            viewModel.isLoading.collect() {
+                if (!it) binding?.llLoader?.isVisible = false
+            }
+        }
+
         viewModel.roasts.observe(viewLifecycleOwner) {
             // adds the fetched list of roasts to the roast adapter
             adapter.setRoasts(it.toMutableList())
 
             //if no item, display this
             binding?.emptyRoast?.isVisible = adapter.itemCount <= 0
-            if(it.isNotEmpty()) {
-                binding?.llLoader?.isVisible = false
-            }
         }
 
         // refresh function to refetch the roasts
@@ -79,6 +83,7 @@ class RoastFragment : BaseFragment<FragmentRoastBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         lifecycleScope.launch {
             // fetches all the roasts
             viewModel.getRoasts()

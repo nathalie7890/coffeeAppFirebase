@@ -8,7 +8,7 @@
     "body": "2",
     "aroma": "2",
     "caffeine": "4",
-    "image": "arabica,jpg",
+    "image": "arabica.jpg",
     "uid": "default"
   },
   {
@@ -32,7 +32,7 @@
     "body": "2",
     "aroma": "4",
     "caffeine": "2",
-    "image": "liberico.jpg",
+    "image": "liberica.jpg",
     "uid": "default"
   },
   {
